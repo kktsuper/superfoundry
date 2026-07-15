@@ -30,6 +30,7 @@
     @keyframes sf-sheen { 0% { background-position: -140% 0; } 60%,100% { background-position: 240% 0; } }
     @media (max-width: 760px) {
       .sf-hero { padding: 88px var(--page-margin) 96px !important; }
+      .sf-hero p br { display: none; }
       .sf-hero video, .sf-hero img.sf-logo-fallback { width: 300px !important; height: auto !important; aspect-ratio: 1/1; }
       .sf-hero video { object-fit: contain !important; aspect-ratio: 1/1; }
       .sf-hero h1 { font-size: 34px !important; }
@@ -107,7 +108,7 @@
   <path d="M133.471,16.844h1.319l-4.642,4.642v3.357h-.96v-3.357l-4.642-4.642h1.308l3.813,3.85,3.803-3.85Z" fill="#db7843"></path>
   <path d="M149.536,21.365v.647h-11.981v-.647h11.981Z" fill="#db7843"></path></svg>
       <h1 style="font-family: var(--font-display); font-size: var(--font-size-display-m); font-weight: var(--font-weight-display-m); line-height: var(--line-height-display-m); color: var(--text-primary); letter-spacing: var(--tracking-tight); margin: 0; max-width: 760px; text-wrap: balance; animation: sf-rise 420ms var(--ease-standard) 120ms both;">From Generative AI to <span class="sf-glow-text">Creative AGI.</span></h1>
-      <p style="font: 400 1.375rem/1.55 var(--font-body); color: #C7C3BA; max-width: 620px; margin: 18px 0 0; text-wrap: pretty; animation: sf-rise 420ms var(--ease-standard) 180ms both;">The next frontier of AI is the physical world. <br>We extend foundation models downward into reality; an artificial general scientist, engineer, and inventor that learns through interaction.</p>
+      <p style="font: 400 1.375rem/1.55 var(--font-body); color: #C7C3BA; max-width: 620px; margin: 18px 0 0; text-wrap: pretty; animation: sf-rise 420ms var(--ease-standard) 180ms both;">The next frontier of AI is the physical world. <br>We extend foundation models downward into reality; <br>an artificial general scientist, engineer, and<br>inventor that learns through interaction.</p>
     </div>
   </section>
 
@@ -202,9 +203,9 @@
             <span style="font: var(--text-display-s); color: var(--text-primary); letter-spacing: var(--tracking-tight);">Jad Tarifi</span>
             <span style="font: var(--text-mono-s); color: var(--text-accent); letter-spacing: var(--tracking-wide);">CEO</span>
           </div>
-          <p style="font: var(--text-body-m); color: #C7C3BA; margin: 0; text-wrap: pretty;">Previous Tech Lead &amp; Manager at Google AI, YouTube, Amazon, &amp; CapitalOne. PhD in foundations of AGI.</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; align-items: center; justify-items: center; margin-top: 10px;">
-            <img src="uploads/googleai-light.svg" alt="Google AI" style="height: 24px; width: auto;">
+          <p style="font: var(--text-body-m); color: #C7C3BA; margin: 0; text-wrap: pretty; text-align: left; align-self: stretch;">Previous Tech Lead &amp; Manager at Google AI, YouTube, Amazon, &amp; CapitalOne. PhD in foundations of AGI.</p>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 10px;">
+            <img src="uploads/googleai-light.svg" alt="Google AI" style="height: 22px; width: auto;">
             <img src="uploads/youtube-light.svg" alt="YouTube" style="height: 20px; width: auto;">
             <img src="uploads/amazon-light.svg" alt="Amazon" style="height: 22px; width: auto;">
           </div>
@@ -215,12 +216,11 @@
             <span style="font: var(--text-display-s); color: var(--text-primary); letter-spacing: var(--tracking-tight);">Nima Asgharbeygi</span>
             <span style="font: var(--text-mono-s); color: var(--text-accent); letter-spacing: var(--tracking-wide);">CTO</span>
           </div>
-          <p style="font: var(--text-body-m); color: #C7C3BA; margin: 0; text-wrap: pretty;">Previous Area Tech Lead for on-device AI at Google Maps. Co-founder &amp; CTO of CleverSense (acquired by Google in 2011).</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; align-items: center; justify-items: center; margin-top: 10px;">
-            <img src="uploads/maps-light.svg" alt="Google Maps" style="height: 24px; width: auto;">
-            <img src="uploads/analytics-light.svg" alt="Google Analytics" style="height: 24px; width: auto;">
-            <img src="uploads/cleversense-3131dff2.png" alt="CleverSense" style="height: 28px; width: auto;">
-            <img src="uploads/stanford.png" alt="Stanford University" style="height: 26px; width: auto;">
+          <p style="font: var(--text-body-m); color: #C7C3BA; margin: 0; text-wrap: pretty; text-align: left; align-self: stretch;">Previous Area Tech Lead for on-device AI at Google Maps. Co-founder &amp; CTO of CleverSense (acquired by Google in 2011).</p>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 10px;">
+            <img src="uploads/google.svg" alt="Google" style="height: 22px; width: auto;">
+            <img src="uploads/cleversense-3131dff2.png" alt="CleverSense" style="height: 30px; width: auto;">
+            <span style="display: inline-flex; align-items: center; background: #E4E1DA; border-radius: var(--radius-pill); padding: 6px 14px;"><img src="uploads/stanford.png" alt="Stanford University" style="height: 20px; width: auto;"></span>
           </div>
         </div>
       </div>
