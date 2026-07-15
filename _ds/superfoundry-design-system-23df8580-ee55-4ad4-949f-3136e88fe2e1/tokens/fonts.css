@@ -1,0 +1,55 @@
+/* Superintelligence Foundry — webfonts
+   No brand font files were provided. Nearest Google Fonts substitutes chosen
+   for a technical/grotesque character (flagged to the user in readme.md):
+   - Manrope        → display/headline face (modern grotesque, spurless G, geometric warmth)
+   - Archivo        → body/UI face (neutral grotesque, high legibility at small sizes)
+   - IBM Plex Mono  → data/label/mono face (engineering, monospaced readouts)
+
+   Self-hosted (files copied into assets/fonts/) — replace these files with the
+   real brand fonts (same filenames) when available; nothing else needs to change. */
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('../assets/fonts/Manrope-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('../assets/fonts/Archivo-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/IBMPlexMono-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/IBMPlexMono-SemiBold.woff2') format('woff2');
+}
+
+:root {
+  --font-display: 'Manrope', 'Helvetica Neue', sans-serif;
+  --font-body: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+}
