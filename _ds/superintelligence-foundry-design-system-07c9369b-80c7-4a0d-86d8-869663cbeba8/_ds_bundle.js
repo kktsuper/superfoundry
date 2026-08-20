@@ -1,8 +1,8 @@
-/* @ds-bundle: {"format":4,"namespace":"SuperintelligenceFoundryDesignSystem_d9143e","components":[{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Card","sourcePath":"components/core/Card.jsx"},{"name":"IconButton","sourcePath":"components/core/IconButton.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"},{"name":"Dialog","sourcePath":"components/feedback/Dialog.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"NavLink","sourcePath":"components/navigation/NavLink.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"}],"sourceHashes":{"components/core/Badge.jsx":"7130d136f043","components/core/Button.jsx":"2243eae661e7","components/core/Card.jsx":"703d947fa9c2","components/core/IconButton.jsx":"b82bd3733a51","components/core/Tag.jsx":"14211cbdc661","components/feedback/Dialog.jsx":"0fa311bb4a97","components/feedback/Toast.jsx":"f1cfbf68f049","components/feedback/Tooltip.jsx":"8e65d1516453","components/forms/Checkbox.jsx":"20b9eb5d6193","components/forms/Input.jsx":"e67b7df2e770","components/forms/Radio.jsx":"8854594e71ca","components/forms/Select.jsx":"05eba5f3bc83","components/forms/Switch.jsx":"41abc1586efb","components/navigation/NavLink.jsx":"c83da45a032d","components/navigation/Tabs.jsx":"94d2d3f83dc5","ui_kits/marketing/About.jsx":"3039abfed449","ui_kits/marketing/Footer.jsx":"23a3d7a40ef1","ui_kits/marketing/Home.jsx":"21ed45c36b00","ui_kits/marketing/Nav.jsx":"83e23dfeec26","ui_kits/marketing/Research.jsx":"12937df518ce"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"SuperintelligenceFoundryDesignSystem_07c936","components":[{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Card","sourcePath":"components/core/Card.jsx"},{"name":"IconButton","sourcePath":"components/core/IconButton.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"},{"name":"Dialog","sourcePath":"components/feedback/Dialog.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"NavLink","sourcePath":"components/navigation/NavLink.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"}],"sourceHashes":{"components/core/Badge.jsx":"7130d136f043","components/core/Button.jsx":"2243eae661e7","components/core/Card.jsx":"703d947fa9c2","components/core/IconButton.jsx":"b82bd3733a51","components/core/Tag.jsx":"14211cbdc661","components/feedback/Dialog.jsx":"0fa311bb4a97","components/feedback/Toast.jsx":"f1cfbf68f049","components/feedback/Tooltip.jsx":"8e65d1516453","components/forms/Checkbox.jsx":"20b9eb5d6193","components/forms/Input.jsx":"e67b7df2e770","components/forms/Radio.jsx":"8854594e71ca","components/forms/Select.jsx":"05eba5f3bc83","components/forms/Switch.jsx":"41abc1586efb","components/navigation/NavLink.jsx":"c83da45a032d","components/navigation/Tabs.jsx":"94d2d3f83dc5","ui_kits/marketing/About.jsx":"b40abce18aea","ui_kits/marketing/Footer.jsx":"45ab9e7b47e1","ui_kits/marketing/Home.jsx":"3bcca394e575","ui_kits/marketing/Nav.jsx":"e8158216dda3","ui_kits/marketing/Research.jsx":"ca370ca61445"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
-const __ds_ns = (window.SuperintelligenceFoundryDesignSystem_d9143e = window.SuperintelligenceFoundryDesignSystem_d9143e || {});
+const __ds_ns = (window.SuperintelligenceFoundryDesignSystem_07c936 = window.SuperintelligenceFoundryDesignSystem_07c936 || {});
 
 const __ds_scope = {};
 
@@ -775,7 +775,7 @@ try { (() => {
 function About() {
   const {
     Badge
-  } = window.SuperintelligenceFoundryDesignSystem_d9143e;
+  } = window.SuperintelligenceFoundryDesignSystem_07c936;
   return /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: 'var(--content-narrow)',
@@ -863,15 +863,11 @@ function Footer() {
       alignItems: 'center',
       gap: 10
     }
-  }, /*#__PURE__*/React.createElement("video", {
-    src: "../../assets/logo/sf-logo.webm",
-    autoPlay: true,
-    loop: true,
-    muted: true,
-    playsInline: true,
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "../../assets/logo/sf-mark.svg",
     style: {
       height: 22,
-      width: 22
+      width: 'auto'
     }
   }), /*#__PURE__*/React.createElement("span", {
     style: {
@@ -897,7 +893,7 @@ function Home({
     Button,
     Card,
     Badge
-  } = window.SuperintelligenceFoundryDesignSystem_d9143e;
+  } = window.SuperintelligenceFoundryDesignSystem_07c936;
   const capabilities = [{
     tag: 'Discovery',
     title: 'Forms and tests its own hypotheses',
@@ -982,27 +978,7 @@ function Home({
     variant: "secondary",
     size: "lg",
     onClick: () => onNavigate('about')
-  }, "Read our thesis"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: 8,
-      marginLeft: 10
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 7,
-      height: 7,
-      borderRadius: '50%',
-      background: 'var(--accent-olive)'
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      font: 'var(--text-mono-s)',
-      color: 'var(--text-olive)',
-      letterSpacing: 'var(--tracking-wide)'
-    }
-  }, "SYSTEM RUNNING \xB7 14 EXPERIMENTS IN FLIGHT"))))), /*#__PURE__*/React.createElement("section", {
+  }, "Read our thesis")))), /*#__PURE__*/React.createElement("section", {
     style: {
       padding: '20px var(--page-margin) 100px',
       maxWidth: 'var(--content-max)',
@@ -1107,7 +1083,7 @@ function Nav({
   const {
     NavLink,
     Button
-  } = window.SuperintelligenceFoundryDesignSystem_d9143e;
+  } = window.SuperintelligenceFoundryDesignSystem_07c936;
   const links = [{
     key: 'home',
     label: 'Home'
@@ -1139,15 +1115,11 @@ function Nav({
       cursor: 'pointer'
     },
     onClick: () => onNavigate('home')
-  }, /*#__PURE__*/React.createElement("video", {
-    src: "../../assets/logo/sf-logo.webm",
-    autoPlay: true,
-    loop: true,
-    muted: true,
-    playsInline: true,
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "../../assets/logo/sf-mark.svg",
     style: {
       height: 30,
-      width: 30
+      width: 'auto'
     }
   }), /*#__PURE__*/React.createElement("span", {
     style: {
@@ -1183,7 +1155,7 @@ function Research() {
     Card,
     Badge,
     Tag
-  } = window.SuperintelligenceFoundryDesignSystem_d9143e;
+  } = window.SuperintelligenceFoundryDesignSystem_07c936;
   const posts = [{
     tag: 'Discovery',
     title: 'Autonomous synthesis loop reaches convergence on a new catalyst class',

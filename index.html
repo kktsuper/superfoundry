@@ -7,451 +7,1245 @@
 </head>
 <body>
 <x-dc>
-<helmet>
-  <title>Superintelligence Foundry</title>
-  <link rel="stylesheet" href="_ds/superfoundry-design-system-23df8580-ee55-4ad4-949f-3136e88fe2e1/tokens/fonts.css">
-  <link rel="stylesheet" href="_ds/superfoundry-design-system-23df8580-ee55-4ad4-949f-3136e88fe2e1/tokens/colors.css">
-  <link rel="stylesheet" href="_ds/superfoundry-design-system-23df8580-ee55-4ad4-949f-3136e88fe2e1/tokens/typography.css">
-  <link rel="stylesheet" href="_ds/superfoundry-design-system-23df8580-ee55-4ad4-949f-3136e88fe2e1/tokens/spacing.css">
-  <link rel="stylesheet" href="_ds/superfoundry-design-system-23df8580-ee55-4ad4-949f-3136e88fe2e1/tokens/effects.css">
-  <link rel="stylesheet" href="_ds/superfoundry-design-system-23df8580-ee55-4ad4-949f-3136e88fe2e1/styles.css">
-  <script src="_ds/superfoundry-design-system-23df8580-ee55-4ad4-949f-3136e88fe2e1/_ds_bundle.js"></script>
-  <script src="./image-slot.js"></script>
-  <style>
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    video { mix-blend-mode: screen; }
-    body { margin: 0; background: var(--surface-app); color: var(--text-primary); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
-    a { color: var(--text-accent); text-decoration: none; }
-    a:hover { color: var(--sf-ember-300); }
-    @keyframes sf-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes sf-forge { 0%,100% { opacity: .55; transform: translate(-50%,-50%) scale(1); } 50% { opacity: .9; transform: translate(-50%,-50%) scale(1.08); } }
-    @keyframes sf-spark { 0% { transform: translateY(0) scale(1); opacity: 0; } 12% { opacity: 1; } 90% { opacity: .6; } 100% { transform: translateY(-340px) scale(.3); opacity: 0; } }
-    @keyframes sf-sheen { 0% { background-position: -140% 0; } 60%,100% { background-position: 240% 0; } }
-    @media (max-width: 760px) {
-      .sf-hero { padding: 0 !important; }
-      .sf-hero p br { display: none; }
-      .sf-hero .si-mark { width: 126px !important; top: 20px !important; }
-      .sf-hero h1 { font-size: 26px !important; top: 78px !important; }
-      .sf-hero p { font-size: 0.8125rem !important; line-height: 1.45 !important; max-width: 82vw !important; bottom: 18% !important; }
-      .sf-mission { padding: 72px var(--page-margin) !important; }
-      .sf-mission-grid { grid-template-columns: 1fr !important; gap: 64px !important; }
-      .sf-mission-grid h2 { font-size: 32px !important; }
-      .sf-mission-grid p { font-size: 1.125rem !important; }
-      .sf-loop { max-width: 300px !important; }
-      .sf-loop .sf-loop-node { width: 104px !important; }
-      .sf-loop .sf-loop-node > div > div { width: 44px !important; height: 44px !important; font-size: 1.125rem !important; }
-      .sf-loop .sf-loop-node span { font-size: 0.75rem !important; }
-      .sf-founders { padding: 72px var(--page-margin) !important; }
-      .sf-founders-grid { grid-template-columns: 1fr !important; gap: 64px !important; }
-      .sf-contact { padding: 96px var(--page-margin) 20px !important; }
-    }
-    @keyframes sf-glow-slide { 0% { background-position: 0% 50%; } 100% { background-position: -200% 50%; } }
-    .sf-glow-text { background: linear-gradient(120deg, var(--sf-azure-400) 0%, var(--sf-azure-400) 8%, #f5f3ee 25%, var(--sf-ember-400) 42%, var(--sf-ember-400) 58%, #f5f3ee 75%, var(--sf-azure-400) 92%, var(--sf-azure-400) 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: sf-glow-slide 7s linear infinite; }
-    .sf-email { position: relative; background-image: linear-gradient(100deg, var(--sf-ember-500) 0%, var(--sf-ember-300) 30%, #fff 46%, var(--sf-ember-300) 62%, var(--sf-ember-500) 100%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: sf-sheen 5.5s var(--ease-standard) infinite; transition: filter 180ms var(--ease-standard); }
-    .sf-email:hover { filter: drop-shadow(0 0 14px rgba(232,112,58,.55)); }
-    .sf-spark { position: absolute; bottom: 30%; width: 3px; height: 3px; border-radius: 50%; background: var(--sf-ember-400); box-shadow: 0 0 8px 1px rgba(232,112,58,.9); pointer-events: none; }
-    @keyframes sf-rotate { to { transform: rotate(360deg); } }
-    @keyframes sf-corepulse { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: .9; transform: translate(-50%,-50%) scale(1.14); } }
-  </style>
-</helmet>
-
+<helmet><title>Superintelligence Foundry</title><style>:root{--text-primary:#161311 !important;--text-secondary:#3D3833 !important;--text-tertiary:#7A7168 !important;--surface-app:#F3EFE8 !important;--surface-card:#FFFDFA !important;--surface-raised:#F7F3EC !important;--surface-inverse:#161311 !important;--border-subtle:rgba(22,19,17,0.10) !important;--border-default:rgba(22,19,17,0.18) !important;--border-strong:rgba(22,19,17,0.30) !important;--text-olive:#5C6E36 !important;--text-ai:#3A67AF !important;--text-accent:#C4551F !important;--accent-default:#C4551F !important}body{color:#161311 !important}</style><script src="./ds-base.js"></script><script src="./image-slot.js"></script><style>body{margin:0;background:#F3EFE8;background-image:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);background-attachment:fixed;color:var(--text-primary);font-family:var(--font-body)}*{box-sizing:border-box}a{color:var(--text-accent);text-decoration:none}a:hover{color:var(--text-primary)}html{overflow-x:clip}body{overflow-x:clip}
+@media (max-width: 900px){
+  main > section{left:var(--page-margin) !important;right:var(--page-margin) !important;padding-top:14vh !important;padding-bottom:96px !important}
+  .sf-rule{left:-12px !important}
+  #sec-foundry h2{font-size:clamp(1.4rem, 5.4vw, 2.2rem) !important;line-height:1.25 !important}
+  #sec-founders{gap:28px !important;overflow-y:auto !important}
+  #sec-founders > div[style*="grid"]{gap:32px !important}
+  .sf-loop{width:min(88vw, 62vh) !important}
+  #nav-foundry,#nav-mission,#nav-founders,#nav-contact{padding:14px 6px !important}
+  #sf-nav{padding-bottom:12px !important}
+}
+@media (max-width: 600px){
+  #sf-nav{gap:12px !important;padding-bottom:18px !important}
+}</style></helmet>
 <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
-  <div style="position: fixed; inset: 0; z-index: 100; background: linear-gradient(rgba(5,5,5,0.7), rgba(5,5,5,0.7)), #050505 url('uploads/galaxy-bg.jpg') center / cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px;">
-    <div style="font: var(--text-body-m); color: var(--text-secondary); letter-spacing: var(--tracking-wide);">Coming soon</div>
-    <form onSubmit="{{ onUnlock }}" style="display: flex; align-items: center; gap: 8px;">
-      <input id="sf-gate-pw" type="password" autocomplete="off" style="font: var(--text-body-s); color: var(--text-primary); background: var(--surface-raised); border: 1px solid var(--border-default); border-radius: var(--radius-sm); padding: 7px 10px; width: 160px; outline: none;">
-      <x-import component-from-global-scope="SuperintelligenceFoundryDesignSystem_d9143e.Button" type="submit" size="sm" variant="primary" hint-size="auto,32px">Enter</x-import>
-    </form>
-    <sc-if value="{{ pwError }}" hint-placeholder-val="{{ false }}"><span style="font: var(--text-mono-s); color: var(--text-error, #c4554d); letter-spacing: var(--tracking-wide);">WRONG PASSWORD</span></sc-if>
-  </div>
-</sc-if>
-<div style="background: var(--surface-app);">
-
-  <div style="background: {{ lowerBg }}; position: relative; z-index: 0;">
-  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-    <sc-if value="{{ galaxyOn }}" hint-placeholder-val="{{ true }}">
-      <div style="position: fixed; inset: 0; z-index: -1; background: linear-gradient(rgba(5,5,5,0.7), rgba(5,5,5,0.7)), #050505 url('uploads/galaxy-bg.jpg') center / cover no-repeat;"></div>
-    </sc-if>
-  </sc-if>
-  <!-- HERO / SPLASH -->
-  <div class="sf-hero-pin">
-  <div style="position: sticky; top: 0;">
-  <section id="top" class="sf-hero" style="position: relative; overflow: hidden; padding: 0; z-index: 2;">
-    <div style="position: absolute; inset: 0; backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 100%); -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 100%); pointer-events: none;"></div>
-    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #000410 0%, #000410 40%, rgba(0,4,16,0) 100%); pointer-events: none;"></div>
-    <video src="uploads/fullbg.webm" autoplay="" loop="" muted="" playsinline="" style="display: block; width: 100%; height: auto; aspect-ratio: 1568 / 1320; animation: sf-rise 420ms var(--ease-standard) both; pointer-events: none; mask-image: linear-gradient(180deg, #000 80%, transparent 95%); -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 95%);"></video>
-    <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: radial-gradient(ellipse 46% 34% at 50% 6%, rgba(0,4,16,0.75) 0%, rgba(0,4,16,0.4) 50%, rgba(0,4,16,0) 80%); pointer-events: none;"></div>
-    <div class="sf-sub-scrim" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; opacity: 0; background: radial-gradient(ellipse 60% 32% at 50% 72%, rgba(0,4,16,0.35) 0%, rgba(0,4,16,0.18) 50%, rgba(0,4,16,0) 95%); pointer-events: none;"></div>
-    <div style="position: absolute; inset: 0; padding: 48px var(--page-margin) 48px; justify-content: center; max-width: var(--content-max); margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center;">
-      <svg class="si-mark" viewBox="0 0 173.418 28.285" role="img" aria-label="Superintelligence Foundry" style="width: 200px; max-width: 72vw; height: auto; position: absolute; top: 48px; left: 0; right: 0; margin: 0 auto; animation: sf-rise 420ms var(--ease-standard) 60ms both;"><path d="M2.687,7.913v.084c0,.516.096.792.324.924.287.167.911.24,2.087.24.995,0,1.618-.036,2.482-.144.455-.06.684-.144.827-.312.156-.192.24-.432.24-.684,0-.468-.204-.695-.756-.815-.336-.072-.348-.072-2.53-.084h-1.151c-1.691-.012-2.351-.144-2.795-.552-.384-.335-.563-.839-.563-1.547,0-.888.216-1.619.6-1.955.54-.504,1.763-.696,4.401-.696,1.607,0,2.471.06,3.022.228.995.288,1.344.828,1.344,2.063v.156h-1.8c-.012-.468-.132-.708-.384-.828-.335-.156-1.103-.251-1.99-.251-1.512,0-2.566.096-2.927.275-.288.132-.432.408-.432.78,0,.348.108.576.336.708.275.156.731.204,1.991.204h1.354c2.399,0,3.131.132,3.635.671.335.348.491.875.491,1.667,0,.839-.18,1.415-.575,1.799-.528.504-1.56.671-4.258.671-2.879,0-3.778-.132-4.282-.611-.359-.348-.516-.828-.516-1.583,0-.072,0-.251.013-.408h1.811Z" fill="#ededed"></path>
-  <path d="M22.266,2.444v5.037c0,1.523-.24,2.147-1.008,2.579-.684.396-1.367.468-4.197.468-2.771,0-3.61-.168-4.198-.828-.407-.468-.527-1.02-.527-2.495V2.444h1.847v4.186q0,1.067.061,1.403c.132.852.6,1.007,2.998,1.007,1.079,0,2.075-.048,2.351-.12.468-.12.72-.408.792-.912q.023-.144.035-1.259V2.444h1.848Z" fill="#ededed"></path>
-  <path d="M24.348,2.444h6.249c1.031,0,1.463.036,1.835.156.995.3,1.343.972,1.343,2.579,0,1.223-.191,1.895-.684,2.315-.42.372-1.031.503-2.278.503h-4.63v2.447h-1.835V2.444ZM30.297,6.51c1.283,0,1.618-.252,1.618-1.235,0-1.08-.3-1.343-1.535-1.343h-4.197v2.579h4.114Z" fill="#ededed"></path>
-  <path d="M35.495,2.444h8.503v1.403h-6.68v1.895h6.356v1.259h-6.356v2.039h6.752v1.403h-8.575V2.444Z" fill="#ededed"></path>
-  <path d="M45.875,2.444h6.776c1.403,0,2.039.168,2.471.636.348.384.516,1.007.516,1.919,0,.875-.108,1.367-.348,1.667-.24.3-.528.444-1.008.528,1.008.084,1.235.396,1.224,1.667v1.583h-1.859v-1.199c-.023-1.091-.275-1.308-1.487-1.295h-4.449v2.495h-1.835V2.444ZM52.1,6.474c1.343,0,1.679-.24,1.679-1.199,0-1.104-.275-1.332-1.643-1.332h-4.426v2.531h4.39Z" fill="#ededed"></path>
-  <path d="M57.611,2.444h1.847v8h-1.847V2.444Z" fill="#ededed"></path>
-  <path d="M61.607,2.444h2.866l6.009,6.656-.036-6.656h1.764v8h-2.879l-5.973-6.62.036,6.62h-1.787V2.444Z" fill="#ededed"></path>
-  <path d="M77.457,3.943h-3.766v-1.499h9.366v1.499h-3.754v6.5h-1.847V3.943Z" fill="#ededed"></path>
-  <path d="M84.551,2.444h8.503v1.403h-6.68v1.895h6.356v1.259h-6.356v2.039h6.752v1.403h-8.575V2.444Z" fill="#ededed"></path>
-  <path d="M94.931,2.444h1.847v6.5h5.841v1.499h-7.688V2.444Z" fill="#ededed"></path>
-  <path d="M103.931,2.444h1.847v6.5h5.841v1.499h-7.688V2.444Z" fill="#ededed"></path>
-  <path d="M112.931,2.444h1.847v8h-1.847V2.444Z" fill="#ededed"></path>
-  <path d="M127.001,6.162v.852c0,1.463-.084,1.991-.371,2.519-.24.432-.636.696-1.26.852-.432.108-1.115.132-3.526.132-2.122,0-3.154-.072-3.646-.264-.768-.288-1.163-.755-1.331-1.607-.097-.456-.132-.983-.132-2.123,0-2.111.132-2.782.647-3.346.336-.36.804-.576,1.438-.66.744-.108,1.596-.144,3.946-.144s3.179.168,3.682.744c.349.384.516,1.008.516,1.895h-1.811c-.012-.503-.072-.695-.3-.875-.312-.252-.72-.3-2.279-.3-2.89,0-3.334.048-3.646.42-.252.288-.336.815-.336,2.062,0,1.56.096,2.099.432,2.387.348.312.804.372,2.975.372,2.375,0,2.627-.048,2.986-.564.156-.204.216-.587.216-1.139h-3.562v-1.211h5.36Z" fill="#ededed"></path>
-  <path d="M128.939,2.444h8.503v1.403h-6.68v1.895h6.356v1.259h-6.356v2.039h6.752v1.403h-8.575V2.444Z" fill="#ededed"></path>
-  <path d="M139.318,2.444h2.866l6.009,6.656-.036-6.656h1.764v8h-2.879l-5.973-6.62.036,6.62h-1.787V2.444Z" fill="#ededed"></path>
-  <path d="M161.776,7.565v.132c0,1.14-.119,1.703-.455,2.063-.552.612-1.308.755-3.91.755-3.19,0-3.778-.06-4.485-.443-.456-.252-.756-.684-.912-1.295-.107-.408-.167-1.343-.167-2.471,0-2.231.228-2.986,1.067-3.454.684-.384,1.511-.48,4.041-.48,2.771,0,3.694.156,4.198.72.348.372.527,1.067.527,2.039h-1.763c0-1.164-.24-1.271-2.879-1.271-1.871,0-2.41.048-2.794.252-.456.24-.552.684-.552,2.411,0,2.327.191,2.507,2.687,2.507l2.446-.048c.863-.084,1.163-.408,1.163-1.235v-.18h1.787Z" fill="#ededed"></path>
-  <path d="M163.702,2.444h8.503v1.403h-6.68v1.895h6.356v1.259h-6.356v2.039h6.752v1.403h-8.575V2.444Z" fill="#ededed"></path>
-  <path d="M35.453,21.365v.647h-11.981v-.647h11.981Z" fill="#db7843"></path>
-  <path d="M39.575,16.844h7.652v.804h-6.692v2.758h6.344v.756h-6.344v3.682h-.96v-7.999Z" fill="#db7843"></path>
-  <path d="M61.206,17.491c.516.54.636,1.163.636,3.346,0,2.195-.12,2.818-.636,3.358-.611.636-1.224.731-4.51.731s-3.897-.096-4.51-.731c-.516-.54-.635-1.163-.635-3.346,0-2.195.119-2.831.635-3.358.612-.636,1.224-.731,4.558-.731,3.227,0,3.851.107,4.462.731ZM52.967,18.091c-.336.348-.42.924-.42,2.759,0,1.822.084,2.398.42,2.746.407.432.911.492,3.729.492s3.322-.072,3.73-.492c.336-.348.42-.924.42-2.746,0-1.835-.084-2.411-.42-2.759-.372-.408-1.044-.492-3.683-.492-2.758,0-3.394.084-3.777.492Z" fill="#db7843"></path>
-  <path d="M76.206,16.844v5.433c0,.888-.024,1.128-.12,1.415-.372,1.008-1.199,1.235-4.594,1.235-2.771,0-3.682-.144-4.21-.647-.287-.275-.432-.6-.479-1.067-.024-.191-.024-.384-.024-.936v-5.433h.96v5.265c0,.744,0,.815.048,1.008.192.839.695.972,3.706.972,2.543,0,3.19-.097,3.514-.54.216-.3.24-.432.24-1.439v-5.265h.96Z" fill="#db7843"></path>
-  <path d="M81.359,16.844h1.547l7.557,7.315v-7.315h.959v7.999h-1.547l-7.556-7.315v7.315h-.96v-7.999Z" fill="#db7843"></path>
-  <path d="M96.671,16.844h6.225c1.763,0,2.65.323,3.131,1.163.359.588.527,1.535.527,2.83,0,1.308-.168,2.255-.527,2.843-.48.84-1.368,1.163-3.131,1.163h-6.225v-7.999ZM102.968,24.039c1.127,0,1.858-.264,2.183-.779.275-.456.408-1.199.408-2.375,0-1.235-.145-2.074-.433-2.519-.323-.491-1.007-.719-2.23-.719h-5.265v6.392h5.337Z" fill="#db7843"></path>
-  <path d="M111.55,16.844h6.597c1.211,0,1.774.155,2.194.611.324.359.492.972.492,1.835,0,1.295-.3,1.751-1.283,1.979.815.156,1.127.576,1.127,1.5v2.074h-.959v-1.522c.023-1.38-.324-1.716-1.716-1.703h-5.492v3.226h-.96v-7.999ZM117.775,20.862c1.644,0,2.062-.324,2.062-1.619,0-1.271-.432-1.595-2.122-1.595h-5.205v3.214h5.265Z" fill="#db7843"></path>
-  <path d="M133.471,16.844h1.319l-4.642,4.642v3.357h-.96v-3.357l-4.642-4.642h1.308l3.813,3.85,3.803-3.85Z" fill="#db7843"></path>
-  <path d="M149.536,21.365v.647h-11.981v-.647h11.981Z" fill="#db7843"></path></svg>
-      <p class="sf-hero-sub" style="font: 400 1.375rem/1.55 var(--font-body); color: #F5F3EE; max-width: 620px; margin: 0 auto; text-wrap: pretty; position: absolute; bottom: 25%; left: 0; right: 0; opacity: 0;">The next frontier of AI is the physical world. <br>We extend foundation models downward into reality; <br>an artificial general scientist, engineer, and<br>inventor that learns through interaction.</p>
-    </div>
-    <img src="uploads/videooverlay_l.png" alt="" class="sf-hero-overlay sf-hero-overlay-l" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; mask-image: linear-gradient(180deg, #000 90%, transparent 100%); -webkit-mask-image: linear-gradient(180deg, #000 90%, transparent 100%); opacity: 1; pointer-events: none; will-change: transform, opacity;">
-    <img src="uploads/videooverlay_r.png" alt="" class="sf-hero-overlay sf-hero-overlay-r" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; mask-image: linear-gradient(180deg, #000 90%, transparent 100%); -webkit-mask-image: linear-gradient(180deg, #000 90%, transparent 100%); opacity: 1; pointer-events: none; will-change: transform, opacity;">
-    <h1 style="font-family: var(--font-display); font-weight: var(--font-weight-display-m); line-height: 1.15; color: var(--text-primary); letter-spacing: var(--tracking-tight); margin: 0 auto; max-width: 900px; text-wrap: balance; text-align: center; position: absolute; top: 168px; left: 0; right: 0; font-size: calc(var(--font-size-display-m) * 1.15); animation: sf-rise 420ms var(--ease-standard) 120ms both;">From Generative AI to<br><span class="sf-glow-text" style="font-size: 1.5em; filter: drop-shadow(2px 2px 1px #000);">Creative AGI</span></h1>
-  </section>
-
-  <!-- MISSION -->
-  <section id="mission" class="sf-mission" style="padding: 120px var(--page-margin); overflow: hidden; position: relative; z-index: 1;">
-    <div style="max-width: var(--content-max); margin: 0 auto;">
-      <div class="sf-mission-grid" style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;">
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-          <div style="font: var(--text-label); color: var(--text-olive); letter-spacing: var(--tracking-wider); text-transform: uppercase;">Our mission</div>
-          <h2 style="font-family: var(--font-display); font-size: var(--font-size-display-m); font-weight: var(--font-weight-display-m); line-height: var(--line-height-display-m); color: var(--text-primary); letter-spacing: var(--tracking-tight); margin: 0; text-wrap: balance;">Every solution paves the way for solving what comes next.</h2>
-          <p style="font: 400 1.375rem/1.55 var(--font-body); color: #C7C3BA; margin: 0; text-wrap: pretty;">We build self-improving world models. The LLM already holds a vast ontology of the world and externalizes it by writing programs, because a program is a model. It writes an executable model of a domain, proposes minimal experiments to resolve what's uncertain, and tests its predictions against reality.</p>
-          
-        </div>
-        <div data-om-raster="" class="sf-loop" style="position: relative; width: 100%; max-width: 420px; aspect-ratio: 1/1; margin: 0 auto; justify-self: center;">
-          <div style="position: absolute; inset: 0; border-radius: 50%; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);"></div>
-          <div style="position: absolute; inset: 0; border-radius: 50%; border: 1px dashed var(--border-default);" data-loop-ring="1"></div>
-          <div style="position: absolute; inset: 32px; border-radius: 50%; border: 1px solid var(--border-subtle);" data-loop-ring="-0.6"></div>
-          <svg data-loop-ring="0.45" viewBox="0 0 400 400" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;">
-            <defs>
-              <marker id="loopArrow" markerWidth="9" markerHeight="9" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--sf-ember-500)"></path></marker>
-            </defs>
-            <g fill="none" stroke="var(--sf-ember-500)" stroke-width="2" marker-end="url(#loopArrow)">
-              <path d="M288.17,78.65 A150,150 0 0 1 349.18,184.32"></path>
-              <path d="M261.0,337.0 A150,150 0 0 1 139.0,337.0"></path>
-              <path d="M50.82,184.32 A150,150 0 0 1 111.83,78.65"></path>
-            </g>
-          </svg>
-          <div id="sf-wm-ring-inner" style="position: absolute; top: 50%; left: 50%; width: 104px; height: 104px; margin: -52px 0 0 -52px; transform: rotate(14deg);">
-            <svg viewBox="0 0 120 120" style="width: 100%; height: 100%; display: block; overflow: hidden;">
-              <defs><clipPath id="sf-globe-clip"><circle cx="60" cy="60" r="55"></circle></clipPath></defs>
-              <circle id="sf-wm-border" cx="60" cy="60" r="56" fill="none" stroke="rgba(245,243,238,0.4)" stroke-width="1"></circle>
-              <!-- latitude lines -->
-              <line class="sf-wm-grat" x1="6" y1="60" x2="114" y2="60" stroke="rgba(245,243,238,0.22)" stroke-width="1"></line>
-              <path class="sf-wm-grat" d="M12,32 Q60,44 108,32" fill="none" stroke="rgba(245,243,238,0.18)" stroke-width="1"></path>
-              <path class="sf-wm-grat" d="M22,16 Q60,26 98,16" fill="none" stroke="rgba(245,243,238,0.14)" stroke-width="1"></path>
-              <path class="sf-wm-grat" d="M12,88 Q60,76 108,88" fill="none" stroke="rgba(245,243,238,0.18)" stroke-width="1"></path>
-              <path class="sf-wm-grat" d="M22,104 Q60,94 98,104" fill="none" stroke="rgba(245,243,238,0.14)" stroke-width="1"></path>
-              <!-- meridians + countries: true spin (foreshortened) driven by JS -->
-              <g clip-path="url(#sf-globe-clip)">
-                <g class="sf-wm-meridian" data-lon="0" fill="none" stroke="rgba(245,243,238,0.20)" stroke-width="1"><ellipse cx="60" cy="60" rx="56" ry="56"></ellipse></g>
-                <g class="sf-wm-meridian" data-lon="60" fill="none" stroke="rgba(245,243,238,0.20)" stroke-width="1"><ellipse cx="60" cy="60" rx="28" ry="56"></ellipse></g>
-                <g class="sf-wm-meridian" data-lon="120" fill="none" stroke="rgba(245,243,238,0.20)" stroke-width="1"><ellipse cx="60" cy="60" rx="28" ry="56"></ellipse></g>
-                <!-- simplified real continents: y = latitude (fixed), data-lon = center longitude -->
-                <g class="sf-wm-country" data-lon="-100" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.30)" stroke-width="1"><path d="M-22,-38 L-8,-43 L6,-44 L12,-36 L8,-30 L14,-26 L16,-18 L10,-12 L4,-10 L0,-4 L-2,-8 L-8,-12 L-14,-22 L-18,-30 Z" transform="translate(60,60)"></path></g>
-                <g class="sf-wm-country" data-lon="-60" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.30)" stroke-width="1"><path d="M-6,-4 L4,-6 L12,2 L8,14 L2,24 L-1,32 L-4,24 L-6,12 L-10,2 Z" transform="translate(60,60)"></path></g>
-                <g class="sf-wm-country" data-lon="-40" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.24)" stroke-width="1"><path d="M-4,-40 L4,-44 L8,-38 L2,-34 L-4,-36 Z" transform="translate(60,60)"></path></g>
-                <g class="sf-wm-country" data-lon="20" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.30)" stroke-width="1"><path d="M-14,-20 L2,-23 L10,-18 L14,-10 L6,-4 L8,4 L4,14 L0,21 L-6,16 L-6,6 L-14,2 L-18,-8 Z" transform="translate(60,60)"></path></g>
-                <g class="sf-wm-country" data-lon="20" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.28)" stroke-width="1"><path d="M-14,-26 L-8,-30 L-4,-27 L2,-29 L8,-32 L10,-40 L0,-42 L-6,-38 L-12,-32 Z" transform="translate(60,60)"></path></g>
-                <g class="sf-wm-country" data-lon="60" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.30)" stroke-width="1"><path d="M-16,-40 L2,-44 L14,-40 L16,-30 L10,-24 L12,-16 L6,-10 L2,-2 L-2,-10 L-8,-8 L-12,-16 L-18,-26 Z" transform="translate(60,60)"></path></g>
-                <g class="sf-wm-country" data-lon="115" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.30)" stroke-width="1"><path d="M-14,-42 L4,-45 L16,-40 L20,-30 L12,-24 L14,-18 L8,-10 L4,-2 L0,-8 L-6,-14 L-10,-24 L-14,-34 Z" transform="translate(60,60)"></path></g>
-                <g class="sf-wm-country" data-lon="135" style="transform-origin: 60px 60px;" fill="none" stroke="rgba(245,243,238,0.28)" stroke-width="1"><path d="M-10,10 L-2,7 L8,9 L12,15 L8,21 L0,23 L-8,19 L-12,14 Z" transform="translate(60,60)"></path></g>
-              </g>
-            </svg>
-          </div>
-          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">
-            <span id="sf-wm-label" style="font: 700 0.8125rem/1.3 var(--font-mono); color: #8a877f; letter-spacing: var(--tracking-wide); text-align: center;">WORLD<br>MODEL</span>
-          </div>
-          <div data-loop-ring="0.45" style="position: absolute; inset: 0; transform-origin: 50% 50%;">
-          <div class="sf-loop-node" style="position: absolute; top: 12.5%; left: 50%; transform: translate(-50%,-50%); width: 128px;">
-            <div data-loop-counter="0.45" style="display: flex; flex-direction: column; align-items: center; gap: 6px; transform-origin: 50% 50%;">
-            <div style="width: 54px; height: 54px; border-radius: 50%; background: var(--surface-card); border: 1px solid var(--border-default); display: flex; align-items: center; justify-content: center; font: var(--text-display-s); color: var(--text-accent);">01</div>
-            <span style="font: 700 0.9375rem/1.4 var(--font-mono); color: #FFFFFF; letter-spacing: var(--tracking-wide);">MODEL</span>
-            <span style="font: var(--text-body-m); color: #F5F3EE; text-align: center;">Writes an executable model</span>
-            </div>
-          </div>
-          <div class="sf-loop-node" style="position: absolute; top: 68.75%; left: 82.475%; transform: translate(-50%,-50%); width: 128px;">
-            <div data-loop-counter="0.45" style="display: flex; flex-direction: column; align-items: center; gap: 6px; transform-origin: 50% 50%;">
-            <div style="width: 54px; height: 54px; border-radius: 50%; background: var(--surface-card); border: 1px solid var(--border-default); display: flex; align-items: center; justify-content: center; font: var(--text-display-s); color: var(--text-olive);">02</div>
-            <span style="font: 700 0.9375rem/1.4 var(--font-mono); color: #FFFFFF; letter-spacing: var(--tracking-wide);">EXPLORE</span>
-            <span style="font: var(--text-body-m); color: #F5F3EE; text-align: center;">Probes what's uncertain</span>
-            </div>
-          </div>
-          <div class="sf-loop-node" style="position: absolute; top: 68.75%; left: 17.525%; transform: translate(-50%,-50%); width: 128px;">
-            <div data-loop-counter="0.45" style="display: flex; flex-direction: column; align-items: center; gap: 6px; transform-origin: 50% 50%;">
-            <div style="width: 54px; height: 54px; border-radius: 50%; background: var(--surface-card); border: 1px solid var(--border-default); display: flex; align-items: center; justify-content: center; font: var(--text-display-s); color: var(--text-ai);">03</div>
-            <span style="font: 700 0.9375rem/1.4 var(--font-mono); color: #FFFFFF; letter-spacing: var(--tracking-wide);">UPDATE</span>
-            <span style="font: var(--text-body-m); color: #F5F3EE; text-align: center;">Tests against reality, feeds back</span>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  </div>
-  <div style="height: calc(27vw / 1.1879);"></div>
-  </div>
-
-  <!-- ABOUT THE FOUNDERS -->
-  <section class="sf-founders" style="padding: 120px var(--page-margin); border-top: 1px solid var(--border-subtle); text-align: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
-    <div style="max-width: var(--content-max); margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-      <div style="font: var(--text-label); color: var(--text-olive); letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: 56px;">ABOUT THE CO-FOUNDERS</div>
-      <div class="sf-founders-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 96px; justify-items: center; max-width: 860px; margin: 0 auto;">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 340px;">
-          <div style="width: 180px; aspect-ratio: 1/1; border: 1px solid var(--border-subtle);"><image-slot id="founder-jad" src="uploads/founder-jad.webp" shape="rect" placeholder="Drop a photo of Jad"></image-slot></div>
-          <div style="display: flex; align-items: baseline; gap: 12px;">
-            <span style="font: var(--text-display-s); color: var(--text-primary); letter-spacing: var(--tracking-tight);">Jad Tarifi</span>
-            <span style="font: var(--text-mono-s); color: var(--text-accent); letter-spacing: var(--tracking-wide);">CEO</span>
-          </div>
-          <p style="font: var(--text-body-m); color: #C7C3BA; margin: 0; text-wrap: pretty; text-align: left; align-self: stretch;">Previous Tech Lead &amp; Manager at Google AI, YouTube, Amazon, &amp; CapitalOne. PhD in foundations of AGI.</p>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 10px;">
-            <img src="uploads/googleai-light.svg" alt="Google AI" style="height: 22px; width: auto;">
-            <img src="uploads/youtube-light.svg" alt="YouTube" style="height: 20px; width: auto;">
-            <img src="uploads/amazon-light.svg" alt="Amazon" style="height: 22px; width: auto;">
-          </div>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 340px;">
-          <div style="width: 180px; aspect-ratio: 1/1; border: 1px solid var(--border-subtle);"><image-slot id="founder-nima" src="uploads/founder-nima.webp" shape="rect" placeholder="Drop a photo of Nima"></image-slot></div>
-          <div style="display: flex; align-items: baseline; gap: 12px;">
-            <span style="font: var(--text-display-s); color: var(--text-primary); letter-spacing: var(--tracking-tight);">Nima Asgharbeygi</span>
-            <span style="font: var(--text-mono-s); color: var(--text-accent); letter-spacing: var(--tracking-wide);">CTO</span>
-          </div>
-          <p style="font: var(--text-body-m); color: #C7C3BA; margin: 0; text-wrap: pretty; text-align: left; align-self: stretch;">Previous Area Tech Lead for on-device AI at Google Maps. Co-founder &amp; CTO of CleverSense (acquired by Google in 2011).</p>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 10px;">
-            <img src="uploads/google.svg" alt="Google" style="height: 22px; width: auto;">
-            <img src="uploads/cleversense-3131dff2.png" alt="CleverSense" style="height: 30px; width: auto;">
-            <span style="display: inline-flex; align-items: center; background: #E4E1DA; border-radius: var(--radius-pill); padding: 6px 14px;"><img src="uploads/stanford.png" alt="Stanford University" style="height: 20px; width: auto;"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="sf-contact" style="padding: 180px var(--page-margin) 20px; border-top: 1px solid var(--border-subtle); text-align: center;">
-    <div style="max-width: var(--content-max); margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-      <div style="font: var(--text-label); color: var(--text-olive); letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: 18px;">Contact</div>
-      <h2 style="font-family: var(--font-display); font-size: var(--font-size-display-m); font-weight: var(--font-weight-display-m); line-height: var(--line-height-display-m); color: var(--text-primary); letter-spacing: var(--tracking-tight); margin: 0 0 28px; text-wrap: balance;">Work with the foundry.</h2>
-      <a href="mailto:jad@superfoundry.dev" style="font: var(--text-body-l); color: var(--text-accent);">jad@superfoundry.dev</a>
-    </div>
-    <div style="margin: 120px 0 0; display: flex; justify-content: flex-end;"><span style="font: var(--text-mono-s); color: var(--text-tertiary); letter-spacing: var(--tracking-wide);">© 2026</span></div>
-  </section>
-
-
-  </div>
-
+<div style="position:fixed;inset:0;z-index:100;background:#F3EFE8"></div>
+<div style="position:fixed;inset:0;z-index:102;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px">
+<div style="font:var(--text-mono-s);letter-spacing:var(--tracking-wider);color:var(--text-tertiary);text-transform:uppercase">Under maintenance</div>
+<form onSubmit="{{ tryUnlock }}" style="display:flex;gap:10px;align-items:center">
+<input ref="{{ pwRef }}" type="password" autoComplete="off" placeholder="password" style="font:var(--text-mono-s);color:var(--text-primary);background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-sm);padding:10px 14px;outline:none;width:200px" />
+<button type="submit" style="font:var(--text-mono-s);letter-spacing:var(--tracking-wide);color:#FFFDFA;background:var(--accent-default);border:none;border-radius:var(--radius-sm);padding:10px 16px;cursor:pointer">enter</button>
+</form>
+<div style="font:var(--text-mono-s);color:var(--text-accent);min-height:1.2em">{{ pwError }}</div>
 </div>
+</sc-if>
+<div id="sf-stars" style="position:fixed;inset:-28%;z-index:{{ starsZ }};pointer-events:none;opacity:{{ starsOpacity }};transition:opacity 900ms cubic-bezier(0.2,0,0,1)">
+<div class="sf-star-layer" id="sf-stars-far" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;background-image:radial-gradient(1.2px 1.2px at 12% 22%,rgba(245,243,238,0.55),transparent 62%),radial-gradient(1px 1px at 34% 68%,rgba(245,243,238,0.45),transparent 62%),radial-gradient(1px 1px at 46% 34%,rgba(245,243,238,0.4),transparent 62%),radial-gradient(1px 1px at 6% 58%,rgba(245,243,238,0.4),transparent 62%),radial-gradient(1.2px 1.2px at 80% 10%,rgba(245,243,238,0.5),transparent 62%),radial-gradient(1px 1px at 54% 74%,rgba(245,243,238,0.38),transparent 62%);background-size:300px 300px,360px 360px,280px 280px,310px 310px,430px 430px,290px 290px"></div>
+<div class="sf-star-layer" id="sf-stars-mid" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;background-image:radial-gradient(1.8px 1.8px at 58% 14%,rgba(91,143,219,0.7),transparent 62%),radial-gradient(1.5px 1.5px at 72% 44%,rgba(245,243,238,0.6),transparent 62%),radial-gradient(1.5px 1.5px at 24% 88%,rgba(232,112,58,0.55),transparent 62%),radial-gradient(1.6px 1.6px at 92% 28%,rgba(91,143,219,0.55),transparent 62%),radial-gradient(1.6px 1.6px at 18% 46%,rgba(245,243,238,0.55),transparent 62%);background-size:420px 420px,330px 330px,350px 350px,370px 370px,250px 250px"></div>
+<div class="sf-star-layer" id="sf-stars-near" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;background-image:radial-gradient(2.6px 2.6px at 88% 76%,rgba(245,243,238,0.95),transparent 62%),radial-gradient(2.6px 2.6px at 66% 92%,rgba(245,243,238,0.85),transparent 62%),radial-gradient(2.2px 2.2px at 38% 6%,rgba(91,143,219,0.75),transparent 62%),radial-gradient(2.2px 2.2px at 30% 52%,rgba(245,243,238,0.8),transparent 62%);background-size:390px 390px,410px 410px,260px 260px,340px 340px"></div>
+</div>
+<div id="sf-streaks" style="position:fixed;inset:-14% -30%;z-index:0;pointer-events:none;opacity:{{ chromeOpacity }};transition:opacity 900ms cubic-bezier(0.2,0,0,1)">
+<div class="sf-streak-layer" id="sf-streaks-far" style="position:absolute;inset:0;will-change:transform,opacity;opacity:0"></div>
+<div class="sf-streak-layer" id="sf-streaks-mid" style="position:absolute;inset:0;will-change:transform,opacity;opacity:0"></div>
+<div class="sf-streak-layer" id="sf-streaks-near" style="position:absolute;inset:0;will-change:transform,opacity;opacity:0"></div>
+</div>
+<div id="sf-nav" style="position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:26px;padding:0 var(--page-margin) 34px;transition:opacity 360ms cubic-bezier(0.2,0,0,1);opacity:{{ chromeOpacity }};pointer-events:{{ chromeEvents }}">
+
+<div onClick="{{ goFoundry }}" style="cursor:pointer;font:var(--text-mono-s);letter-spacing:var(--tracking-wide);color:var(--text-tertiary);transition:color 200ms cubic-bezier(0.2,0,0,1)" id="nav-foundry">
+foundry
+</div>
+<span style="width:4px;height:4px;border-radius:50%;background:var(--sf-ember-500);flex:none" aria-hidden="true"></span>
+<div onClick="{{ goMission }}" style="cursor:pointer;font:var(--text-mono-s);letter-spacing:var(--tracking-wide);color:var(--text-tertiary);transition:color 200ms cubic-bezier(0.2,0,0,1)" id="nav-mission">
+mission
+</div>
+<span style="width:4px;height:4px;border-radius:50%;background:var(--sf-ember-500);flex:none" aria-hidden="true"></span>
+<div onClick="{{ goFounders }}" style="cursor:pointer;font:var(--text-mono-s);letter-spacing:var(--tracking-wide);color:var(--text-tertiary);transition:color 200ms cubic-bezier(0.2,0,0,1)" id="nav-founders">
+founders
+</div>
+<span style="width:4px;height:4px;border-radius:50%;background:var(--sf-ember-500);flex:none" aria-hidden="true"></span>
+<div onClick="{{ goContact }}" style="cursor:pointer;font:var(--text-mono-s);letter-spacing:var(--tracking-wide);color:var(--text-tertiary);transition:color 200ms cubic-bezier(0.2,0,0,1)" id="nav-contact">
+contact
+</div>
+</div>
+<img src="assets/logo/aleph-mark-light.svg" style="position:fixed;left:26px;top:26px;z-index:21;height:33px;width:auto;opacity:0.9;transition:opacity 360ms cubic-bezier(0.2,0,0,1)" />
+<main ref="{{ contentRef }}" style="position:fixed;inset:0;z-index:1;display:block;overflow:hidden;opacity:{{ contentOpacity }}">
+<section id="sec-foundry" style="position:absolute;top:0;left:calc(var(--page-margin) * 2);right:var(--page-margin);height:100vh;will-change:transform;padding:12vh 0 110px;max-width:940px;display:flex;flex-direction:column;justify-content:center;gap:28px">
+<div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
+
+<div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">The Foundry</div>
+<h2 style="font-family:var(--font-display);font-size:var(--font-size-display-m);font-weight:var(--font-weight-display-m);line-height:var(--line-height-display-m);letter-spacing:var(--tracking-tight);margin:0;color:#161311;max-width:32ch;text-wrap:balance">The next frontier of AI is the physical world. We extend foundation models downward into reality; an artificial general scientist, engineer, and inventor that learns through interaction.</h2>
+</section>
+<section id="sec-mission" style="position:absolute;top:0;left:calc(var(--page-margin) * 2);right:var(--page-margin);height:100vh;will-change:transform;padding-bottom:110px;display:flex;align-items:center;justify-content:center">
+<div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
+
+<div class="sf-loop" style="position:relative;width:min(85vh, 1040px);max-width:100%;aspect-ratio:1/1;margin:0 auto">
+<div style="position:absolute;inset:0;border-radius:50%;border:1px dashed var(--border-default)" data-loop-ring="1"></div>
+<div style="position:absolute;inset:26px;border-radius:50%;border:1px solid var(--border-subtle)" data-loop-ring="-0.6"></div>
+<svg data-loop-ring="0.45" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+<defs>
+<filter id="sf-flowGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.1" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+<linearGradient id="sfSegA" gradientUnits="userSpaceOnUse" x1="200" y1="50" x2="329.9" y2="275"><stop offset="0" stop-color="#E8703A"></stop><stop offset="0.97" stop-color="#E8703A"></stop><stop offset="1" stop-color="#7A9448"></stop></linearGradient>
+<linearGradient id="sfSegB" gradientUnits="userSpaceOnUse" x1="329.9" y1="275" x2="70.1" y2="275"><stop offset="0" stop-color="#7A9448"></stop><stop offset="0.97" stop-color="#7A9448"></stop><stop offset="1" stop-color="#5B8FDB"></stop></linearGradient>
+<linearGradient id="sfSegC" gradientUnits="userSpaceOnUse" x1="70.1" y1="275" x2="200" y2="50"><stop offset="0" stop-color="#5B8FDB"></stop><stop offset="0.97" stop-color="#5B8FDB"></stop><stop offset="1" stop-color="#E8703A"></stop></linearGradient>
+<mask id="sfArcMask">
+<g data-loop-ring="0.9" style="transform-origin:50% 50%" fill="none" stroke="#fff" stroke-width="3">
+<path d="M266.7,65.6 A150,150 0 0 1 349.18,184.32"></path>
+<path d="M283.0,324.9 A150,150 0 0 1 139.0,337.0"></path>
+<path d="M50.3,209.4 A150,150 0 0 1 111.83,78.65"></path>
+<g fill="#fff" stroke="none">
+<path d="M350.3,194.8 L343.2,184.9 L355.2,183.7 Z"></path>
+<path d="M129.4,332.7 L141.4,331.5 L136.6,342.5 Z"></path>
+<path d="M120.3,72.5 L115.4,83.5 L108.3,73.8 Z"></path>
+</g>
+</g>
+</mask>
+</defs>
+<g mask="url(#sfArcMask)" fill="none" stroke-width="18">
+<path d="M200,50 A150,150 0 0 1 329.9,275" stroke="url(#sfSegA)"></path>
+<path d="M329.9,275 A150,150 0 0 1 70.1,275" stroke="url(#sfSegB)"></path>
+<path d="M70.1,275 A150,150 0 0 1 200,50" stroke="url(#sfSegC)"></path>
+</g>
+</svg>
+<svg data-loop-ring="0.45" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;transform-origin:50% 50%">
+<g id="sf-flow" filter="url(#sf-flowGlow)"></g>
+</svg>
+<div id="sf-wm-glow" style="position:absolute;top:50%;left:50%;width:62%;height:62%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:1;background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.5) 42%, rgba(255,255,255,0) 70%)"></div>
+<div id="sf-wm-ring-inner" style="position:absolute;top:50%;left:50%;width:46%;height:46%;transform:translate(-50%,-50%) rotate(14deg)">
+<svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;overflow:hidden">
+<defs><clipPath id="sf-globe-clip"><circle cx="60" cy="60" r="55"></circle></clipPath></defs>
+<circle cx="60" cy="60" r="55" fill="rgba(147,180,222,0.34)"></circle>
+<g clip-path="url(#sf-globe-clip)">
+<line class="sf-wm-grat" x1="2" y1="60" x2="118" y2="60" stroke="rgba(60,54,48,0.22)" stroke-width="0.2"></line>
+<path class="sf-wm-grat" d="M12,32 Q60,44 108,32" fill="none" stroke="rgba(60,54,48,0.18)" stroke-width="0.2"></path>
+<path class="sf-wm-grat" d="M22,16 Q60,26 98,16" fill="none" stroke="rgba(60,54,48,0.14)" stroke-width="0.2"></path>
+<path class="sf-wm-grat" d="M12,88 Q60,76 108,88" fill="none" stroke="rgba(60,54,48,0.18)" stroke-width="0.2"></path>
+<path class="sf-wm-grat" d="M22,104 Q60,94 98,104" fill="none" stroke="rgba(60,54,48,0.14)" stroke-width="0.2"></path>
+</g>
+<g clip-path="url(#sf-globe-clip)">
+<g class="sf-wm-meridian" data-lon="0" fill="none" stroke="rgba(60,54,48,0.20)"><path class="sf-mer-b" d="" stroke-width="0.2" opacity="0.3"></path><path class="sf-mer-f" d="" stroke-width="0.2" opacity="0.9"></path></g>
+<g class="sf-wm-meridian" data-lon="60" fill="none" stroke="rgba(60,54,48,0.20)"><path class="sf-mer-b" d="" stroke-width="0.2" opacity="0.3"></path><path class="sf-mer-f" d="" stroke-width="0.2" opacity="0.9"></path></g>
+<g class="sf-wm-meridian" data-lon="120" fill="none" stroke="rgba(60,54,48,0.20)"><path class="sf-mer-b" d="" stroke-width="0.2" opacity="0.3"></path><path class="sf-mer-f" d="" stroke-width="0.2" opacity="0.9"></path></g>
+<path id="sf-globe-land" fill="rgba(60,54,48,0.13)" stroke="rgba(60,54,48,0.45)" stroke-width="0.5" stroke-linejoin="round" d=""></path>
+<path id="sf-globe-night" fill-rule="evenodd" fill="rgba(58,103,175,0.14)" d="M60,60 m-55,0 a55,55 0 1,0 110,0 a55,55 0 1,0 -110,0 M37,39 m-66,0 a66,66 0 1,0 132,0 a66,66 0 1,0 -132,0"></path>
+<ellipse cx="40" cy="36" rx="15" ry="9" transform="rotate(-28 40 36)" fill="rgba(58,103,175,0.07)"></ellipse>
+</g>
+<circle id="sf-wm-border" cx="60" cy="60" r="56" fill="none" stroke="rgba(60,54,48,0.4)" stroke-width="1"></circle>
+</svg>
+</div>
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+<span id="sf-wm-label" style="font:700 0.9375rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide);text-align:center">WORLD<br />MODEL</span>
+</div>
+<div data-loop-ring="0.45" style="position:absolute;inset:0;transform-origin:50% 50%">
+<div class="sf-loop-node" style="position:absolute;top:12.5%;left:50%;transform:translate(-50%,-50%);width:124px">
+<div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
+<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-accent)">01</div>
+<span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">MODEL</span>
+<span style="font:var(--text-body-s);color:#161311;text-align:center">Writes an executable model</span>
+</div>
+</div>
+<div class="sf-loop-node" style="position:absolute;top:68.75%;left:82.475%;transform:translate(-50%,-50%);width:124px">
+<div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
+<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-olive)">02</div>
+<span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">EXPLORE</span>
+<span style="font:var(--text-body-s);color:#161311;text-align:center">Probes what's uncertain</span>
+</div>
+</div>
+<div class="sf-loop-node" style="position:absolute;top:68.75%;left:17.525%;transform:translate(-50%,-50%);width:124px">
+<div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
+<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-ai)">03</div>
+<span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">UPDATE</span>
+<span style="font:var(--text-body-s);color:#161311;text-align:center">Tests against reality, feeds back</span>
+</div>
+</div>
+</div>
+</div>
+<div id="mission-copy" style="text-shadow:0 0 3px #F1ECE4, 0 0 6px #F1ECE4, 1px 1px 0 #F1ECE4, -1px 1px 0 #F1ECE4, 1px -1px 0 #F1ECE4, -1px -1px 0 #F1ECE4;position:absolute;left:0;bottom:6vh;width:300px;display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+<div style="position:relative;width:max-content;max-width:100%">
+<div style="position:relative;font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">Our mission</div>
+</div>
+<div style="position:relative;width:max-content;max-width:100%">
+<h2 style="position:relative;font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight);margin:0;text-wrap:balance">Every solution paves the way for solving what comes next.</h2>
+</div>
+<div style="width:300px;display:flex;flex-direction:column;gap:12px;font:400 1rem/1.5 var(--font-body);color:var(--text-secondary);text-wrap:pretty">
+<div style="position:relative;width:max-content;max-width:100%">
+<span style="position:relative">We build self-improving world models.</span>
+</div>
+<div style="position:relative;width:max-content;max-width:100%">
+<span style="position:relative">The LLM already holds a vast ontology of the world and externalizes it by writing programs, because a program is a model.</span>
+</div>
+<div style="position:relative;width:max-content;max-width:100%">
+<span style="position:relative">It writes an executable model of a domain, proposes minimal experiments to resolve what's uncertain, and tests its predictions against reality.</span>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-founders" style="position:absolute;top:0;left:calc(var(--page-margin) * 2);right:var(--page-margin);height:100vh;will-change:transform;padding:12vh 0 110px;max-width:900px;display:flex;flex-direction:column;justify-content:center;gap:44px">
+<div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
+
+<div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">About the co-founders</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px,1fr));gap:64px">
+<div style="display:flex;flex-direction:column;gap:16px;max-width:360px">
+<div style="width:160px;height:160px;border:1px solid var(--border-subtle)"><image-slot id="founder-jad" shape="rect" src="assets/founder-jad.webp" placeholder="Drop a photo of Jad"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px">
+<span style="font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight)">Jad Tarifi</span>
+<span style="font:var(--text-mono-s);color:var(--text-accent);letter-spacing:var(--tracking-wide)">CEO</span>
+</div>
+<p style="font:var(--text-body-m);color:var(--text-secondary);margin:0;text-wrap:pretty">Previous Tech Lead &amp; Manager at Google AI, YouTube, Amazon, &amp; CapitalOne. PhD in foundations of AGI.</p>
+<div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:4px">
+<img src="assets/logos/googleai-dark.svg" alt="Google AI" style="height:20px;width:auto" />
+<img src="assets/logos/youtube-dark.svg" alt="YouTube" style="height:18px;width:auto" />
+<img src="assets/logos/amazon-dark.svg" alt="Amazon" style="height:20px;width:auto" />
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;max-width:360px">
+<div style="width:160px;height:160px;border:1px solid var(--border-subtle)"><image-slot id="founder-nima" shape="rect" src="assets/founder-nima.webp" placeholder="Drop a photo of Nima"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px">
+<span style="font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight)">Nima Asgharbeygi</span>
+<span style="font:var(--text-mono-s);color:var(--text-accent);letter-spacing:var(--tracking-wide)">CTO</span>
+</div>
+<p style="font:var(--text-body-m);color:var(--text-secondary);margin:0;text-wrap:pretty">Previous Area Tech Lead for on-device AI at Google Maps. Co-founder &amp; CTO of CleverSense (acquired by Google in 2011).</p>
+<div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:4px">
+<img src="assets/logos/google.svg" alt="Google" style="height:20px;width:auto" />
+<img src="assets/logos/cleversense.png" alt="CleverSense" style="height:26px;width:auto" />
+<span style="display:inline-flex;align-items:center;background:#E4E1DA;border-radius:var(--radius-pill);padding:5px 12px"><img src="assets/logos/stanford.png" alt="Stanford University" style="height:18px;width:auto" /></span>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-contact" style="position:absolute;top:0;left:calc(var(--page-margin) * 2);right:var(--page-margin);height:100vh;will-change:transform;padding:12vh 0 110px;max-width:820px;display:flex;flex-direction:column;justify-content:center;gap:22px">
+<div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
+
+<div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">Contact</div>
+<h2 style="font-family:var(--font-display);font-size:var(--font-size-display-m);font-weight:var(--font-weight-display-m);line-height:var(--line-height-display-m);letter-spacing:var(--tracking-tight);margin:0">Work with the foundry.</h2>
+<a href="mailto:jad@superfoundry.dev" style="font:var(--text-body-l);color:var(--text-accent);width:max-content">jad@superfoundry.dev</a>
+</section>
+</main>
+<div id="scroll-track" style="height:500vh;pointer-events:none"></div>
+<div style="position:fixed;inset:0;z-index:40;background:#FBF8F3;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;padding:11vh var(--page-margin) 0 calc(var(--page-margin) * 2);cursor:pointer;transition:opacity 900ms cubic-bezier(0.2,0,0,1);opacity:{{ curtainOpacity }};pointer-events:{{ curtainEvents }}" ref="{{ curtainRef }}" onClick="{{ open }}">
+<video ref="{{ videoRef }}" src="uploads/space.webm" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear;filter:invert(1) hue-rotate(180deg) saturate(1.45) brightness(1.14) contrast(1.06);mix-blend-mode:multiply"></video>
+<video ref="{{ blendRef }}" src="uploads/space.webm" playsInline="playsinline" preload="auto" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:invert(1) hue-rotate(180deg) saturate(1.45) brightness(1.14) contrast(1.06);mix-blend-mode:screen;opacity:0"></video>
+<svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none" aria-hidden="true"><defs><pattern id="hatchTile" width="{{ tile }}" height="{{ tile }}" patternUnits="userSpaceOnUse"><path d="{{ tilePath }}" stroke="#2A2521" stroke-opacity="{{ tileOpacity }}" stroke-width="{{ tileWeight }}" stroke-linecap="round"></path></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#hatchTile)"></rect></svg>
+<div ref="{{ heroRef }}" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;gap:28px;opacity:0;transition:opacity 500ms cubic-bezier(0.2,0,0,1)">
+<img src="assets/logo/aleph-mark-light.svg" style="height:132px;width:auto;align-self:center" />
+<h1 style="font-family:var(--font-display);font-weight:var(--font-weight-display-l);line-height:1.02;letter-spacing:var(--tracking-tight);margin:0;color:#161311;display:flex;flex-direction:column;align-items:center;text-align:center;margin-left:0">
+<span style="font-size:calc(var(--font-size-display-l) * 0.58)">From Generative AI to</span>
+<span style="font-size:var(--font-size-display-l)">Creative AGI</span>
+</h1>
+</div>
+</div>
+
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;backdrop&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Galaxy&quot;,&quot;options&quot;:[&quot;Galaxy&quot;,&quot;Charcoal&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Page&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;headline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;From Generative AI to Creative AGI&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;maintenanceLock&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Access&quot;},&quot;snappiness&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2.5,&quot;min&quot;:0.5,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;starDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0.2,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Starfield&quot;},&quot;introOutStart&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:2,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;introOutEnd&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:6,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;blendFadeSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:0.5,&quot;max&quot;:8,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;revealSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:4,&quot;min&quot;:0.5,&quot;max&quot;:5,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;holdSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0,&quot;max&quot;:4,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;overlayPattern&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;diagonal /&quot;,&quot;options&quot;:[&quot;diagonal /&quot;,&quot;diagonal \\&quot;,&quot;cross hatch&quot;,&quot;dots&quot;,&quot;vertical&quot;,&quot;horizontal&quot;,&quot;none&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:7,&quot;min&quot;:2,&quot;max&quot;:24,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.1,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayWeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:6,&quot;step&quot;:0.5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;}}">
 class Component extends DCLogic {
-  state = { sent: false, unlocked: (() => { try { return sessionStorage.getItem('sf-gate') === '1'; } catch (e) { return false; } })(), pwError: false };
+  state = { open: !!this.props.startOpen, active: 'foundry', unlocked: sessionStorage.getItem('sf-ml') === '1' };
+
+  pwRef = React.createRef();
+
+  video = React.createRef();
+  blend = React.createRef();
+  curtain = React.createRef();
+  content = React.createRef();
+  hero = React.createRef();
+
   componentDidMount() {
-    // iOS/Safari can't composite WebM alpha — swap to the navy-baked WebM there
-    // (the hero logo sits on solid #000410, so it looks identical).
-    const ua = navigator.userAgent;
-    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const isSafari = /Safari/.test(ua) && !/Chrome|CriOS|Android/.test(ua);
-    // iOS/Safari can't composite WebM alpha — point the same element at the
-    // navy-baked WebM and let the shared `start()` logic below handle playback
-    // (this is the code path that worked before).
-    if (isIOS || isSafari) {
-      // only alpha-channel logo videos need the navy swap — never the opaque hero bg
-      document.querySelectorAll('video').forEach((v) => {
-        if (!/sf-logo/.test(v.currentSrc || v.src)) return;
-        v.addEventListener('error', () => {
-          const img = document.createElement('img');
-          img.src = 'assets/logo/sf-logo.png';
-          img.alt = 'Superintelligence Foundry';
-          img.style.cssText = v.style.cssText;
-          v.replaceWith(img);
-        }, { once: true });
-        v.src = 'assets/logo/sf-logo-navy.webm';
+    this.lockScroll = (on) => {
+      document.documentElement.style.overflow = on ? 'hidden' : '';
+      document.body.style.overflow = on ? 'hidden' : '';
+      if (on) window.scrollTo(0, 0);
+    };
+    this.lockScroll(!this.state.open);
+    const showHero = () => {
+      if (this._heroShown) return;          // idempotent: the fallback timer must
+      this._heroShown = true;               // not re-show a hero already fading out
+      this._fontsReady = true;
+      const h = this.hero.current;
+      if (!h) return;
+      const t0 = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / 500);
+        h.style.opacity = p.toFixed(3);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      h.style.transition = 'none';
+      requestAnimationFrame(step);
+    };
+    // wait for the design-system tokens AND the webfonts before showing the
+    // intro block — otherwise it lays out at fallback metrics and reflows.
+    const tokensReady = () => getComputedStyle(document.documentElement).getPropertyValue('--font-size-display-l').trim() !== '';
+    const whenStyled = () => new Promise(res => {
+      const t0 = Date.now();
+      const poll = () => (tokensReady() || Date.now() - t0 > 2500) ? res() : setTimeout(poll, 40);
+      poll();
+    });
+    this._gate = { fonts: false, video: false };
+    const tryEnter = () => {
+      if (this._gate.fonts && this._gate.video) requestAnimationFrame(showHero);
+    };
+    this._tryEnter = tryEnter;
+    whenStyled()
+      .then(() => (document.fonts && document.fonts.ready) ? document.fonts.ready : null)
+      .then(() => { this._gate.fonts = true; tryEnter(); });
+    this._heroFallback = setTimeout(() => { this._gate.fonts = true; this._gate.video = true; showHero(); }, 3000);
+    const v = this.video.current, b = this.blend.current;
+    [v, b].forEach(el => {
+      if (!el) return;
+      el.muted = true; el.defaultMuted = true; el.volume = 0;
+      const go = () => { const p = el.play(); if (p) p.catch(err => { if (!this._playWarned) { this._playWarned = true; console.warn('[intro] video play() rejected:', err && err.name); } }); };
+      go();
+      el.addEventListener('canplay', go, { once: true });
+      // hold the first painted frame back until decode has actually started,
+      // otherwise the poster frame flashes before playback
+      if (el !== b) {
+        const showWhenPainting = () => {
+          if (el.currentTime > 0.02 && el.readyState >= 3) {
+            el.style.opacity = '1';
+            el.removeEventListener('timeupdate', showWhenPainting);
+            this._gate.video = true;
+            this._tryEnter();
+          }
+        };
+        el.addEventListener('timeupdate', showWhenPainting);
+      }
+      document.addEventListener('pointerdown', go, { once: true });
+    });
+    if (v && b) {
+      const fade = () => Math.max(0.1, this.props.blendFadeSeconds ?? 3);
+      this.onTime = () => {
+        const d = v.duration;
+        if (!d || !isFinite(d) || this.state.open) return;
+        const left = d - v.currentTime, f = fade();
+        b.style.opacity = left < f ? Math.min(1, (f - left) / f).toFixed(3) : '0';
+        if (Math.abs(b.currentTime - v.currentTime) > 0.08) b.currentTime = v.currentTime;
+        const r = this.curtain.current, c = this.content.current;
+        const rw = Math.max(0.1, this.props.revealSeconds ?? 1.5);
+        const reveal = left < rw, prog = reveal ? Math.min(1, (rw - left) / rw) : 0;
+        if (r) {
+          r.style.mixBlendMode = 'normal';
+          r.style.backgroundColor = '#FBF8F3';
+          r.style.transition = 'none';
+          r.style.opacity = reveal ? (1 - prog).toFixed(3) : '1';
+        }
+        if (c) c.style.opacity = reveal ? (prog * prog).toFixed(3) : '0';
+        const sw = document.getElementById('sf-stars');
+        const lockedNow = (this.props.maintenanceLock ?? true) && !this.state.unlocked;
+        if (sw && !lockedNow) { sw.style.transition = 'none'; sw.style.opacity = reveal ? prog.toFixed(3) : '0'; }
+        else if (sw) { sw.style.transition = 'none'; sw.style.opacity = '1'; }
+        const hero = this.hero.current;
+        if (hero && this._fontsReady) {
+          const s = this.props.introOutStart ?? 5, e = this.props.introOutEnd ?? 2;
+          hero.style.opacity = left >= s ? '1' : Math.max(0, Math.min(1, (left - e) / Math.max(0.1, s - e))).toFixed(3);
+        }
+      };
+      v.addEventListener('timeupdate', this.onTime);
+      v.addEventListener('ended', () => {
+        const hold = (this.props.holdSeconds ?? 1.5) * 1000;
+        if (this.content.current) this.content.current.style.opacity = '1';
+        this.holdTimer = setTimeout(() => { if (this.lockScroll) this.lockScroll(false); this.setState({ open: true }); }, hold);
+      });
+      this.tick = setInterval(this.onTime, 60);
+      const bail = (why) => {
+        if (this.state.open || this._bailed) return;
+        this._bailed = true;
+        console.warn('[intro] skipping splash:', why);
+        const r = this.curtain.current;
+        if (r) { r.style.mixBlendMode = 'normal'; r.style.backgroundColor = 'transparent'; }
+        if (this.content.current) this.content.current.style.opacity = '1';
+        if (this.lockScroll) this.lockScroll(false);
+        this.setState({ open: true });
+      };
+      ['error', 'stalled', 'abort'].forEach(ev => v.addEventListener(ev, () => bail('video ' + ev)));
+      this._watchdog = setTimeout(() => {
+        if (!isFinite(v.duration) || v.currentTime < 0.05) bail('video never started');
+      }, 6000);
+    }
+    this.onScroll = () => {
+      const ids = ['foundry', 'mission', 'founders', 'contact'];
+      const vh = window.innerHeight || 800;
+      const act = ids[((Math.round(window.scrollY / vh) % ids.length) + ids.length) % ids.length];
+      // safety net: parked at the very bottom with no glide running means a gesture
+      // overshot the wrap slot — rebase so scrolling can continue
+      if (!this._snapping && window.scrollY >= vh * 4 - 2 && this.rebaseWrap) {
+        this._snapping = true; this.rebaseWrap();
+      }
+      if (act === this._act) return;
+      this._act = act;
+      ids.forEach(id => {
+        const el = document.getElementById('nav-' + id);
+        if (el) el.style.color = id === act ? 'var(--text-primary)' : 'var(--text-tertiary)';
+      });
+    };
+    this.onScroll();
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.buildStars();
+    this.buildStreaks();
+    this.initStars();
+    this.initLoop();
+    this.initSnap();
+    this.initPan();
+    // centre the mark over the word "foundry" (measured, since the label width
+    // depends on the loaded font)
+    const centreMark = () => {
+      const row = document.getElementById('nav-foundry');
+      if (!row) return;
+      const label = row.lastChild;
+      const w = label && label.nodeType === 3
+        ? (() => { const r = document.createRange(); r.selectNode(label); return r.getBoundingClientRect().width; })()
+        : 56;
+      document.documentElement.style.setProperty('--nav-label-w', w.toFixed(1) + 'px');
+    };
+    centreMark();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(centreMark);
+    // the margin rule spans exactly the content beside it, measured from the chapter's own
+    // children rather than a guessed viewport inset
+    this.fitRules = () => {
+      ['sec-foundry', 'sec-mission', 'sec-founders', 'sec-contact'].forEach(id => {
+        const sec = document.getElementById(id);
+        const rule = sec && sec.querySelector('.sf-rule');
+        if (!rule) return;
+        // sections carry a z-path scale() while off-centre; viewport measurements include
+        // it but rule.style.top applies pre-transform, so divide the scale back out
+        const m = new DOMMatrixReadOnly(getComputedStyle(sec).transform === 'none' ? '' : getComputedStyle(sec).transform);
+        const sc = m.a || 1;
+        const base = sec.getBoundingClientRect().top;
+        let top = Infinity, bottom = -Infinity;
+        // mission measures its copy block only: the loop animation is a graphic, not text
+        const copy = id === 'sec-mission' ? sec.querySelector('#mission-copy') : null;
+        const kids = copy ? [copy] : Array.from(sec.children);
+        kids.forEach(ch => {
+          if (ch === rule) return;
+          const r = ch.getBoundingClientRect();
+          if (!r.height) return;
+          top = Math.min(top, (r.top - base) / sc);
+          bottom = Math.max(bottom, (r.bottom - base) / sc);
+        });
+        if (!isFinite(top) || bottom <= top) return;
+        rule.style.top = top.toFixed(1) + 'px';
+        rule.style.height = (bottom - top).toFixed(1) + 'px';
+      });
+    };
+    this.fitRules();
+    window.addEventListener('resize', this.fitRules);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(this.fitRules);
+    setTimeout(this.fitRules, 600);
+  }
+
+
+
+  // stars are drawn to one big offscreen tile with seeded jitter — the old stack of
+  // repeating radial-gradients lined them up on a grid
+  buildStars() {
+    if (this._starsBuilt) return;
+    this._starsBuilt = true;
+    const W = 1600, H = 1200;
+    let seed = 8675309;
+    const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+    const dens = Math.max(0.1, this.props.starDensity ?? 1) * (window.innerWidth < 700 ? 0.55 : 1);
+    const SUB = window.innerWidth < 700 ? 2 : 4;
+    const specs = [
+      ['sf-stars-far', Math.round(182 * dens), [0.7, 1.3], [0.28, 0.5]],
+      ['sf-stars-mid', Math.round(91 * dens), [1.1, 1.9], [0.4, 0.7]],
+      ['sf-stars-near', Math.round(42 * dens), [1.7, 2.8], [0.6, 0.95]]
+    ];
+    specs.forEach(([id, count, size, alpha]) => {
+      const host = document.getElementById(id);
+      if (!host) return;
+      host.innerHTML = '';
+      host.style.backgroundImage = 'none';
+      // two star populations per band, half a zoom-cycle apart: as one grows past the
+      // viewer and fades, the other rises from the distance — an endless forward dolly
+      for (let gi = 0; gi < 2; gi++) {
+      const grp = document.createElement('div');
+      grp.className = 'sf-star-grp';
+      grp.style.cssText = 'position:absolute;inset:0;transform-origin:50% 50%;will-change:transform,opacity';
+      host.appendChild(grp);
+      // each depth band is split across four tiles so groups of stars can breathe on their
+      // own period and phase — one baked tile could only pulse as a single block
+      for (let sub = 0; sub < SUB; sub++) {
+      const el = document.createElement('div');
+      el.className = 'sf-star-tile';
+      el.style.cssText = 'position:absolute;inset:0;background-repeat:repeat';
+      el.dataset.per = (4.5 + rnd() * 5).toFixed(2);
+      el.dataset.ph = (rnd() * 6.283).toFixed(3);
+      el.dataset.amp = (0.12 + rnd() * 0.2).toFixed(3);
+      grp.appendChild(el);
+      const cv = document.createElement('canvas');
+      cv.width = W; cv.height = H;
+      const g = cv.getContext('2d');
+      for (let i = 0; i < Math.round(count / SUB); i++) {
+        const x = rnd() * W, y = rnd() * H;
+        const r = size[0] + rnd() * (size[1] - size[0]);
+        const a = alpha[0] + rnd() * (alpha[1] - alpha[0]);
+        const hue = rnd();
+        const col = hue > 0.9 ? '58,103,175' : (hue > 0.84 ? '196,85,31' : '255,255,255');
+        // draw every star in all nine wrapped positions: a star clipped at the tile edge
+        // reappears on the opposite edge, so the repeat has no visible seam
+        const R = r * 2.2;
+        for (const ox of [-W, 0, W]) {
+          for (const oy of [-H, 0, H]) {
+            const cx = x + ox, cy = y + oy;
+            if (cx < -R || cx > W + R || cy < -R || cy > H + R) continue;
+            const grad = g.createRadialGradient(cx, cy, 0, cx, cy, R);
+            grad.addColorStop(0, 'rgba(' + col + ',' + a.toFixed(3) + ')');
+            grad.addColorStop(0.45, 'rgba(' + col + ',' + (a * 0.45).toFixed(3) + ')');
+            grad.addColorStop(1, 'rgba(' + col + ',0)');
+            g.fillStyle = grad;
+            g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.fill();
+          }
+        }
+      }
+      el.style.backgroundImage = 'url(' + cv.toDataURL('image/png') + ')';
+      el.style.backgroundSize = W + 'px ' + H + 'px';
+      }
+      }
+    });
+  }
+
+  // accent zoom lines: thin ember / azure / olive streaks on three depth bands, only
+  // visible while the camera is actually travelling
+  buildStreaks() {
+    const rnd = Math.random;
+    const mob = window.innerWidth < 700 ? 0.6 : 1;
+    const COLS = ['232,112,58', '91,143,219', '122,148,72', '255,255,255'];
+    const specs = [
+      ['sf-streaks-far', Math.round(22 * mob), [60, 150], 1, [0.35, 0.55]],
+      ['sf-streaks-mid', Math.round(15 * mob), [120, 280], 2, [0.5, 0.75]],
+      ['sf-streaks-near', Math.round(9 * mob), [220, 460], 3, [0.65, 0.95]]
+    ];
+    specs.forEach(([id, count, len, h, alpha]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      let html = '';
+      // shared vanishing point in the distance, on the travel heading
+      const VPX = 80, VPY = 50, ASP = 1.8;
+      for (let i = 0; i < count; i++) {
+        const y = rnd() * 100, x = rnd() * 100;
+        const L = len[0] + rnd() * (len[1] - len[0]);
+        const a = alpha[0] + rnd() * (alpha[1] - alpha[0]);
+        const c = COLS[Math.floor(rnd() * COLS.length) % COLS.length];
+        // ray toward the VP, but held close to the travel axis (the actual motion of the
+        // content): deviation clamped so every line still reads as moving with the pan
+        let deg = Math.atan2(y - VPY, (x - VPX) * ASP) * 180 / Math.PI;
+        deg = ((deg % 180) + 270) % 180 - 90; // fold to [-90,90) about the travel axis
+        // now that streaks visibly race the camera, any real deviation from the travel
+        // axis reads as a wrong angle — keep only a whisper of convergence
+        deg = 3.5 * Math.tanh(deg / 18);
+        html += '<div style="position:absolute;top:' + y.toFixed(2) + '%;left:' + x.toFixed(2) +
+          '%;width:' + L.toFixed(0) + 'px;height:' + h + 'px;border-radius:' + h +
+          'px;transform:rotate(' + deg.toFixed(2) + 'deg);transform-origin:50% 50%;background:linear-gradient(90deg,rgba(' + c + ',0) 0%,rgba(' + c + ',' + a.toFixed(2) +
+          ') 55%,rgba(' + c + ',0) 100%)"></div>';
+      }
+      el.innerHTML = html;
+    });
+  }
+
+  // the starfield drifts with the chapters: layers stream outward at different rates
+  initStars() {
+    const LAYERS = [['sf-stars-far', 0.035, 6], ['sf-stars-mid', 0.09, 15], ['sf-stars-near', 0.20, 32]];
+    // depth bands travel at very different rates and scale apart as they pass
+    const STREAKS = [['sf-streaks-far', 260, 0.5], ['sf-streaks-mid', 620, 1], ['sf-streaks-near', 1300, 1.9]];
+    const paint = () => {
+      // a template re-render can recreate the host divs and drop the built tiles —
+      // detect the wipe and rebuild
+      const farHost = document.getElementById('sf-stars-far');
+      if (farHost && !farHost.children.length) { this._starsBuilt = false; this.buildStars(); this.buildStreaks(); }
+      const raw = window.scrollY / (window.innerHeight || 800);
+      // the field runs on its own accumulated phase rather than raw scroll position: the
+      // chapter loop's rebase is a teleport, and skipping that one delta means the stars
+      // keep travelling straight through the seam instead of snapping back
+      const prev = this._starRaw == null ? raw : this._starRaw;
+      let d = raw - prev;
+      if (Math.abs(d) > 1.5) d = 0;
+      this._starRaw = raw;
+      this._starPhase = (this._starPhase || 0) + d;
+      // forward-only odometer: travel in either direction always moves the camera ahead
+      this._zoomP = (this._zoomP || 0) + Math.abs(d);
+      const t = this._starPhase, tz = this._zoomP;
+      const TAN_IN = -Math.tan(20 * Math.PI / 180), TAN_OUT = -Math.tan(10 * Math.PI / 180);
+      // idle float: a slow, barely-there drift so the camera never feels locked down
+      const ft = performance.now() / 1000;
+      LAYERS.forEach(([id, k, dx], li) => {
+        const el = document.getElementById(id);
+        // parallax: near layers swing several times further than far ones, on one shared
+        // rhythm so the whole field reads as a single camera drift
+        const amp = 5 + li * li * 11;
+        const fx = Math.sin(ft * 0.11) * amp;
+        const fy = Math.sin(ft * 0.079 + 1.1) * amp * 0.72;
+        if (!el) return;
+        // travel is painted as background offset on a repeating tile, so it wraps forever
+        // and the chapter loop's rebase lands on an identical field — the old transform
+        // translate + scale ramp grew without bound and jumped at the seam
+        const px = -t * dx * 12, py = px * TAN_IN;
+        const bp = `${px.toFixed(1)}px ${py.toFixed(1)}px`;
+        el.style.transform = `translate3d(${fx.toFixed(1)}px,${fy.toFixed(1)}px,0)`;
+        // continuous forward dolly: each band's two populations cycle scale 0.5→2 half a
+        // cycle apart (sin² envelopes sum to 1), so the field only ever moves toward the
+        // viewer — near bands advance fastest
+        const ZR = [0.05, 0.11, 0.21][li];
+        for (let gi = 0; gi < el.children.length; gi++) {
+          const grp = el.children[gi];
+          const q = ((tz * ZR + gi * 0.5) % 1 + 1) % 1;
+          grp.style.transform = `scale(${Math.pow(2, 2 * q - 1).toFixed(4)})`;
+          const env = Math.sin(Math.PI * q);
+          grp.style.opacity = (env * env).toFixed(3);
+          for (const tile of grp.children) {
+            tile.style.backgroundPosition = bp;
+            const per = +tile.dataset.per || 6, ph = +tile.dataset.ph || 0, a = +tile.dataset.amp || 0.15;
+            tile.style.opacity = (1 - a + a * Math.sin(ft * (6.283 / per) + ph)).toFixed(3);
+          }
+        }
+      });
+      // speed of travel, smoothed, drives streak visibility and stretch
+      const now = performance.now();
+      const dt = Math.max(16, now - (this._strT || now - 16));
+      const v = Math.min(1, Math.abs(t - (this._strP == null ? t : this._strP)) / (dt / 1000) / 0.75);
+      this._strT = now; this._strP = t;
+      // rise fast, decay slow, so the streaks trail off instead of snapping out
+      const prevV = this._strV || 0;
+      this._strV = v > prevV ? prevV * 0.72 + v * 0.28 : prevV * 0.925 + v * 0.075;
+      const sv = this._strV;
+      // streaks must outrun the camera: while visible, integrate extra travel at a rate
+      // proportional to glide speed — pure scroll-coupled translation reads as standing still
+      const dir = Math.sign(t - (this._strP2 == null ? t : this._strP2)) || this._strDir || 1;
+      this._strP2 = t; this._strDir = dir;
+      this._strDrift = (this._strDrift || 0) + (dt / 1000) * sv * sv * 2.4 * dir;
+      const drift = this._strDrift;
+      STREAKS.forEach(([id, dx, k]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        // streaks ride the 20deg incoming vector, and the whole layer is rotated to match
+        // travel measured from the last re-roll; growth and drift saturate so a long
+        // continuous scroll can never push the whole field past the camera
+        const rawP = Math.abs(t - (this._strBase || 0));
+        // near-linear over a full chapter glide: motion persists while the lines are visible
+        // (a fast-saturating curve here finishes the travel before the opacity gate opens)
+        const prog = 2.8 * (1 - Math.exp(-rawP / 2.2));
+        const px = -(Math.sign(t - (this._strBase || 0)) * prog + drift) * dx, py = px * TAN_IN;
+        // forward dolly: growth tracks distance travelled (monotonic), never speed — so the
+        // lines only ever swell toward the viewer and hold their size as they fade, no zoom-out
+        el.style.transform = `translate3d(${px.toFixed(1)}px,${py.toFixed(1)}px,0) rotate(-20deg) scale(${(1 + prog * (0.05 + k * 0.10)).toFixed(3)}) scaleX(${(1 + prog * k * 0.9).toFixed(3)})`;
+        // eased tail: opacity falls off on a curve rather than linearly with speed
+        // the fade starts while the glide is still moving: everything below a speed floor
+        // reads as zero, so the tail begins earlier without shortening the ease
+        const o = Math.min(1, Math.max(0, (sv - 0.22) / 0.78) * (1.9 + k * 0.6));
+        el.style.opacity = (o * o * (3 - 2 * o)).toFixed(3);
+      });
+      // once the streaks have faded out, re-roll the field so the next glide gets fresh lines
+      if (sv < 0.05) {
+        if (sv <= 0.002) this._strV = 0;
+        // invisible and parked: if we've landed on a different chapter than the field was
+        // rolled for, roll a fresh one so every transition gets new lines
+        const ci = Math.round(raw);
+        if (this._strChap !== ci) { this._strChap = ci; this._strBase = t; this._strDrift = 0; this.buildStreaks(); }
+        // parked with stale travel (same-chapter scroll, or a return trip): re-arm so the
+        // next glide starts its dolly from zero instead of the saturated end of the curve
+        else if (sv <= 0.002 && Math.abs(t - (this._strBase || 0)) > 0.02) { this._strBase = t; this._strDrift = 0; this.buildStreaks(); }
+      }
+      // the loop stays alive to carry the idle float
+      this._starRaf = requestAnimationFrame(paint);
+    };
+    this.onStarScroll = () => { if (!this._starRaf) this._starRaf = requestAnimationFrame(paint); };
+    window.addEventListener('scroll', this.onStarScroll, { passive: true });
+    window.addEventListener('resize', this.onStarScroll);
+    paint();
+  }
+
+  // vertical wheel input pans the chapters sideways: chapter i sits one viewport-width
+  // to the right of chapter i-1, and scroll position i * vh frames it
+  initPan() {
+    const ids = ['foundry', 'mission', 'founders', 'contact'];
+    const apply = () => {
+      const vh = window.innerHeight || 800;
+      const span = window.innerWidth || 1200;
+      const N = ids.length;
+      const p = Math.max(0, Math.min(N, window.scrollY / vh));
+      const TAN_IN = -Math.tan(20 * Math.PI / 180), TAN_OUT = -Math.tan(10 * Math.PI / 180);
+      ids.forEach((id, i) => {
+        const el = document.getElementById('sec-' + id);
+        if (!el) return;
+        const rep = i + N * Math.round((p - i) / N);
+        const dx = (rep - p) * span;
+        // the path is a shallow arc, not a straight line: chapters arrive on a rising
+        // angle, flatten through the framing point, and leave level
+        const u = dx / span;
+        const dy = u > 0
+          ? (u * TAN_IN * span + u * u * span * 0.10)
+          : (u * TAN_OUT * span);
+        // ~10deg forward (z) component: an incoming chapter sits further down the path so
+        // it reads smaller, and grows to full size as the camera advances onto it; an
+        // outgoing chapter swells slightly as we move past it
+        const TAN_Z = Math.tan(10 * Math.PI / 180);
+        const s = u > 0 ? Math.max(0.72, 1 - u * TAN_Z * 0.9) : Math.min(1.14, 1 + (-u) * TAN_Z * 0.5);
+        el.style.transform = `translate3d(${dx.toFixed(1)}px,${dy.toFixed(1)}px,0) scale(${s.toFixed(3)})`;
+        el.style.visibility = Math.abs(rep - p) > 1.02 ? 'hidden' : 'visible';
+      });
+      this._panRaf = null;
+    };
+    this.onPanScroll = () => { if (!this._panRaf) this._panRaf = requestAnimationFrame(apply); };
+    window.addEventListener('scroll', this.onPanScroll, { passive: true });
+    window.addEventListener('resize', this.onPanScroll);
+    apply();
+  }
+
+  chapterTops() {
+    const vh = window.innerHeight || 800;
+    // four chapters plus a wrap slot (index 4 frames foundry again, then normalises to 0)
+    return [0, 1, 2, 3, 4].map(i => i * vh);
+  }
+
+  // custom snap: slower, eased glide to the nearest chapter after scrolling stops
+  initSnap() {
+    // snappiness scales the whole feel: glide length, how little travel commits a gesture,
+    // and how long we wait on a single-event scroll
+    const snap = () => Math.max(0.4, this.props.snappiness ?? 1);
+    // returns the scrollbar to the top after the wrap slot, so travel can continue
+    const rebase = () => {
+      window.scrollTo(0, 0);
+      this._chapIdx = 0;
+      clearTimeout(this._snapTimer);
+      this._snapFrom = null; this._lastY = 0;
+      this._landedAt = performance.now();
+      // released on a timer, not a frame: a backgrounded tab pauses frames and would leave
+      // the snap lock stuck on, which silently disables every later gesture
+      setTimeout(() => {
+        this._snapFrom = null; this._lastY = window.scrollY;
+        this._snapping = false; this._strDirty = true;
+        // second leg of a forward-only nav jump that passed through the wrap
+        if (this._jumpNext != null) { const n = this._jumpNext; this._jumpNext = null; animate(n); }
+      }, 0);
+    };
+    this.rebaseWrap = rebase;
+    const animate = (to) => {
+      let from = window.scrollY;
+      if (Math.abs(to - from) < 2) {
+        // a hard flick can land on the wrap slot before the glide starts: rebase anyway,
+        // otherwise the page sits pinned at the bottom emitting no more scroll events
+        const vh = window.innerHeight || 800;
+        if (to >= vh * 4 - 2) { this._snapping = true; rebase(); }
+        return;
+      }
+      this._snapping = true;
+      const dur = 3000 / snap();
+      const t0 = this._snapT0 = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        // accelerate through the travel, then a long quintic tail eases into the section
+        const e = p < 0.35 ? (p / 0.35) * (p / 0.35) * 0.5 : 0.5 + 0.5 * (1 - Math.pow(1 - (p - 0.35) / 0.65, 5));
+        let y = from + (to - from) * e;
+        // a nav jump whose target lies past the wrap slot glides straight through it:
+        // the field at 4vh is identical to 0, so shift both endpoints down mid-flight
+        const vh4 = (window.innerHeight || 800) * 4;
+        if (to > vh4 && y >= vh4) {
+          from -= vh4; to -= vh4; y -= vh4;
+          this._chapIdx = 0; this._snapFrom = null; this._lastY = y;
+        }
+        window.scrollTo(0, y);
+        if (p < 1) this._snapRaf = requestAnimationFrame(step);
+        else {
+          const vh = window.innerHeight || 800;
+          this._chapIdx = Math.round(window.scrollY / vh);
+          this._landedAt = performance.now();
+          this._absorbing = this._landedAt - (this._evT || 0) < 220;
+          if (window.scrollY >= vh * 4 - 2) { rebase(); return; }
+          this._snapping = false; this._strDirty = true;
+        }
+      };
+      this._snapRaf = requestAnimationFrame(step);
+    };
+    this.snapTo = animate;
+    // fire as soon as the gesture has clearly committed to a direction, instead of waiting
+    // for the wheel/trackpad momentum to run out
+    const commit = () => {
+      const vh0 = window.innerHeight || 800;
+      const parked = this._chapIdx;
+      const from0 = parked != null ? parked * vh0 : this._snapFrom;
+      let dir = Math.sign(window.scrollY - from0);
+      if (!dir) dir = Math.sign(window.scrollY - this._snapFrom);
+      if (!dir) return false;
+      clearTimeout(this._snapTimer);
+      this._snapFrom = null; this._lastY = null;
+      const list = this.chapterTops();
+      const vh = window.innerHeight || 800;
+      let idx = baseIdx(from0, vh) + (dir > 0 ? 1 : -1);
+      if (idx < 0) { window.scrollTo(0, vh * 4); idx = 3; }
+      idx = Math.max(0, Math.min(list.length - 1, idx));
+      if (list[idx] != null) animate(list[idx]);
+      return true;
+    };
+    const baseIdx = (from0, vh) => {
+      const pos = from0 / vh;
+      const parked = this._chapIdx;
+      if (parked != null && Math.abs(pos - parked) < 0.9) return parked;
+      return Math.round(pos);
+    };
+    const wrapBack = () => {
+      window.__wrapDbg = { snapping: !!this._snapping, y: window.scrollY, t: Date.now() };
+      // a stale lock (paused frames, interrupted glide) must not disable the wrap forever
+      const stale = this._snapT0 == null || performance.now() - this._snapT0 > 1200;
+      if ((this._snapping && !stale) || window.scrollY > 2) return false;
+      const vh = window.innerHeight || 800;
+      clearTimeout(this._snapTimer);
+      this._snapFrom = null; this._lastY = null;
+      window.scrollTo(0, vh * 4);
+      this._chapIdx = 4;
+      animate(vh * 3);
+      return true;
+    };
+    const stepBy = (dir) => {
+      this._jumpNext = null;
+      const vh = window.innerHeight || 800;
+      const base = this._chapIdx != null ? this._chapIdx : Math.round(window.scrollY / vh);
+      if (dir < 0 && base <= 0) { wrapBack(); return; }
+      const idx = Math.max(0, Math.min(4, base + dir));
+      animate(idx * vh);
+    };
+    this.onWrapWheel = (e) => {
+      e.preventDefault();
+      const nowT = performance.now();
+      const gap = nowT - (this._wT || 0);
+      this._wT = nowT;
+      if (gap > 220) this._wAcc = 0;
+      if (this._snapping) { this._wAcc = 0; return; }
+      // the tail of a flick is ignored for a moment after landing, so an overshoot doesn't
+      // immediately buy the next chapter
+      if (this._landedAt != null && nowT - this._landedAt < 700 / snap()) { this._wAcc = 0; return; }
+      this._wAcc = (this._wAcc || 0) + e.deltaY;
+      if (Math.abs(this._wAcc) < 42) return;
+      const dir = this._wAcc > 0 ? 1 : -1;
+      this._wAcc = 0;
+      stepBy(dir);
+    };
+    this.onWrapKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (['ArrowDown', 'ArrowRight', 'PageDown'].indexOf(e.key) >= 0) {
+        e.preventDefault();
+        if (!this._snapping) stepBy(1);
+      } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].indexOf(e.key) >= 0) {
+        e.preventDefault();
+        if (!this._snapping && !wrapBack()) stepBy(-1);
+      } else if (e.key === 'Home') {
+        wrapBack();
+      }
+    };
+    this.onWrapTouchStart = (e) => {
+      const t0 = e.touches[0];
+      this._touchY = t0 ? t0.clientY : null;
+      this._touchX = t0 ? t0.clientX : null;
+      this._touchAcc = 0;
+    };
+    this.onWrapTouchMove = (e) => {
+      const t0 = e.touches[0];
+      const y = t0 ? t0.clientY : null, x = t0 ? t0.clientX : null;
+      if (y == null || this._touchY == null || this._touchX == null) { this._touchY = y; this._touchX = x; return; }
+      // let a chapter that scrolls internally (founders on mobile) use native touch scroll
+      const scr = e.target && e.target.closest ? e.target.closest('section') : null;
+      if (scr && scr.scrollHeight > scr.clientHeight + 4) { this._touchY = y; this._touchX = x; return; }
+      e.preventDefault(); // swipes go through the detent pipeline, never native scroll
+      // horizontal: swipe left = next; vertical: swipe DOWN = next (user preference)
+      const dy = y - this._touchY, dx = this._touchX - x;
+      const d = Math.abs(dx) > Math.abs(dy) ? dx : dy;
+      this._touchY = y; this._touchX = x;
+      if (this._snapping) { this._touchAcc = 0; return; }
+      const nowT = performance.now();
+      if (this._landedAt != null && nowT - this._landedAt < 700 / snap()) { this._touchAcc = 0; return; }
+      this._touchAcc = (this._touchAcc || 0) + d;
+      if (Math.abs(this._touchAcc) < 56) return;
+      const dir = this._touchAcc > 0 ? 1 : -1;
+      this._touchAcc = 0;
+      if (dir < 0 && (this._chapIdx || 0) <= 0 && window.scrollY <= 2) { wrapBack(); return; }
+      stepBy(dir);
+    };
+    window.addEventListener('wheel', this.onWrapWheel, { passive: false });
+    window.addEventListener('keydown', this.onWrapKey);
+    window.addEventListener('touchstart', this.onWrapTouchStart, { passive: true });
+    window.addEventListener('touchmove', this.onWrapTouchMove, { passive: false });
+    this.onSnapScroll = () => {
+      const evT = performance.now();
+      const evGap = evT - (this._evT == null ? evT : this._evT);
+      this._evT = evT;
+      if (this._snapping) return;
+      // overshoot buffer: trackpad momentum arriving just after a glide lands is absorbed
+      // and pinned to the chapter instead of carrying on into the next one
+      const nowT = evT;
+      if (this._landedAt != null) {
+        if (this._absorbing && evGap < 170 && nowT - this._landedAt < 1800) {
+          const vhc = window.innerHeight || 800;
+          const park = (this._chapIdx != null ? this._chapIdx : Math.round(window.scrollY / vhc)) * vhc;
+          if (Math.abs(window.scrollY - park) > 1) window.scrollTo(0, park);
+          this._snapFrom = null; this._lastY = park;
+          return;
+        }
+        this._landedAt = null; this._absorbing = false;
+      }
+      const prevY = this._lastY == null ? window.scrollY : this._lastY;
+      if (this._snapFrom == null) this._snapFrom = prevY;
+      this._lastY = window.scrollY;
+      const vh0 = window.innerHeight || 800;
+      // at the top of the range this reaches zero: the glide fires on the very first
+      // scroll event, with no travel threshold and no idle wait
+      const thresh = Math.max(0, 0.12 / snap() - 0.05);
+      const travel = Math.abs(window.scrollY - this._snapFrom);
+      if (travel > Math.max(42, vh0 * thresh) && commit()) return;
+      clearTimeout(this._snapTimer);
+      this._snapTimer = setTimeout(() => {
+        if (this._snapping) return;
+        const from0 = this._snapFrom;
+        let dir = Math.sign(window.scrollY - this._snapFrom);
+        this._snapFrom = null;
+        if (dir === 0) {
+          // single-event scroll (arrow key, Page Down, scrollbar jump): snap to nearest
+          let best = null, bd = Infinity;
+          this.chapterTops().forEach(y => {
+            const d = Math.abs(y - window.scrollY);
+            if (d < bd) { bd = d; best = y; }
+          });
+          if (best != null && bd > 2) animate(best);
+          this._lastY = null;
+          return;
+        }
+        // step one chapter from where the gesture STARTED, not from where it happens to
+        // have landed — measuring from the current position made a small upward nudge
+        // near a chapter edge skip a whole chapter
+        const list = this.chapterTops();
+        const vh = window.innerHeight || 800;
+        const startIdx = baseIdx(from0, vh);
+        const idx = Math.max(0, Math.min(list.length - 1, startIdx + (dir > 0 ? 1 : -1)));
+        const target = list[idx];
+        this._lastY = null;
+        if (target != null) animate(target);
+      }, Math.max(0, 50 / snap() - 20));
+    };
+    window.addEventListener('scroll', this.onSnapScroll, { passive: true });
+  }
+
+  initLoop() {
+    const flow = document.getElementById('sf-flow');
+    const NS = 'http://www.w3.org/2000/svg';
+    if (flow && !flow.childElementCount) {
+      const nodes = [[200, 24, '#E8703A'], [329.9, 249, '#7A9448'], [70.1, 249, '#5B8FDB']];
+      nodes.forEach(([sx, sy, fill], n) => {
+        for (let i = 0; i < 24; i++) {
+          const c = document.createElementNS(NS, 'circle');
+          c.setAttribute('r', '2'); c.setAttribute('cx', sx); c.setAttribute('cy', sy);
+          c.setAttribute('fill', fill); c.setAttribute('opacity', '0');
+          c.setAttribute('data-node', n);
+          c.setAttribute('data-sx', sx); c.setAttribute('data-sy', sy);
+          c.setAttribute('data-delay', Math.random().toFixed(3));
+          c.setAttribute('data-jit', (Math.random() * 52 - 26).toFixed(1));
+          c.setAttribute('data-spd', (0.7 + Math.random() * 0.72).toFixed(3));
+          c.setAttribute('data-op', (0.5 + Math.random() * 0.4).toFixed(2));
+          flow.appendChild(c);
+        }
       });
     }
-    const start = () => {
-      document.querySelectorAll('video').forEach((v) => {
-        v.loop = true; v.muted = true; v.playsInline = true;
-        // React sets these as properties only; iOS needs the real attributes
-        // present to allow inline muted autoplay without a play button.
-        v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('autoplay', '');
-        const go = () => v.play().catch(() => {});
-        if (v.readyState >= 2) go(); else v.addEventListener('loadeddata', go, { once: true });
-        v.addEventListener('ended', () => { v.currentTime = 0; go(); });
-      });
-    };
-    start();
-    setTimeout(start, 300);
-    // iOS can reject the first play() calls while the page is still settling —
-    // retry on a short schedule after load, then keep the gesture fallbacks.
-    const kick = () => document.querySelectorAll('video').forEach((v) => { if (v.paused) v.play().catch(() => {}); });
-    [300, 800, 1500, 3000].forEach((ms) => setTimeout(kick, ms));
-    // If the OS denies autoplay outright (Low Power Mode / Auto-Play off),
-    // hide the paused-video play button behind the static mark; first touch
-    // restores and plays the animation.
-    setTimeout(() => {
-      document.querySelectorAll('video').forEach((v) => {
-        if (!v.paused || v.dataset.pngShim) return;
-        v.play().catch(() => {
-          if (v.dataset.pngShim) return;
-          v.dataset.pngShim = '1';
-          const img = document.createElement('img');
-          img.src = 'assets/logo/sf-logo.png';
-          img.alt = 'Superintelligence Foundry';
-          img.style.cssText = v.style.cssText;
-          v.style.display = 'none';
-          v.parentNode.insertBefore(img, v);
-          const restore = () => {
-            v.play().then(() => { img.remove(); v.style.display = ''; }).catch(() => {});
-          };
-          document.addEventListener('touchstart', restore, { once: true, passive: true });
-        });
-      });
-    }, 1200);
-    window.addEventListener('load', kick);
-    window.addEventListener('pageshow', kick);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
-    document.addEventListener('touchstart', kick, { once: true, passive: true });
-
-    const spin = () => {
-      const anchor = document.querySelector('[data-om-raster]');
-      if (!anchor) return;
-      const rect = anchor.getBoundingClientRect();
-      const traveled = (window.innerHeight || 800) - rect.top; // grows as user scrolls the loop into/through view
-      const base = traveled * 0.18;
-      document.querySelectorAll('[data-loop-ring]').forEach((el) => {
-        const f = parseFloat(el.getAttribute('data-loop-ring')) || 0;
-        el.style.transform = `rotate(${base * f}deg)`;
-      });
-      const label = document.getElementById('sf-wm-label');
-      if (label) {
-        // eased growth: 85% by viewport center, remaining 15% as it exits the top
-        const vh = window.innerHeight || 800;
-        const centerDist = rect.top + rect.height / 2; // px from viewport top to loop center
-        const p1 = Math.min(1, Math.max(0, (vh - centerDist) / (vh / 2)));       // bottom → center
-        const p2 = Math.min(1, Math.max(0, (vh / 2 - centerDist) / (vh / 2)));   // center → top
-        const easeOut = (x) => 1 - Math.pow(1 - x, 3);
-        const t = 0.85 * easeOut(p1) + 0.15 * easeOut(p2);
-        const c = Math.round(138 + (255 - 138) * t);
-        label.style.color = `rgb(${c},${Math.round(135 + (255 - 135) * t)},${Math.round(127 + (255 - 127) * t)})`;
-        label.style.transform = `scale(${0.85 + 0.45 * t})`;
-        const ri = document.getElementById('sf-wm-ring-inner');
-        if (ri) ri.style.scale = 0.7 + 0.8 * t;
-        const bd = document.getElementById('sf-wm-border');
-        // color ramp starts halfway through the growth and eases in
-        const ct = Math.pow(Math.min(1, Math.max(0, (t - 0.4) / 0.6)), 1.6);
-        const lerp = (a, b) => Math.round(a + (b - a) * ct);
-        if (bd) {
-          bd.setAttribute('stroke-width', (0.75 + 1.25 * t).toFixed(2));
-          // grey #8a877f -> ember #E8703A
-          bd.setAttribute('stroke', `rgba(${lerp(138,232)},${lerp(135,112)},${lerp(127,58)},${(0.5 + 0.5 * ct).toFixed(2)})`);
+    this._landPath = (phase) => {
+      const R = 55, C = 60, rad = Math.PI / 180;
+      let d = '';
+      for (const ring of this._land) {
+        const step = ring.length > 60 ? 2 : 1;
+        let open = false;
+        for (let i = 0; i < ring.length; i += step) {
+          const lon = (ring[i][0] + phase) * rad, lat = ring[i][1] * rad;
+          const cl = Math.cos(lat);
+          if (cl * Math.cos(lon) <= 0) { open = false; continue; }
+          const x = C + R * cl * Math.sin(lon), y = C - R * Math.sin(lat);
+          d += (open ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+          open = true;
         }
-        // graticule (lat arcs + meridians) grey -> azure #6E9FE8
-        const gratStroke = `rgba(${lerp(245,110)},${lerp(243,159)},${lerp(238,232)},${(0.2 + 0.35 * ct).toFixed(2)})`;
-        document.querySelectorAll('.sf-wm-grat').forEach((el) => el.setAttribute('stroke', gratStroke));
-        document.querySelectorAll('.sf-wm-meridian').forEach((el) => el.setAttribute('stroke', gratStroke));
-        // countries grey -> olive #7A9448
-        const cStroke = `rgba(${lerp(245,122)},${lerp(243,148)},${lerp(238,72)},${(0.3 + 0.5 * ct).toFixed(2)})`;
-        document.querySelectorAll('.sf-wm-country').forEach((el) => el.setAttribute('stroke', cStroke));
-        const phase = Math.abs(base) * 1.6; // degrees of globe rotation
-        document.querySelectorAll('.sf-wm-meridian').forEach((g) => {
-          const lon = parseFloat(g.getAttribute('data-lon')) || 0;
-          const a = ((lon + phase) % 180 + 180) % 180; // 0..180
-          const rad = a * Math.PI / 180;
-          const el = g.querySelector('ellipse');
-          if (el) el.setAttribute('rx', Math.max(0.5, Math.abs(56 * Math.cos(rad))).toFixed(2));
-          g.setAttribute('opacity', (0.5 + 0.5 * Math.abs(Math.sin(rad))).toFixed(2));
-        });
-        document.querySelectorAll('.sf-wm-country').forEach((g) => {
-          const lon = parseFloat(g.getAttribute('data-lon')) || 0;
-          const a = (lon + phase) * Math.PI / 180;
-          const x = Math.sin(a);   // -1..1 across the disc
-          const depth = Math.cos(a); // >0 front, <0 back
-          const mag = Math.max(0.12, Math.abs(depth));
-          // back side stays visible (globe is see-through): mirrored + faint
-          g.setAttribute('opacity', '1');
-          g.style.transform = `translate(${(x * 42).toFixed(1)}px, 0) scaleX(${(depth >= 0 ? mag : -mag).toFixed(2)})`;
-        });
       }
-      document.querySelectorAll('[data-loop-counter]').forEach((el) => {
-        const f = parseFloat(el.getAttribute('data-loop-counter')) || 0;
-        el.style.transform = `rotate(${-base * f}deg)`;
-      });
+      return d;
     };
-    this._onScroll = () => {
-      if (this._raf) return;
-      this._raf = requestAnimationFrame(() => {
-        this._raf = null; spin();
-        const ovL = document.querySelector('.sf-hero-overlay-l');
-        const ovR = document.querySelector('.sf-hero-overlay-r');
-        if (ovL && ovR) {
-          const h = ovL.offsetHeight || window.innerHeight;
-          const t = Math.min(1, Math.max(0, window.scrollY / (h * 0.9)));
-          const shift = (t * 100).toFixed(2);
-          const fade = Math.max(0, 1 - t / 0.3).toFixed(3);
-          ovL.style.transform = `translateX(-${shift}%)`;
-          ovR.style.transform = `translateX(${shift}%)`;
-          ovL.style.opacity = fade;
-          ovR.style.opacity = fade;
-          const subFade = Math.min(1, t / 0.3).toFixed(3);
-          const sub = document.querySelector('.sf-hero-sub');
-          if (sub) sub.style.opacity = subFade;
-          const scrim = document.querySelector('.sf-sub-scrim');
-          if (scrim) scrim.style.opacity = subFade;
+    fetch('assets/countries-110m.json')
+      .then(r => r.json())
+      .then(topo => {
+        const [sx, sy] = topo.transform.scale, [tx, ty] = topo.transform.translate;
+        const arcs = topo.arcs.map(arc => {
+          let x = 0, y = 0;
+          return arc.map(p => { x += p[0]; y += p[1]; return [x * sx + tx, y * sy + ty]; });
+        });
+        const join = (idxs) => {
+          let out = [];
+          idxs.forEach(i => {
+            const rev = i < 0, arc = arcs[rev ? ~i : i];
+            const seg = rev ? arc.slice().reverse() : arc;
+            out = out.length ? out.concat(seg.slice(1)) : seg.slice();
+          });
+          return out;
+        };
+        const rings = [];
+        topo.objects.countries.geometries.forEach(g => {
+          if (g.type === 'Polygon') g.arcs.forEach(r => rings.push(join(r)));
+          else if (g.type === 'MultiPolygon') g.arcs.forEach(poly => poly.forEach(r => rings.push(join(r))));
+        });
+        this._land = rings.filter(r => r.length > 3);
+        this.spin();
+      })
+      .catch(err => console.warn('[loop] world-atlas fetch failed:', err && err.message));
+    const idleTick = () => {
+      const el = document.querySelector('.sf-loop');
+      if (el) {
+        const r = el.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < (window.innerHeight || 800)) {
+          this._idle = (this._idle || 0) + 0.066;
+          this.spin();
         }
-      });
+      }
+      this._idleRaf = requestAnimationFrame(idleTick);
     };
-    window.addEventListener('scroll', this._onScroll, true);
-    window.addEventListener('resize', this._onScroll);
-    spin();
+    this._idleRaf = requestAnimationFrame(idleTick);
+    const loopEl = document.querySelector('.sf-loop');
+    if (loopEl && window.IntersectionObserver) {
+      this._io = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) { if (!this._enterT0) this._enterT0 = performance.now(); }
+          else this._enterT0 = null;
+        });
+      }, { threshold: 0.55 });
+      this._io.observe(loopEl);
+    } else this._enterT0 = performance.now();
+    this._onLoopScroll = () => {
+      if (this._loopRaf) return;
+      this._loopRaf = requestAnimationFrame(() => { this._loopRaf = null; this.spin(); });
+    };
+    window.addEventListener('scroll', this._onLoopScroll, true);
+    window.addEventListener('resize', this._onLoopScroll);
+    this.spin();
+  }
+
+  spin() {
+    const loopEl = document.querySelector('.sf-loop');
+    if (!loopEl) return;
+    const rect = loopEl.getBoundingClientRect();
+    const vh = window.innerHeight || 800;
+    const ep0 = this._enterT0 ? Math.min(1, (performance.now() - this._enterT0) / 6000) : 0;
+    // rate ∝ (1-ep)^2.2, so the spin decelerates into the idle speed with zero
+    // slope at the end rather than dropping off a cliff
+    const boost = 520 * (1 - Math.pow(1 - ep0, 4.2));
+    const base = (vh - rect.top) * 0.18 + (this._idle || 0) + boost;
+    document.querySelectorAll('[data-loop-ring]').forEach(el => {
+      const f = parseFloat(el.getAttribute('data-loop-ring')) || 0;
+      el.style.transform = `rotate(${base * f}deg)`;
+    });
+    document.querySelectorAll('[data-loop-counter]').forEach(el => {
+      const f = parseFloat(el.getAttribute('data-loop-counter')) || 0;
+      el.style.transform = `rotate(${-base * f}deg)`;
+    });
+    document.querySelectorAll('.sf-loop-node').forEach(n => { n.style.opacity = '1'; });
+    // growth + saturation run on a 4s timeline once the section lands
+    const ep = ep0;
+    const t = 1 - Math.pow(1 - ep, 3.4);
+    this._t = t;
+    const ri = document.getElementById('sf-wm-ring-inner');
+    if (ri) ri.style.transform = 'translate(-50%,-50%) rotate(14deg) scale(' + (0.58 + 0.55 * t).toFixed(3) + ')';
+    const glow = document.getElementById('sf-wm-glow');
+    if (glow) {
+      glow.style.opacity = '1';
+      glow.style.transform = 'translate(-50%,-50%) scale(' + (0.72 + 0.55 * t).toFixed(3) + ')';
+    }
+    const ct = 1 - Math.pow(1 - ep, 2.6);
+    const lerp = (a, b) => Math.round(a + (b - a) * ct);
+    const bd = document.getElementById('sf-wm-border');
+    if (bd) {
+      bd.setAttribute('stroke-width', (0.375 + 0.625 * t).toFixed(2));
+      bd.setAttribute('stroke', 'rgba(232,112,58,1)');
+    }
+    const gratStroke = 'rgba(110,159,232,0.55)';
+    document.querySelectorAll('.sf-wm-grat, .sf-wm-meridian').forEach(el => el.setAttribute('stroke', gratStroke));
+    const landEl = document.getElementById('sf-globe-land');
+    if (landEl) {
+      landEl.setAttribute('stroke', 'rgba(122,148,72,0.85)');
+      landEl.setAttribute('fill', 'rgba(122,148,72,0.23)');
+    }
+    const phase = Math.abs(base) * 1.6;
+    document.querySelectorAll('.sf-wm-meridian').forEach(g => {
+      const lon = parseFloat(g.getAttribute('data-lon')) || 0;
+      const a = (lon + phase) * Math.PI / 180;
+      const rx = Math.max(0.5, Math.abs(56 * Math.cos(a))).toFixed(2);
+      const bulgeRight = Math.sin(a) >= 0;
+      const frontIsThisHalf = Math.cos(a) > 0;
+      const fSweep = (frontIsThisHalf === bulgeRight) ? 0 : 1;
+      const arc = (sweep) => 'M60,4 A' + rx + ',56 0 0 ' + sweep + ' 60,116';
+      const f = g.querySelector('.sf-mer-f'), bk = g.querySelector('.sf-mer-b');
+      if (f) f.setAttribute('d', arc(fSweep));
+      if (bk) bk.setAttribute('d', arc(1 - fSweep));
+    });
+    if (landEl && this._land) landEl.setAttribute('d', this._landPath(phase));
+    const fp = performance.now() / 3400;
+    const discs = document.querySelectorAll('.sf-loop-node > div > div');
+    const starts = [];
+    if (discs.length >= 3) {
+      const th = -(base * 0.45) * Math.PI / 180;
+      for (let i = 0; i < 3; i++) {
+        const dr = discs[i].getBoundingClientRect();
+        const rx = ((dr.left + dr.width / 2) - rect.left) / rect.width * 400 - 200;
+        const ry = ((dr.top + dr.height / 2) - rect.top) / rect.height * 400 - 200;
+        starts.push([200 + rx * Math.cos(th) - ry * Math.sin(th), 200 + rx * Math.sin(th) + ry * Math.cos(th)]);
+      }
+    }
+    const stopR = 200 * 0.46 * (0.58 + 0.55 * (this._t || 0));
+    document.querySelectorAll('#sf-flow circle').forEach(c => {
+      const st = starts[parseInt(c.getAttribute('data-node'), 10)];
+      const sx = st ? st[0] : parseFloat(c.getAttribute('data-sx'));
+      const sy = st ? st[1] : parseFloat(c.getAttribute('data-sy'));
+      const a0 = Math.atan2(sy - 200, sx - 200);
+      const r0 = Math.hypot(sx - 200, sy - 200);
+      const jit = parseFloat(c.getAttribute('data-jit')) || 0;
+      const p = ((fp * (parseFloat(c.getAttribute('data-spd')) || 1) + parseFloat(c.getAttribute('data-delay'))) % 1 + 1) % 1;
+      const e = p * p * (3 - 2 * p);
+      const ang = a0 + (jit / 160) * (1 - e) - 0.085 * e;
+      const rr = r0 + (stopR - r0) * e;
+      c.setAttribute('cx', (200 + rr * Math.cos(ang)).toFixed(1));
+      c.setAttribute('cy', (200 + rr * Math.sin(ang)).toFixed(1));
+      c.setAttribute('r', (0.98 + 1.28 * Math.sin(Math.PI * p)).toFixed(2));
+      c.setAttribute('opacity', (Math.sin(Math.PI * p) * (parseFloat(c.getAttribute('data-op')) || 0.7)).toFixed(2));
+    });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.open !== this.state.open && this.lockScroll) this.lockScroll(!this.state.open);
+    if (prevProps.starDensity !== this.props.starDensity) { this._starsBuilt = false; this.buildStars(); }
   }
   componentWillUnmount() {
-    if (this._onScroll) {
-      window.removeEventListener('scroll', this._onScroll, true);
-      window.removeEventListener('resize', this._onScroll);
+    if (this.lockScroll) this.lockScroll(false);
+    window.removeEventListener('scroll', this.onScroll);
+    if (this.fitRules) window.removeEventListener('resize', this.fitRules);
+    if (this._idleRaf) cancelAnimationFrame(this._idleRaf);
+    if (this._io) this._io.disconnect();
+    if (this.onSnapScroll) window.removeEventListener('scroll', this.onSnapScroll);
+    if (this.onStarScroll) {
+      window.removeEventListener('scroll', this.onStarScroll);
+      window.removeEventListener('resize', this.onStarScroll);
     }
+    if (this._starRaf) cancelAnimationFrame(this._starRaf);
+    if (this.onPanScroll) {
+      window.removeEventListener('scroll', this.onPanScroll);
+      window.removeEventListener('resize', this.onPanScroll);
+    }
+    if (this._panRaf) cancelAnimationFrame(this._panRaf);
+    clearTimeout(this._snapTimer);
+    if (this._snapRaf) cancelAnimationFrame(this._snapRaf);
+    clearTimeout(this._watchdog);
+    clearTimeout(this._heroFallback);
+    if (this._onLoopScroll) {
+      window.removeEventListener('scroll', this._onLoopScroll, true);
+      window.removeEventListener('resize', this._onLoopScroll);
+    }
+    if (this.tick) clearInterval(this.tick);
+    if (this.holdTimer) clearTimeout(this.holdTimer);
+    if (this.video.current && this.onTime) this.video.current.removeEventListener('timeupdate', this.onTime);
   }
+
+  jump(id) {
+    const i = ['sec-foundry', 'sec-mission', 'sec-founders', 'sec-contact'].indexOf(id);
+    if (i < 0) return;
+    const vh = window.innerHeight || 800;
+    const cur = this._chapIdx != null ? this._chapIdx : Math.round(window.scrollY / vh);
+    // always travel forward: a target behind the current chapter loops on through the
+    // wrap slot (index 4 = foundry again) and, if needed, continues after the rebase
+    const dist = ((i - (cur % 4)) % 4 + 4) % 4;
+    if (dist === 0) return;
+    const tgt = cur + dist;
+    if (this.snapTo) { this._jumpNext = null; this.snapTo(tgt * vh); }
+    else window.scrollTo({ top: i * vh });
+  }
+
   renderVals() {
-    const scrollTo = (id) => {
-      const el = document.getElementById(id);
-      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
+    const locked = (this.props.maintenanceLock ?? true) && !this.state.unlocked;
+    const tryUnlock = (e) => {
+      e.preventDefault();
+      const v = this.pwRef.current ? this.pwRef.current.value : '';
+      if (btoa(v.toLowerCase()) === 'Y3JlYXRpdmVhZ2k=') {
+        sessionStorage.setItem('sf-ml', '1');
+        this.setState({ unlocked: true, pwError: '' });
+      } else this.setState({ pwError: 'incorrect password' });
     };
+    const open = this.state.open;
+    const on = 'var(--text-primary)', off = 'var(--text-tertiary)';
+    const t = this.props.overlayScale ?? 6;
+    const h = t / 2;
+    const paths = {
+      'diagonal /': `M${t + h} ${-h} L${-h} ${t + h}`,
+      'diagonal \\': `M${-h} ${-h} L${t + h} ${t + h}`,
+      'cross hatch': `M${-h} ${-h} L${t + h} ${t + h} M${t + h} ${-h} L${-h} ${t + h}`,
+      'dots': `M${h} ${h} L${h} ${h}`,
+      'vertical': `M${h} ${-1} L${h} ${t + 1}`,
+      'horizontal': `M${-1} ${h} L${t + 1} ${h}`,
+      'none': ''
+    };
+    const pat = this.props.overlayPattern ?? 'diagonal /';
     return {
-      isMobile: window.matchMedia && window.matchMedia('(max-width: 760px), (pointer: coarse)').matches,
-      lowerBg: (this.props.backdrop ?? 'Galaxy') !== 'Galaxy' ? 'transparent'
-        : (window.matchMedia && window.matchMedia('(max-width: 760px), (pointer: coarse)').matches
-          ? 'transparent'
-          : "linear-gradient(rgba(5,5,5,0.7), rgba(5,5,5,0.7)) fixed, #050505 url('uploads/galaxy-bg.jpg') center / cover no-repeat fixed"),
-      galaxyOn: (this.props.backdrop ?? 'Galaxy') === 'Galaxy',
-      locked: !this.state.unlocked,
-      pwError: this.state.pwError === true,
-      onUnlock: (e) => {
-        e.preventDefault();
-        const val = (document.getElementById('sf-gate-pw') || {}).value || '';
-        if (val.trim().toLowerCase() === 'creativeagi') {
-          try { sessionStorage.setItem('sf-gate', '1'); } catch (err) {}
-          this.setState({ unlocked: true, pwError: false });
-        } else {
-          this.setState({ pwError: true });
-        }
+      locked, tryUnlock, pwRef: this.pwRef, pwError: this.state.pwError || '',
+      starsZ: locked ? 101 : 0,
+      starsOpacity: locked ? 1 : (open ? 1 : 0),
+      videoRef: this.video,
+      blendRef: this.blend,
+      curtainRef: this.curtain,
+      contentRef: this.content,
+      heroRef: this.hero,
+      curtainOpacity: open ? 0 : 1,
+      contentOpacity: open ? 1 : 0,
+      tile: t,
+      tilePath: paths[pat] ?? paths['diagonal /'],
+      tileOpacity: pat === 'none' ? 0 : (this.props.overlayOpacity ?? 0.45),
+      tileWeight: pat === 'dots' ? Math.max(1.5, t * 0.34) : (this.props.overlayWeight ?? 2),
+      headline: this.props.headline ?? 'From Generative AI to Creative AGI',
+      curtainEvents: open ? 'none' : 'auto',
+      chromeOpacity: open ? 1 : 0,
+      chromeEvents: open ? 'auto' : 'none',
+      foundryColor: this.state.active === 'foundry' ? on : off,
+      missionColor: this.state.active === 'mission' ? on : off,
+      foundersColor: this.state.active === 'founders' ? on : off,
+      contactColor: this.state.active === 'contact' ? on : off,
+      open: () => {
+        if (this.state.open || this._skipping) return;
+        const v = this.video.current, b = this.blend.current;
+        const rw = Math.max(0.1, this.props.revealSeconds ?? 1.5);
+        // a click doesn't cut to the page — it jumps the video to the start of its own
+        // outro so the reveal (curtain, starfield, globe spin-in, headline) plays as normal
+        // run the same cross-fade the video's own outro runs, on the spot: curtain and
+        // headline out, page content and starfield in
+        this._skipping = true;
+        if (v) v.removeEventListener('timeupdate', this.onTime);
+        if (this.tick) clearInterval(this.tick);
+        const r = this.curtain.current, c = this.content.current, hero = this.hero.current;
+        const sw = document.getElementById('sf-stars');
+        // a virtual countdown drives exactly the curves the video's own outro uses: headline
+        // fades from introOutStart to introOutEnd, then the reveal runs in the last rw
+        const S = this.props.introOutStart ?? 5, E = this.props.introOutEnd ?? 2;
+        const T = Math.max(rw, S), t0 = performance.now();
+        const step = (now) => {
+          const el = (now - t0) / 1000;
+          const left = Math.max(0, T - el);
+          const prog = left < rw ? Math.min(1, (rw - left) / rw) : 0;
+          if (r) { r.style.transition = 'none'; r.style.opacity = (1 - prog).toFixed(3); }
+          if (hero) {
+            hero.style.transition = 'none';
+            hero.style.opacity = left >= S ? '1' : Math.max(0, Math.min(1, (left - E) / Math.max(0.1, S - E))).toFixed(3);
+          }
+          if (c) c.style.opacity = (prog * prog).toFixed(3);
+          if (sw) { sw.style.transition = 'none'; sw.style.opacity = prog.toFixed(3); }
+          if (left > 0) requestAnimationFrame(step);
+          else {
+            if (c) c.style.opacity = '1';
+            if (this.lockScroll) this.lockScroll(false);
+            this.setState({ open: true });
+          }
+        };
+        requestAnimationFrame(step);
       },
-      sent: this.state.sent,
-      notSent: !this.state.sent,
-      goContact: () => scrollTo('contact'),
-      goMission: () => scrollTo('mission'),
-      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      close: () => {
+        if (this.lockScroll) this.lockScroll(true);
+        window.scrollTo({ top: 0 });
+        if (this.holdTimer) clearTimeout(this.holdTimer);
+        const v = this.video.current, b = this.blend.current, r = this.curtain.current;
+        if (r) { r.style.opacity = '1'; r.style.mixBlendMode = 'normal'; r.style.backgroundColor = '#FBF8F3'; }
+        if (this.content.current) this.content.current.style.opacity = '0';
+        if (this.hero.current) this.hero.current.style.opacity = '1';
+        if (b) b.style.opacity = '0';
+        [v, b].forEach(el => { if (el) { el.currentTime = 0; const p = el.play(); if (p) p.catch(() => {}); } });
+        this.setState({ open: false });
+      },
+      goFoundry: () => this.jump('sec-foundry'),
+      goMission: () => this.jump('sec-mission'),
+      goFounders: () => this.jump('sec-founders'),
+      goContact: () => this.jump('sec-contact')
     };
   }
 }
+
 </script>
 </body>
 </html>
