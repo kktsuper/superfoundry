@@ -7,7 +7,7 @@
 </head>
 <body>
 <x-dc>
-<helmet><title>Superintelligence Foundry</title><link rel="icon" type="image/svg+xml" href="assets/logo/aleph-mark-light.svg"><style>:root{--text-primary:#161311 !important;--text-secondary:#3D3833 !important;--text-tertiary:#7A7168 !important;--surface-app:#F3EFE8 !important;--surface-card:#FFFDFA !important;--surface-raised:#F7F3EC !important;--surface-inverse:#161311 !important;--border-subtle:rgba(22,19,17,0.10) !important;--border-default:rgba(22,19,17,0.18) !important;--border-strong:rgba(22,19,17,0.30) !important;--text-olive:#5C6E36 !important;--text-ai:#3A67AF !important;--text-accent:#C4551F !important;--accent-default:#C4551F !important}body{color:#161311 !important}</style><script src="./ds-base.js"></script><style>body{margin:0;background:#F3EFE8;background-image:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);background-attachment:fixed;color:var(--text-primary);font-family:var(--font-body)}*{box-sizing:border-box}a{color:var(--text-accent);text-decoration:none}a:hover{color:var(--text-primary)}html{overflow-x:clip}body{overflow-x:clip}
+<helmet><title>Superintelligence Foundry</title><link rel="icon" type="image/svg+xml" href="assets/logo/aleph-mark-light.svg"><style>:root{--text-primary:#161311 !important;--text-secondary:#3D3833 !important;--text-tertiary:#7A7168 !important;--surface-app:#F3EFE8 !important;--surface-card:#FFFDFA !important;--surface-raised:#F7F3EC !important;--surface-inverse:#161311 !important;--border-subtle:rgba(22,19,17,0.10) !important;--border-default:rgba(22,19,17,0.18) !important;--border-strong:rgba(22,19,17,0.30) !important;--text-olive:#5C6E36 !important;--text-ai:#3A67AF !important;--text-accent:#C4551F !important;--accent-default:#C4551F !important}body{color:#161311 !important}</style><script src="./ds-base.js"></script><style>body{margin:0;background:#F3EFE8;color:var(--text-primary);font-family:var(--font-body)}*{box-sizing:border-box}a{color:var(--text-accent);text-decoration:none}a:hover{color:var(--text-primary)}html{overflow-x:clip}body{overflow-x:clip}
 @media (max-width: 900px){
   :root{--font-size-display-l:1.55rem !important;--font-size-display-m:1.1rem !important;--font-size-display-s:0.95rem !important;--text-display-s:600 0.95rem/1.3 var(--font-display) !important;--text-display-m:600 1.1rem/1.3 var(--font-display) !important;--text-body-m:400 0.8rem/1.45 var(--font-body) !important;--text-body-s:400 0.7rem/1.4 var(--font-body) !important;--text-label:600 0.6rem/1.3 var(--font-mono) !important;--text-mono-s:400 0.65rem/1.35 var(--font-mono) !important}
   main > section{left:var(--page-margin) !important;right:var(--page-margin) !important;padding-top:9vh !important;padding-bottom:64px !important}
@@ -234,9 +234,10 @@ contact
 <a href="mailto:jad@superfoundry.dev" style="font:var(--text-body-l);color:var(--text-accent);width:max-content">jad@superfoundry.dev</a>
 </section>
 </main>
+<div aria-hidden="true" style="position:fixed;inset:0;z-index:-1;background:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);pointer-events:none"></div>
 <div id="scroll-track" style="height:500vh;pointer-events:none"></div>
 <div style="position:fixed;inset:0;z-index:40;background:#FBF8F3;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;padding:11vh var(--page-margin) 0 calc(var(--page-margin) * 2);cursor:pointer;transition:opacity 900ms cubic-bezier(0.2,0,0,1);opacity:{{ curtainOpacity }};pointer-events:{{ curtainEvents }}" ref="{{ curtainRef }}" onClick="{{ open }}">
-<video ref="{{ videoRef }}" src="{{ videoSrc }}" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
+<video ref="{{ videoRef }}" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
 <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none" aria-hidden="true"><defs><pattern id="hatchTile" width="{{ tile }}" height="{{ tile }}" patternUnits="userSpaceOnUse"><path d="{{ tilePath }}" stroke="#2A2521" stroke-opacity="{{ tileOpacity }}" stroke-width="{{ tileWeight }}" stroke-linecap="round"></path></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#hatchTile)"></rect></svg>
 <div ref="{{ heroRef }}" id="sf-intro-hero" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;gap:28px;opacity:0;transition:opacity 500ms cubic-bezier(0.2,0,0,1)">
 <img src="assets/logo/aleph-mark-light.svg" style="height:132px;width:auto;align-self:center" />
@@ -306,6 +307,8 @@ class Component extends DCLogic {
       .then(() => { this._gate.fonts = true; tryEnter(); });
     this._heroFallback = setTimeout(() => { this._gate.fonts = true; this._gate.video = true; showHero(); }, 3000);
     const v = this.video.current, b = this.blend.current;
+    // src assigned here (not in the template), so nothing downloads until the gate opens
+    if (v && !v.getAttribute('src')) v.src = 'uploads/space-light.webm';
     [v, b].forEach(el => {
       if (!el) return;
       el.muted = true; el.defaultMuted = true; el.volume = 0;
@@ -1196,7 +1199,6 @@ class Component extends DCLogic {
     const pat = this.props.overlayPattern ?? 'diagonal /';
     return {
       locked, tryUnlock, pwRef: this.pwRef, pwError: this.state.pwError || '',
-      videoSrc: locked ? null : 'uploads/space-light.webm',
       starsZ: locked ? 101 : 0,
       starsOpacity: locked ? 1 : (open ? 1 : 0),
       videoRef: this.video,
