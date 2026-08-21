@@ -31,6 +31,7 @@
   #sec-founders > div > div{gap:6px !important;max-width:100% !important}
   .sf-photo{width:64px !important;height:64px !important}
   #sec-founders img[alt]{height:11px !important}
+  #sec-founders .sf-photo img{width:100% !important;height:100% !important;object-fit:cover !important}
   #sec-founders span{font-size:0.82rem !important}
   #sec-founders p{font-size:0.7rem !important;line-height:1.4 !important}
   #nav-foundry,#nav-mission,#nav-founders,#nav-contact{padding:10px 3px !important;font-size:0.6rem !important}
@@ -233,7 +234,7 @@ contact
 </main>
 <div id="scroll-track" style="height:500vh;pointer-events:none"></div>
 <div style="position:fixed;inset:0;z-index:40;background:#FBF8F3;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;padding:11vh var(--page-margin) 0 calc(var(--page-margin) * 2);cursor:pointer;transition:opacity 900ms cubic-bezier(0.2,0,0,1);opacity:{{ curtainOpacity }};pointer-events:{{ curtainEvents }}" ref="{{ curtainRef }}" onClick="{{ open }}">
-<video ref="{{ videoRef }}" src="uploads/space-light.webm" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
+<video ref="{{ videoRef }}" src="{{ videoSrc }}" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
 <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none" aria-hidden="true"><defs><pattern id="hatchTile" width="{{ tile }}" height="{{ tile }}" patternUnits="userSpaceOnUse"><path d="{{ tilePath }}" stroke="#2A2521" stroke-opacity="{{ tileOpacity }}" stroke-width="{{ tileWeight }}" stroke-linecap="round"></path></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#hatchTile)"></rect></svg>
 <div ref="{{ heroRef }}" id="sf-intro-hero" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;gap:28px;opacity:0;transition:opacity 500ms cubic-bezier(0.2,0,0,1)">
 <img src="assets/logo/aleph-mark-light.svg" style="height:132px;width:auto;align-self:center" />
@@ -292,16 +293,16 @@ class Component extends DCLogic {
       if (this._gate.fonts && this._gate.video) requestAnimationFrame(showHero);
     };
     this._tryEnter = tryEnter;
+    // defer the whole intro (video load included) until the gate is unlocked
+    this.startIntro = () => { if (!this._introStarted) { this._introStarted = true; this._runIntro(showHero, whenStyled, tryEnter); } };
+    if (!((this.props.maintenanceLock ?? true) && !this.state.unlocked)) this.startIntro();
+  }
+
+  _runIntro(showHero, whenStyled, tryEnter) {
     whenStyled()
       .then(() => (document.fonts && document.fonts.ready) ? document.fonts.ready : null)
       .then(() => { this._gate.fonts = true; tryEnter(); });
     this._heroFallback = setTimeout(() => { this._gate.fonts = true; this._gate.video = true; showHero(); }, 3000);
-    // the intro video is fully hidden behind the maintenance-lock overlay (lower
-    // z-index), so decoding/painting it there is pure waste — and on phones, opening
-    // the on-screen keyboard to type the password forces a reflow of every fixed
-    // fullscreen layer at once, which is a plausible trigger for a GPU-compositor
-    // crash. Defer starting it until the site is actually unlocked.
-    this._startIntroMedia = () => {
     const v = this.video.current, b = this.blend.current;
     [v, b].forEach(el => {
       if (!el) return;
@@ -372,9 +373,6 @@ class Component extends DCLogic {
         if (v.currentTime < 0.05) bail('video never started');
       }, 6000);
     }
-    };
-    const lockedAtMount = (this.props.maintenanceLock ?? true) && !this.state.unlocked;
-    if (lockedAtMount) this._introPending = true; else this._startIntroMedia();
     this.onScroll = () => {
       const ids = ['foundry', 'mission', 'founders', 'contact'];
       const vh = window.innerHeight || 800;
@@ -1171,8 +1169,7 @@ class Component extends DCLogic {
       const v = this.pwRef.current ? this.pwRef.current.value : '';
       if (btoa(v.toLowerCase()) === 'Y3JlYXRpdmVhZ2k=') {
         sessionStorage.setItem('sf-ml', '1');
-        if (this._introPending) { this._introPending = false; this._startIntroMedia(); }
-        this.setState({ unlocked: true, pwError: '' });
+        this.setState({ unlocked: true, pwError: '' }, () => { if (this.startIntro) this.startIntro(); });
       } else this.setState({ pwError: 'incorrect password' });
     };
     const open = this.state.open;
@@ -1191,6 +1188,7 @@ class Component extends DCLogic {
     const pat = this.props.overlayPattern ?? 'diagonal /';
     return {
       locked, tryUnlock, pwRef: this.pwRef, pwError: this.state.pwError || '',
+      videoSrc: locked ? null : 'uploads/space-light.webm',
       starsZ: locked ? 101 : 0,
       starsOpacity: locked ? 1 : (open ? 1 : 0),
       videoRef: this.video,
