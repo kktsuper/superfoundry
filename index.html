@@ -1029,8 +1029,9 @@ class Component extends DCLogic {
     if (!loopEl) return;
     const rect = loopEl.getBoundingClientRect();
     const vh = window.innerHeight || 800;
-    // mobile: skip the 6s entrance growth/spin-up — land at full size immediately
-    const ep0 = window.innerWidth < 700 ? 1 : (this._enterT0 ? Math.min(1, (performance.now() - this._enterT0) / 6000) : 0);
+    // mobile: shorter entrance spin-up (3s vs 6s) — cost is the same per-frame transform
+    const entMs = window.innerWidth < 700 ? 3000 : 6000;
+    const ep0 = this._enterT0 ? Math.min(1, (performance.now() - this._enterT0) / entMs) : 0;
     // rate ∝ (1-ep)^2.2, so the spin decelerates into the idle speed with zero
     // slope at the end rather than dropping off a cliff
     const boost = 520 * (1 - Math.pow(1 - ep0, 4.2));
@@ -1116,6 +1117,8 @@ class Component extends DCLogic {
   componentDidUpdate(prevProps) {
     // this runtime doesn't pass prevState — track the previous `open` ourselves
     const prevOpen = this._prevOpen; this._prevOpen = this.state.open;
+    // safety net: if the gate is open but the intro never started, start it now
+    if (!((this.props.maintenanceLock ?? true) && !this.state.unlocked) && this.startIntro) this.startIntro();
     if (prevOpen !== undefined && prevOpen !== this.state.open && this.lockScroll) this.lockScroll(!this.state.open);
     // once the page is open the intro videos are invisible but were still decoding two
     // filtered fullscreen layers — on phones that exhausts the compositor and makes it
@@ -1180,7 +1183,8 @@ class Component extends DCLogic {
       const v = this.pwRef.current ? this.pwRef.current.value : '';
       if (btoa(v.toLowerCase()) === 'Y3JlYXRpdmVhZ2k=') {
         sessionStorage.setItem('sf-ml', '1');
-        this.setState({ unlocked: true, pwError: '' }, () => { if (this.startIntro) this.startIntro(); });
+        this.setState({ unlocked: true, pwError: '' });
+        if (this.startIntro) this.startIntro();
       } else this.setState({ pwError: 'incorrect password' });
     };
     const open = this.state.open;
