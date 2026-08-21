@@ -152,21 +152,21 @@ contact
 <div data-loop-ring="0.45" style="position:absolute;inset:0;transform-origin:50% 50%">
 <div class="sf-loop-node" style="position:absolute;top:12.5%;left:50%;transform:translate(-50%,-50%);width:124px">
 <div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
-<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-accent)">01</div>
+<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--text-accent);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-accent)">01</div>
 <span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">MODEL</span>
 <span style="font:var(--text-body-s);color:#161311;text-align:center">Writes an executable model</span>
 </div>
 </div>
 <div class="sf-loop-node" style="position:absolute;top:68.75%;left:82.475%;transform:translate(-50%,-50%);width:124px">
 <div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
-<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-olive)">02</div>
+<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--text-olive);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-olive)">02</div>
 <span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">EXPLORE</span>
 <span style="font:var(--text-body-s);color:#161311;text-align:center">Probes what's uncertain</span>
 </div>
 </div>
 <div class="sf-loop-node" style="position:absolute;top:68.75%;left:17.525%;transform:translate(-50%,-50%);width:124px">
 <div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
-<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-ai)">03</div>
+<div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--text-ai);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-ai)">03</div>
 <span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">UPDATE</span>
 <span style="font:var(--text-body-s);color:#161311;text-align:center">Tests against reality, feeds back</span>
 </div>
@@ -237,7 +237,7 @@ contact
 <div aria-hidden="true" style="position:fixed;inset:0;z-index:-1;background:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);pointer-events:none"></div>
 <div id="scroll-track" style="height:500vh;pointer-events:none"></div>
 <div style="position:fixed;inset:0;z-index:40;background:#FBF8F3;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;padding:11vh var(--page-margin) 0 calc(var(--page-margin) * 2);cursor:pointer;transition:opacity 900ms cubic-bezier(0.2,0,0,1);opacity:{{ curtainOpacity }};pointer-events:{{ curtainEvents }}" ref="{{ curtainRef }}" onClick="{{ open }}">
-<video ref="{{ videoRef }}" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
+<video ref="{{ videoRef }}" src="uploads/space-light.webm" playsInline="playsinline" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
 <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none" aria-hidden="true"><defs><pattern id="hatchTile" width="{{ tile }}" height="{{ tile }}" patternUnits="userSpaceOnUse"><path d="{{ tilePath }}" stroke="#2A2521" stroke-opacity="{{ tileOpacity }}" stroke-width="{{ tileWeight }}" stroke-linecap="round"></path></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#hatchTile)"></rect></svg>
 <div ref="{{ heroRef }}" id="sf-intro-hero" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;gap:28px;opacity:0;transition:opacity 500ms cubic-bezier(0.2,0,0,1)">
 <img src="assets/logo/aleph-mark-light.svg" style="height:132px;width:auto;align-self:center" />
@@ -307,8 +307,8 @@ class Component extends DCLogic {
       .then(() => { this._gate.fonts = true; tryEnter(); });
     this._heroFallback = setTimeout(() => { this._gate.fonts = true; this._gate.video = true; showHero(); }, 3000);
     const v = this.video.current, b = this.blend.current;
-    // src assigned here (not in the template), so nothing downloads until the gate opens
-    if (v && !v.getAttribute('src')) v.src = 'uploads/space-light.webm';
+    // preload="none" + no autoplay attr defers the download; play() here starts it
+    if (v && v.preload === 'none') v.preload = 'auto';
     [v, b].forEach(el => {
       if (!el) return;
       el.muted = true; el.defaultMuted = true; el.volume = 0;
