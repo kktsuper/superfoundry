@@ -296,6 +296,12 @@ class Component extends DCLogic {
       .then(() => (document.fonts && document.fonts.ready) ? document.fonts.ready : null)
       .then(() => { this._gate.fonts = true; tryEnter(); });
     this._heroFallback = setTimeout(() => { this._gate.fonts = true; this._gate.video = true; showHero(); }, 3000);
+    // the intro video is fully hidden behind the maintenance-lock overlay (lower
+    // z-index), so decoding/painting it there is pure waste — and on phones, opening
+    // the on-screen keyboard to type the password forces a reflow of every fixed
+    // fullscreen layer at once, which is a plausible trigger for a GPU-compositor
+    // crash. Defer starting it until the site is actually unlocked.
+    this._startIntroMedia = () => {
     const v = this.video.current, b = this.blend.current;
     [v, b].forEach(el => {
       if (!el) return;
@@ -366,6 +372,9 @@ class Component extends DCLogic {
         if (v.currentTime < 0.05) bail('video never started');
       }, 6000);
     }
+    };
+    const lockedAtMount = (this.props.maintenanceLock ?? true) && !this.state.unlocked;
+    if (lockedAtMount) this._introPending = true; else this._startIntroMedia();
     this.onScroll = () => {
       const ids = ['foundry', 'mission', 'founders', 'contact'];
       const vh = window.innerHeight || 800;
@@ -1162,6 +1171,7 @@ class Component extends DCLogic {
       const v = this.pwRef.current ? this.pwRef.current.value : '';
       if (btoa(v.toLowerCase()) === 'Y3JlYXRpdmVhZ2k=') {
         sessionStorage.setItem('sf-ml', '1');
+        if (this._introPending) { this._introPending = false; this._startIntroMedia(); }
         this.setState({ unlocked: true, pwError: '' });
       } else this.setState({ pwError: 'incorrect password' });
     };
