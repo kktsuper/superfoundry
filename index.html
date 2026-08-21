@@ -7,34 +7,34 @@
 </head>
 <body>
 <x-dc>
-<helmet><title>Superintelligence Foundry</title><link rel="icon" type="image/svg+xml" href="assets/logo/aleph-mark-light.svg"><style>:root{--text-primary:#161311 !important;--text-secondary:#3D3833 !important;--text-tertiary:#7A7168 !important;--surface-app:#F3EFE8 !important;--surface-card:#FFFDFA !important;--surface-raised:#F7F3EC !important;--surface-inverse:#161311 !important;--border-subtle:rgba(22,19,17,0.10) !important;--border-default:rgba(22,19,17,0.18) !important;--border-strong:rgba(22,19,17,0.30) !important;--text-olive:#5C6E36 !important;--text-ai:#3A67AF !important;--text-accent:#C4551F !important;--accent-default:#C4551F !important}body{color:#161311 !important}</style><script src="./ds-base.js"></script><script src="./image-slot.js"></script><style>body{margin:0;background:#F3EFE8;background-image:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);background-attachment:fixed;color:var(--text-primary);font-family:var(--font-body)}*{box-sizing:border-box}a{color:var(--text-accent);text-decoration:none}a:hover{color:var(--text-primary)}html{overflow-x:clip}body{overflow-x:clip}
+<helmet><title>Superintelligence Foundry</title><link rel="icon" type="image/svg+xml" href="assets/logo/aleph-mark-light.svg"><style>:root{--text-primary:#161311 !important;--text-secondary:#3D3833 !important;--text-tertiary:#7A7168 !important;--surface-app:#F3EFE8 !important;--surface-card:#FFFDFA !important;--surface-raised:#F7F3EC !important;--surface-inverse:#161311 !important;--border-subtle:rgba(22,19,17,0.10) !important;--border-default:rgba(22,19,17,0.18) !important;--border-strong:rgba(22,19,17,0.30) !important;--text-olive:#5C6E36 !important;--text-ai:#3A67AF !important;--text-accent:#C4551F !important;--accent-default:#C4551F !important}body{color:#161311 !important}</style><script src="./ds-base.js"></script><style>body{margin:0;background:#F3EFE8;background-image:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);background-attachment:fixed;color:var(--text-primary);font-family:var(--font-body)}*{box-sizing:border-box}a{color:var(--text-accent);text-decoration:none}a:hover{color:var(--text-primary)}html{overflow-x:clip}body{overflow-x:clip}
 @media (max-width: 900px){
   :root{--font-size-display-l:1.55rem !important;--font-size-display-m:1.1rem !important;--font-size-display-s:0.95rem !important;--text-display-s:600 0.95rem/1.3 var(--font-display) !important;--text-display-m:600 1.1rem/1.3 var(--font-display) !important;--text-body-m:400 0.8rem/1.45 var(--font-body) !important;--text-body-s:400 0.7rem/1.4 var(--font-body) !important;--text-label:600 0.6rem/1.3 var(--font-mono) !important;--text-mono-s:400 0.65rem/1.35 var(--font-mono) !important}
-  main > section{left:var(--page-margin) !important;right:var(--page-margin) !important;padding-top:12vh !important;padding-bottom:120px !important}
+  main > section{left:var(--page-margin) !important;right:var(--page-margin) !important;padding-top:9vh !important;padding-bottom:64px !important}
   #sf-intro-hero > img{height:64px !important}
   #sf-intro-hero h1{font-size:clamp(1.5rem, 6.5vw, 2.2rem) !important}
   #sf-intro-hero h1 > span:first-child{font-size:clamp(0.9rem, 3.8vw, 1.3rem) !important}
   .sf-rule{left:-12px !important}
   #sec-foundry h2{font-size:clamp(1rem, 4vw, 1.35rem) !important;line-height:1.35 !important}
-  main p, #mission-copy span{font-size:0.8rem !important;line-height:1.45 !important}
+  main p, #mission-copy span{font-size:0.75rem !important;line-height:1.4 !important}
   #mission-copy h2{font-size:0.95rem !important;line-height:1.3 !important}
   #mission-copy > div > div{font-size:0.62rem !important}
-  .sf-loop{width:min(64vw, 38vh) !important;margin:0 auto !important}
-  #sec-mission{flex-direction:column !important;align-items:stretch !important;justify-content:center !important;gap:26px !important}
+  .sf-loop{width:min(56vw, 32vh) !important;margin:0 auto !important}
+  #sec-mission{flex-direction:column !important;align-items:stretch !important;justify-content:center !important;gap:18px !important}
   #mission-copy{position:static !important;width:100% !important;text-shadow:none !important;gap:10px !important}
   #mission-copy > div{max-width:100% !important;width:100% !important}
-  .sf-loop-node{width:88px !important}
-  .sf-loop-node > div > div{width:36px !important;height:36px !important;font-size:0.8rem !important}
-  .sf-loop-node span{font-size:0.65rem !important}
-  #sec-founders{gap:16px !important;overflow-y:auto !important;padding-top:11vh !important;padding-bottom:110px !important;justify-content:flex-start !important}
-  #sec-founders > div{gap:24px !important;grid-template-columns:1fr !important}
-  #sec-founders > div > div{gap:8px !important;max-width:100% !important}
-  .sf-photo{width:84px !important;height:84px !important}
-  #sec-founders img[alt]{height:13px !important}
-  #sec-founders span{font-size:0.9rem !important}
-  #sec-founders p{font-size:0.78rem !important;line-height:1.45 !important}
-  #nav-foundry,#nav-mission,#nav-founders,#nav-contact{padding:12px 4px !important;font-size:0.65rem !important}
-  #sf-nav{gap:14px !important;padding-bottom:10px !important;padding-top:26px !important;background:linear-gradient(to top, #EAE4D9 55%, rgba(234,228,217,0)) !important}
+  .sf-loop-node{width:76px !important}
+  .sf-loop-node > div > div{width:30px !important;height:30px !important;font-size:0.7rem !important}
+  .sf-loop-node span{font-size:0.58rem !important}
+  #sec-founders{gap:12px !important;padding-top:8vh !important;padding-bottom:64px !important;justify-content:flex-start !important}
+  #sec-founders > div{gap:16px !important;grid-template-columns:1fr !important}
+  #sec-founders > div > div{gap:6px !important;max-width:100% !important}
+  .sf-photo{width:64px !important;height:64px !important}
+  #sec-founders img[alt]{height:11px !important}
+  #sec-founders span{font-size:0.82rem !important}
+  #sec-founders p{font-size:0.7rem !important;line-height:1.4 !important}
+  #nav-foundry,#nav-mission,#nav-founders,#nav-contact{padding:10px 3px !important;font-size:0.6rem !important}
+  #sf-nav{gap:12px !important;padding-bottom:8px !important}
 }
 @media (max-width: 600px){
   #sf-nav{gap:12px !important;padding-bottom:18px !important}
@@ -196,7 +196,7 @@ contact
 <div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">About the co-founders</div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px,1fr));gap:64px">
 <div style="display:flex;flex-direction:column;gap:16px;max-width:360px">
-<div class="sf-photo" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><image-slot id="founder-jad" shape="rect" src="assets/founder-jad.webp" placeholder="Drop a photo of Jad"></image-slot></div>
+<div class="sf-photo" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><img src="assets/founder-jad.webp" alt="Jad Tarifi" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
 <div style="display:flex;align-items:baseline;gap:12px">
 <span style="font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight)">Jad Tarifi</span>
 <span style="font:var(--text-mono-s);color:var(--text-accent);letter-spacing:var(--tracking-wide)">CEO</span>
@@ -209,7 +209,7 @@ contact
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:16px;max-width:360px">
-<div class="sf-photo" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><image-slot id="founder-nima" shape="rect" src="assets/founder-nima.webp" placeholder="Drop a photo of Nima"></image-slot></div>
+<div class="sf-photo" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><img src="assets/founder-nima.webp" alt="Nima Asgharbeygi" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
 <div style="display:flex;align-items:baseline;gap:12px">
 <span style="font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight)">Nima Asgharbeygi</span>
 <span style="font:var(--text-mono-s);color:var(--text-accent);letter-spacing:var(--tracking-wide)">CTO</span>
@@ -217,8 +217,8 @@ contact
 <p style="font:var(--text-body-m);color:var(--text-secondary);margin:0;text-wrap:pretty">Previous Area Tech Lead for on-device AI at Google Maps. Co-founder &amp; CTO of CleverSense (acquired by Google in 2011).</p>
 <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:4px">
 <img src="assets/logos/google.svg" alt="Google" style="height:20px;width:auto" />
-<img src="assets/logos/cleversense-dark.png" alt="CleverSense" style="height:26px;width:auto" />
-<span style="display:inline-flex;align-items:center;background:#E4E1DA;border-radius:var(--radius-pill);padding:5px 12px"><img src="assets/logos/stanford.png" alt="Stanford University" style="height:18px;width:auto" /></span>
+<img src="assets/logos/cleversense-dark.webp" alt="CleverSense" style="height:26px;width:auto" />
+<img src="assets/logos/stanford.webp" alt="Stanford University" style="height:18px;width:auto" />
 </div>
 </div>
 </div>
@@ -233,8 +233,7 @@ contact
 </main>
 <div id="scroll-track" style="height:500vh;pointer-events:none"></div>
 <div style="position:fixed;inset:0;z-index:40;background:#FBF8F3;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;padding:11vh var(--page-margin) 0 calc(var(--page-margin) * 2);cursor:pointer;transition:opacity 900ms cubic-bezier(0.2,0,0,1);opacity:{{ curtainOpacity }};pointer-events:{{ curtainEvents }}" ref="{{ curtainRef }}" onClick="{{ open }}">
-<video ref="{{ videoRef }}" src="uploads/space.webm" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear;filter:invert(1) hue-rotate(180deg) saturate(1.45) brightness(1.14) contrast(1.06);mix-blend-mode:multiply"></video>
-<video ref="{{ blendRef }}" src="uploads/space.webm" playsInline="playsinline" preload="auto" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:invert(1) hue-rotate(180deg) saturate(1.45) brightness(1.14) contrast(1.06);mix-blend-mode:screen;opacity:0"></video>
+<video ref="{{ videoRef }}" src="uploads/space-light.webm" autoPlay="autoplay" playsInline="playsinline" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
 <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none" aria-hidden="true"><defs><pattern id="hatchTile" width="{{ tile }}" height="{{ tile }}" patternUnits="userSpaceOnUse"><path d="{{ tilePath }}" stroke="#2A2521" stroke-opacity="{{ tileOpacity }}" stroke-width="{{ tileWeight }}" stroke-linecap="round"></path></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#hatchTile)"></rect></svg>
 <div ref="{{ heroRef }}" id="sf-intro-hero" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;gap:28px;opacity:0;transition:opacity 500ms cubic-bezier(0.2,0,0,1)">
 <img src="assets/logo/aleph-mark-light.svg" style="height:132px;width:auto;align-self:center" />
@@ -246,7 +245,7 @@ contact
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;headline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;From Generative AI to Creative AGI&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;maintenanceLock&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Access&quot;},&quot;snappiness&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2.5,&quot;min&quot;:0.5,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;starDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0.2,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Starfield&quot;},&quot;introOutStart&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:2,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;introOutEnd&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:6,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;blendFadeSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:0.5,&quot;max&quot;:8,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;revealSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:4,&quot;min&quot;:0.5,&quot;max&quot;:5,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;holdSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0,&quot;max&quot;:4,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;overlayPattern&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;diagonal /&quot;,&quot;options&quot;:[&quot;diagonal /&quot;,&quot;diagonal \\&quot;,&quot;cross hatch&quot;,&quot;dots&quot;,&quot;vertical&quot;,&quot;horizontal&quot;,&quot;none&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:7,&quot;min&quot;:2,&quot;max&quot;:24,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.1,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayWeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:6,&quot;step&quot;:0.5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;headline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;From Generative AI to Creative AGI&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;maintenanceLock&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Access&quot;},&quot;snappiness&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2.5,&quot;min&quot;:0.5,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;starDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0.2,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Starfield&quot;},&quot;introOutStart&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:2,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;introOutEnd&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:6,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;revealSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:4,&quot;min&quot;:0.5,&quot;max&quot;:5,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;holdSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0,&quot;max&quot;:4,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;overlayPattern&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;diagonal /&quot;,&quot;options&quot;:[&quot;diagonal /&quot;,&quot;diagonal \\&quot;,&quot;cross hatch&quot;,&quot;dots&quot;,&quot;vertical&quot;,&quot;horizontal&quot;,&quot;none&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:7,&quot;min&quot;:2,&quot;max&quot;:24,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.1,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayWeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:6,&quot;step&quot;:0.5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;}}">
 class Component extends DCLogic {
   state = { open: !!this.props.startOpen, active: 'foundry', unlocked: sessionStorage.getItem('sf-ml') === '1' };
 
@@ -319,14 +318,12 @@ class Component extends DCLogic {
       }
       document.addEventListener('pointerdown', go, { once: true });
     });
-    if (v && b) {
-      const fade = () => Math.max(0.1, this.props.blendFadeSeconds ?? 3);
+    if (v) {
       this.onTime = () => {
-        const d = v.duration;
-        if (!d || !isFinite(d) || this.state.open) return;
-        const left = d - v.currentTime, f = fade();
-        b.style.opacity = left < f ? Math.min(1, (f - left) / f).toFixed(3) : '0';
-        if (Math.abs(b.currentTime - v.currentTime) > 0.08) b.currentTime = v.currentTime;
+        // MediaRecorder-produced webm reports Infinity duration; the clip is 10.03s
+        const d = (isFinite(v.duration) && v.duration) ? v.duration : 10.03;
+        if (this.state.open) return;
+        const left = d - v.currentTime;
         const r = this.curtain.current, c = this.content.current;
         const rw = Math.max(0.1, this.props.revealSeconds ?? 1.5);
         const reveal = left < rw, prog = reveal ? Math.min(1, (rw - left) / rw) : 0;
@@ -366,7 +363,7 @@ class Component extends DCLogic {
       };
       ['error', 'stalled', 'abort'].forEach(ev => v.addEventListener(ev, () => bail('video ' + ev)));
       this._watchdog = setTimeout(() => {
-        if (!isFinite(v.duration) || v.currentTime < 0.05) bail('video never started');
+        if (v.currentTime < 0.05) bail('video never started');
       }, 6000);
     }
     this.onScroll = () => {
@@ -451,7 +448,9 @@ class Component extends DCLogic {
     let seed = 8675309;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
     const dens = Math.max(0.1, this.props.starDensity ?? 1) * (window.innerWidth < 700 ? 0.55 : 1);
-    const SUB = window.innerWidth < 700 ? 2 : 4;
+    // desktop: 2 twinkle sub-tiles (was 4); mobile: 1, no twinkle — fewer composited layers
+    const SUB = window.innerWidth < 700 ? 1 : 2;
+    this._noTwinkle = window.innerWidth < 700;
     const specs = [
       ['sf-stars-far', Math.round(182 * dens), [0.7, 1.3], [0.28, 0.5]],
       ['sf-stars-mid', Math.round(91 * dens), [1.1, 1.9], [0.4, 0.7]],
@@ -600,6 +599,7 @@ class Component extends DCLogic {
           grp.style.opacity = (env * env).toFixed(3);
           for (const tile of grp.children) {
             tile.style.backgroundPosition = bp;
+            if (this._noTwinkle) continue;
             const per = +tile.dataset.per || 6, ph = +tile.dataset.ph || 0, a = +tile.dataset.amp || 0.15;
             tile.style.opacity = (1 - a + a * Math.sin(ft * (6.283 / per) + ph)).toFixed(3);
           }
@@ -933,7 +933,7 @@ class Component extends DCLogic {
   initLoop() {
     const flow = document.getElementById('sf-flow');
     const NS = 'http://www.w3.org/2000/svg';
-    if (flow && !flow.childElementCount) {
+    if (flow && !flow.childElementCount && window.innerWidth >= 700) {
       const nodes = [[200, 24, '#E8703A'], [329.9, 249, '#7A9448'], [70.1, 249, '#5B8FDB']];
       nodes.forEach(([sx, sy, fill], n) => {
         for (let i = 0; i < 24; i++) {
@@ -967,32 +967,10 @@ class Component extends DCLogic {
       }
       return d;
     };
-    fetch('assets/countries-110m.json')
+    fetch('assets/coastline.json')
       .then(r => r.json())
-      .then(topo => {
-        const [sx, sy] = topo.transform.scale, [tx, ty] = topo.transform.translate;
-        const arcs = topo.arcs.map(arc => {
-          let x = 0, y = 0;
-          return arc.map(p => { x += p[0]; y += p[1]; return [x * sx + tx, y * sy + ty]; });
-        });
-        const join = (idxs) => {
-          let out = [];
-          idxs.forEach(i => {
-            const rev = i < 0, arc = arcs[rev ? ~i : i];
-            const seg = rev ? arc.slice().reverse() : arc;
-            out = out.length ? out.concat(seg.slice(1)) : seg.slice();
-          });
-          return out;
-        };
-        const rings = [];
-        topo.objects.countries.geometries.forEach(g => {
-          if (g.type === 'Polygon') g.arcs.forEach(r => rings.push(join(r)));
-          else if (g.type === 'MultiPolygon') g.arcs.forEach(poly => poly.forEach(r => rings.push(join(r))));
-        });
-        this._land = rings.filter(r => r.length > 3);
-        this.spin();
-      })
-      .catch(err => console.warn('[loop] world-atlas fetch failed:', err && err.message));
+      .then(rings => { this._land = rings; this.spin(); })
+      .catch(err => console.warn('[loop] coastline fetch failed:', err && err.message));
     const idleTick = (now) => {
       // time-based, not frame-based: phones throttle rAF under load, which made the
       // per-frame increment crawl — dt keeps the idle spin at ~4°/s everywhere
@@ -1033,7 +1011,8 @@ class Component extends DCLogic {
     if (!loopEl) return;
     const rect = loopEl.getBoundingClientRect();
     const vh = window.innerHeight || 800;
-    const ep0 = this._enterT0 ? Math.min(1, (performance.now() - this._enterT0) / 6000) : 0;
+    // mobile: skip the 6s entrance growth/spin-up — land at full size immediately
+    const ep0 = window.innerWidth < 700 ? 1 : (this._enterT0 ? Math.min(1, (performance.now() - this._enterT0) / 6000) : 0);
     // rate ∝ (1-ep)^2.2, so the spin decelerates into the idle speed with zero
     // slope at the end rather than dropping off a cliff
     const boost = 520 * (1 - Math.pow(1 - ep0, 4.2));
@@ -1120,6 +1099,16 @@ class Component extends DCLogic {
     // this runtime doesn't pass prevState — track the previous `open` ourselves
     const prevOpen = this._prevOpen; this._prevOpen = this.state.open;
     if (prevOpen !== undefined && prevOpen !== this.state.open && this.lockScroll) this.lockScroll(!this.state.open);
+    // once the page is open the intro videos are invisible but were still decoding two
+    // filtered fullscreen layers — on phones that exhausts the compositor and makes it
+    // drop layers (starfield flicker, vanishing nav). Park them completely.
+    if (prevOpen !== this.state.open) {
+      [this.video.current, this.blend.current].forEach(el => {
+        if (!el) return;
+        if (this.state.open) { el.pause(); el.style.display = 'none'; }
+        else { el.style.display = ''; }
+      });
+    }
     if (prevProps.starDensity !== this.props.starDensity) { this._starsBuilt = false; this.buildStars(); }
   }
   componentWillUnmount() {
