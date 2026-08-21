@@ -27,13 +27,15 @@
   .sf-loop-node > div > div{width:30px !important;height:30px !important;font-size:0.7rem !important}
   .sf-loop-node span{font-size:0.58rem !important}
   #sec-founders{gap:12px !important;padding-top:8vh !important;padding-bottom:64px !important;justify-content:flex-start !important}
-  #sec-founders > div{gap:16px !important;grid-template-columns:1fr !important}
-  #sec-founders > div > div{gap:6px !important;max-width:100% !important}
-  .sf-photo{width:64px !important;height:64px !important}
-  #sec-founders img[alt]{height:11px !important}
+  #sec-founders > div:nth-child(2){margin-top:auto !important}
+  #sec-founders > div:nth-child(3){margin-bottom:auto !important}
+  #sec-founders > div{gap:22px !important;grid-template-columns:1fr !important}
+  #sec-founders > div > div{gap:8px !important;max-width:340px !important}
+  .sf-photo{width:96px !important;height:96px !important}
+  #sec-founders img[alt]{height:13px !important}
   #sec-founders .sf-photo img{width:100% !important;height:100% !important;object-fit:cover !important}
-  #sec-founders span{font-size:0.82rem !important}
-  #sec-founders p{font-size:0.7rem !important;line-height:1.4 !important}
+  #sec-founders span{font-size:0.95rem !important}
+  #sec-founders p{font-size:0.8rem !important;line-height:1.45 !important;max-width:340px !important}
   #nav-foundry,#nav-mission,#nav-founders,#nav-contact{padding:10px 3px !important;font-size:0.6rem !important}
   #sf-nav{gap:12px !important;padding-bottom:8px !important}
 }
@@ -368,10 +370,16 @@ class Component extends DCLogic {
         if (this.lockScroll) this.lockScroll(false);
         this.setState({ open: true });
       };
-      ['error', 'stalled', 'abort'].forEach(ev => v.addEventListener(ev, () => bail('video ' + ev)));
-      this._watchdog = setTimeout(() => {
-        if (v.currentTime < 0.05) bail('video never started');
-      }, 6000);
+      ['error', 'abort'].forEach(ev => v.addEventListener(ev, () => bail('video ' + ev)));
+      // the download starts at unlock, so a fixed 6s timeout would kill the intro on
+      // slow connections — instead bail only when loading makes no progress for 8s
+      this._lastProgress = performance.now();
+      const noteProgress = () => { this._lastProgress = performance.now(); };
+      ['progress', 'loadeddata', 'canplay', 'canplaythrough'].forEach(ev => v.addEventListener(ev, noteProgress));
+      this._watchdog = setInterval(() => {
+        if (v.currentTime >= 0.05) { clearInterval(this._watchdog); return; }
+        if (performance.now() - this._lastProgress > 8000) bail('video stalled');
+      }, 1000);
     }
     this.onScroll = () => {
       const ids = ['foundry', 'mission', 'founders', 'contact'];
@@ -1137,7 +1145,7 @@ class Component extends DCLogic {
     if (this._panRaf) cancelAnimationFrame(this._panRaf);
     clearTimeout(this._snapTimer);
     if (this._snapRaf) cancelAnimationFrame(this._snapRaf);
-    clearTimeout(this._watchdog);
+    clearInterval(this._watchdog);
     clearTimeout(this._heroFallback);
     if (this._onLoopScroll) {
       window.removeEventListener('scroll', this._onLoopScroll, true);
