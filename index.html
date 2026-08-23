@@ -778,6 +778,11 @@ class Component extends DCLogic {
           this._landedAt = performance.now();
           this._absorbing = this._landedAt - (this._evT || 0) < 220;
           if (window.scrollY >= vh * 4 - 2) { rebase(); return; }
+          // sync the gesture trackers to the park position: on phones the scroll events
+          // from this glide arrive late, after _snapping clears — measured against a
+          // stale mid-flight _lastY (a wrap pass sets it near 0) they read as a huge
+          // committed swipe and step one extra chapter past the nav target
+          this._snapFrom = null; this._lastY = window.scrollY;
           this._snapping = false; this._strDirty = true;
         }
       };
