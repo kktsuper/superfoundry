@@ -95,14 +95,14 @@ contact
 <div class="sf-loop" style="position:relative;width:min(85vh, 1040px);max-width:100%;aspect-ratio:1/1;margin:0 auto">
 <div style="position:absolute;inset:0;border-radius:50%;border:1px dashed var(--border-default)" data-loop-ring="1"></div>
 <div style="position:absolute;inset:26px;border-radius:50%;border:1px solid var(--border-subtle)" data-loop-ring="-0.6"></div>
-<svg data-loop-ring="0.45" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+<svg data-loop-ring="0.45" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;will-change:transform">
 <defs>
 <filter id="sf-flowGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.1" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
 <linearGradient id="sfSegA" gradientUnits="userSpaceOnUse" x1="200" y1="50" x2="329.9" y2="275"><stop offset="0" stop-color="#E8703A"></stop><stop offset="0.97" stop-color="#E8703A"></stop><stop offset="1" stop-color="#7A9448"></stop></linearGradient>
 <linearGradient id="sfSegB" gradientUnits="userSpaceOnUse" x1="329.9" y1="275" x2="70.1" y2="275"><stop offset="0" stop-color="#7A9448"></stop><stop offset="0.97" stop-color="#7A9448"></stop><stop offset="1" stop-color="#5B8FDB"></stop></linearGradient>
 <linearGradient id="sfSegC" gradientUnits="userSpaceOnUse" x1="70.1" y1="275" x2="200" y2="50"><stop offset="0" stop-color="#5B8FDB"></stop><stop offset="0.97" stop-color="#5B8FDB"></stop><stop offset="1" stop-color="#E8703A"></stop></linearGradient>
 <mask id="sfArcMask">
-<g data-loop-ring="0.9" style="transform-origin:50% 50%" fill="none" stroke="#fff" stroke-width="3">
+<g data-loop-ring="0.9" style="transform-origin:50% 50%;will-change:transform" fill="none" stroke="#fff" stroke-width="3">
 <path d="M266.7,65.6 A150,150 0 0 1 349.18,184.32"></path>
 <path d="M283.0,324.9 A150,150 0 0 1 139.0,337.0"></path>
 <path d="M50.3,209.4 A150,150 0 0 1 111.83,78.65"></path>
@@ -114,14 +114,14 @@ contact
 </g>
 </mask>
 </defs>
-<g mask="url(#sfArcMask)" fill="none" stroke-width="18">
+<g mask="url(#sfArcMask)" fill="none" stroke-width="18" style="will-change:transform">
 <path d="M200,50 A150,150 0 0 1 329.9,275" stroke="url(#sfSegA)"></path>
 <path d="M329.9,275 A150,150 0 0 1 70.1,275" stroke="url(#sfSegB)"></path>
 <path d="M70.1,275 A150,150 0 0 1 200,50" stroke="url(#sfSegC)"></path>
 </g>
 </svg>
-<svg data-loop-ring="0.45" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;transform-origin:50% 50%">
-<g id="sf-flow" filter="url(#sf-flowGlow)"></g>
+<svg data-loop-ring="0.45" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;transform-origin:50% 50%;will-change:transform">
+<g id="sf-flow" filter="url(#sf-flowGlow)" style="will-change:transform"></g>
 </svg>
 <div id="sf-wm-glow" style="position:absolute;top:50%;left:50%;width:62%;height:62%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:1;background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.5) 42%, rgba(255,255,255,0) 70%)"></div>
 <div id="sf-wm-ring-inner" style="position:absolute;top:50%;left:50%;width:46%;height:46%;transform:translate(-50%,-50%) rotate(14deg)">
