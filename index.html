@@ -237,7 +237,10 @@ contact
 <div aria-hidden="true" style="position:fixed;inset:0;z-index:-1;background:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);pointer-events:none"></div>
 <div id="scroll-track" style="height:500vh;pointer-events:none"></div>
 <div style="position:fixed;inset:0;z-index:40;background:#FBF8F3;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;padding:11vh var(--page-margin) 0 calc(var(--page-margin) * 2);cursor:pointer;transition:opacity 900ms cubic-bezier(0.2,0,0,1);opacity:{{ curtainOpacity }};pointer-events:{{ curtainEvents }}" ref="{{ curtainRef }}" onClick="{{ open }}">
-<video ref="{{ videoRef }}" src="uploads/space-light.webm" playsInline="playsinline" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear"></video>
+<video ref="{{ videoRef }}" playsInline="playsinline" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 500ms linear">
+<source src="uploads/space-light.webm" type="video/webm">
+<source src="uploads/space-light.mp4" type="video/mp4">
+</video>
 <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none" aria-hidden="true"><defs><pattern id="hatchTile" width="{{ tile }}" height="{{ tile }}" patternUnits="userSpaceOnUse"><path d="{{ tilePath }}" stroke="#2A2521" stroke-opacity="{{ tileOpacity }}" stroke-width="{{ tileWeight }}" stroke-linecap="round"></path></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#hatchTile)"></rect></svg>
 <div ref="{{ heroRef }}" id="sf-intro-hero" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:max-content;max-width:100%;gap:28px;opacity:0;transition:opacity 500ms cubic-bezier(0.2,0,0,1)">
 <img src="assets/logo/aleph-mark-light.svg" style="height:132px;width:auto;align-self:center" />
