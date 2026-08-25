@@ -1023,11 +1023,10 @@ class Component extends DCLogic {
       const el = document.querySelector('.sf-loop');
       if (el) {
         const r = el.getBoundingClientRect();
-        // pre-warm margin of one viewport on each side: keeps the diagram's GPU
-        // textures freshly rasterized before it becomes visible, so entry never
-        // lands on a purged layer (the single blink on scroll-in)
-        const vh0 = window.innerHeight || 800;
-        if (r.bottom > -vh0 && r.top < vh0 * 2) {
+        // always-on: gating this on proximity created a raster-in/out event at the
+        // mission boundary (the whole-page blink). Transforms are compositor-only
+        // and SVG-internal work is already quantized, so idle cost is negligible.
+        if (true || r.bottom) {
           this._idle = (this._idle || 0) + 0.004 * dt;
           this.spin();
         }
