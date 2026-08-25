@@ -95,7 +95,7 @@ contact
 <div class="sf-loop" style="position:relative;width:min(85vh, 1040px);max-width:100%;aspect-ratio:1/1;margin:0 auto;transform:translateZ(0)">
 <div style="position:absolute;inset:0;border-radius:50%;border:1px dashed var(--border-default)" data-loop-ring="1"></div>
 <div style="position:absolute;inset:26px;border-radius:50%;border:1px solid var(--border-subtle)" data-loop-ring="-0.6"></div>
-<div data-loop-ring="0.45" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform">
+<div data-loop-ring="1.35" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform">
 <svg viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
 <defs>
 <filter id="sf-flowGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.1" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
@@ -103,7 +103,7 @@ contact
 <linearGradient id="sfSegB" gradientUnits="userSpaceOnUse" x1="329.9" y1="275" x2="70.1" y2="275"><stop offset="0" stop-color="#7A9448"></stop><stop offset="0.97" stop-color="#7A9448"></stop><stop offset="1" stop-color="#5B8FDB"></stop></linearGradient>
 <linearGradient id="sfSegC" gradientUnits="userSpaceOnUse" x1="70.1" y1="275" x2="200" y2="50"><stop offset="0" stop-color="#5B8FDB"></stop><stop offset="0.97" stop-color="#5B8FDB"></stop><stop offset="1" stop-color="#E8703A"></stop></linearGradient>
 <mask id="sfArcMask">
-<g data-loop-ring="0.9" style="transform-origin:50% 50%" fill="none" stroke="#fff" stroke-width="3">
+<g fill="none" stroke="#fff" stroke-width="3">
 <path d="M266.7,65.6 A150,150 0 0 1 349.18,184.32"></path>
 <path d="M283.0,324.9 A150,150 0 0 1 139.0,337.0"></path>
 <path d="M50.3,209.4 A150,150 0 0 1 111.83,78.65"></path>
@@ -116,9 +116,11 @@ contact
 </mask>
 </defs>
 <g mask="url(#sfArcMask)" fill="none" stroke-width="18">
+<g data-loop-ring="-0.9" style="transform-origin:50% 50%">
 <path d="M200,50 A150,150 0 0 1 329.9,275" stroke="url(#sfSegA)"></path>
 <path d="M329.9,275 A150,150 0 0 1 70.1,275" stroke="url(#sfSegB)"></path>
 <path d="M70.1,275 A150,150 0 0 1 200,50" stroke="url(#sfSegC)"></path>
+</g>
 </g>
 </svg>
 </div>
