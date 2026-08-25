@@ -1068,13 +1068,20 @@ class Component extends DCLogic {
     this._posAcc = (this._posAcc || 0) + Math.abs(dpos);
     const base = this._posAcc + (this._idle || 0) + boost;
     // 0.2° steps: an unchanged transform string is a no-op, so slow rings stop
-    // invalidating their SVG raster on every frame
+    // invalidating their SVG raster on every frame. During a glide the SVG-internal
+    // rasters update at half rate (invisible under the pan) — halves GPU upload
+    // bandwidth exactly in the window where the layer purge/flash was triggered.
+    const fnow2 = performance.now();
+    const svgOk = !this._snapping || fnow2 - (this._svgT || 0) >= 33;
+    if (svgOk) this._svgT = fnow2;
     const qr = (x) => Math.round(x * 5) / 5;
     document.querySelectorAll('[data-loop-ring]').forEach(el => {
+      if (el.tagName !== 'DIV' && !svgOk) return;
       const f = parseFloat(el.getAttribute('data-loop-ring')) || 0;
       el.style.transform = `rotate(${qr(base * f)}deg)`;
     });
     document.querySelectorAll('[data-loop-counter]').forEach(el => {
+      if (el.tagName !== 'DIV' && !svgOk) return;
       const f = parseFloat(el.getAttribute('data-loop-counter')) || 0;
       el.style.transform = `rotate(${qr(-base * f)}deg)`;
     });
@@ -1112,7 +1119,7 @@ class Component extends DCLogic {
     // globe redraw quantized to 0.5° — an unchanged phase skips the meridian arcs and
     // the coastline path rebuild (the biggest per-frame string churn in the page)
     const phase = Math.round(Math.abs(base) * 1.6 * 2) / 2;
-    if (phase !== this._lastPhase) {
+    if (svgOk && phase !== this._lastPhase) {
     this._lastPhase = phase;
     document.querySelectorAll('.sf-wm-meridian').forEach(g => {
       const lon = parseFloat(g.getAttribute('data-lon')) || 0;
