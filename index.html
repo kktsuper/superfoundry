@@ -593,6 +593,15 @@ class Component extends DCLogic {
       let d = raw - prev;
       if (Math.abs(d) > 1.5) d = 0;
       this._starRaw = raw;
+      // idle throttle: with no scroll delta and the streaks parked, the only motion is
+      // the slow float + twinkle — 30fps is visually identical and halves (quarters, on
+      // 120Hz displays, where Chrome runs rAF at full refresh) the always-on work
+      const nowP = performance.now();
+      if (d === 0 && (this._strV || 0) < 0.002 && nowP - (this._paintT || 0) < 33) {
+        this._starRaf = requestAnimationFrame(paint);
+        return;
+      }
+      this._paintT = nowP;
       this._starPhase = (this._starPhase || 0) + d;
       // forward-only odometer: travel in either direction always moves the camera ahead
       this._zoomP = (this._zoomP || 0) + Math.abs(d);
@@ -1020,16 +1029,18 @@ class Component extends DCLogic {
       // per-frame increment crawl — dt keeps the idle spin at ~4°/s everywhere
       const dt = this._idleT == null ? 16.7 : Math.min(100, now - this._idleT);
       this._idleT = now;
-      const el = document.querySelector('.sf-loop');
-      if (el) {
-        const r = el.getBoundingClientRect();
-        // always-on: gating this on proximity created a raster-in/out event at the
-        // mission boundary (the whole-page blink). Transforms are compositor-only
-        // and SVG-internal work is already quantized, so idle cost is negligible.
-        if (true || r.bottom) {
-          this._idle = (this._idle || 0) + 0.004 * dt;
-          this.spin();
-        }
+      this._idleAcc = Math.min(400, (this._idleAcc || 0) + dt);
+      // visibility flags are cached by spin() itself (it measures the rect anyway);
+      // worst-case staleness is one keep-warm interval, invisible on a ±1-viewport band.
+      // on-screen the tick is capped at ~60fps — on 120Hz displays Chrome runs rAF at
+      // full refresh, doubling the cost of 4°/s motion. off-screen but inside the
+      // pre-warm band, a 4Hz keep-warm re-raster is all the GPU needs to hold the
+      // textures resident — spinning at display rate out of view was pure waste
+      const gate = this._loopVis !== false ? 14 : 250;
+      if (this._loopBand !== false && now - (this._spinAt || 0) >= gate) {
+        this._idle = (this._idle || 0) + 0.004 * this._idleAcc;
+        this._idleAcc = 0;
+        this.spin();
       }
       this._idleRaf = requestAnimationFrame(idleTick);
     };
@@ -1046,7 +1057,13 @@ class Component extends DCLogic {
     } else this._enterT0 = performance.now();
     this._onLoopScroll = () => {
       if (this._loopRaf) return;
-      this._loopRaf = requestAnimationFrame(() => { this._loopRaf = null; this.spin(); });
+      this._loopRaf = requestAnimationFrame(() => {
+        this._loopRaf = null;
+        // gliding past out of view: 8Hz keeps the odometer + textures warm without
+        // re-rastering the whole SVG stack at display rate behind another chapter
+        if (this._loopVis === false && performance.now() - (this._spinAt || 0) < 125) return;
+        this.spin();
+      });
     };
     window.addEventListener('scroll', this._onLoopScroll, true);
     window.addEventListener('resize', this._onLoopScroll);
@@ -1058,6 +1075,25 @@ class Component extends DCLogic {
     if (!loopEl) return;
     const rect = loopEl.getBoundingClientRect();
     const vh = window.innerHeight || 800;
+    const vw = window.innerWidth || 1200;
+    // visibility flags for the tick gates, cached here since this is the one place the
+    // rect is measured; the chapter pan is horizontal, so left/right matter too
+    this._loopVis = rect.bottom > 0 && rect.top < vh && rect.right > 0 && rect.left < vw && !document.hidden;
+    this._loopBand = rect.bottom > -vh && rect.top < vh * 2;
+    this._spinAt = performance.now();
+    // per-spin querySelectorAll + attribute parsing was pure per-frame overhead —
+    // resolve the element sets once and rebuild only if a re-render replaced them
+    let Q = this._spinQ;
+    if (!Q || Q.loop !== loopEl || (!Q.flow.length && document.querySelector('#sf-flow circle'))) {
+      Q = this._spinQ = {
+        loop: loopEl,
+        rings: Array.from(document.querySelectorAll('[data-loop-ring]')).map(el => [el, parseFloat(el.getAttribute('data-loop-ring')) || 0, el.tagName === 'DIV']),
+        counters: Array.from(document.querySelectorAll('[data-loop-counter]')).map(el => [el, parseFloat(el.getAttribute('data-loop-counter')) || 0, el.tagName === 'DIV']),
+        meridians: Array.from(document.querySelectorAll('.sf-wm-meridian')).map(g => [g, parseFloat(g.getAttribute('data-lon')) || 0, g.querySelector('.sf-mer-f'), g.querySelector('.sf-mer-b')]),
+        flow: Array.from(document.querySelectorAll('#sf-flow circle')).map(c => [c, parseInt(c.getAttribute('data-node'), 10), parseFloat(c.getAttribute('data-sx')), parseFloat(c.getAttribute('data-sy')), parseFloat(c.getAttribute('data-jit')) || 0, parseFloat(c.getAttribute('data-spd')) || 1, parseFloat(c.getAttribute('data-delay')) || 0, parseFloat(c.getAttribute('data-op')) || 0.7]),
+        discs: Array.from(document.querySelectorAll('.sf-loop-node > div > div'))
+      };
+    }
     // mobile: shorter entrance spin-up (3s vs 6s) — cost is the same per-frame transform
     const entMs = window.innerWidth < 700 ? 3000 : 6000;
     const ep0 = this._enterT0 ? Math.min(1, (performance.now() - this._enterT0) / entMs) : 0;
@@ -1080,14 +1116,12 @@ class Component extends DCLogic {
     const svgOk = !this._snapping || fnow2 - (this._svgT || 0) >= 33;
     if (svgOk) this._svgT = fnow2;
     const qr = (x) => Math.round(x * 5) / 5;
-    document.querySelectorAll('[data-loop-ring]').forEach(el => {
-      if (el.tagName !== 'DIV' && !svgOk) return;
-      const f = parseFloat(el.getAttribute('data-loop-ring')) || 0;
+    Q.rings.forEach(([el, f, isDiv]) => {
+      if (!isDiv && !svgOk) return;
       el.style.transform = `rotate(${qr(base * f)}deg)`;
     });
-    document.querySelectorAll('[data-loop-counter]').forEach(el => {
-      if (el.tagName !== 'DIV' && !svgOk) return;
-      const f = parseFloat(el.getAttribute('data-loop-counter')) || 0;
+    Q.counters.forEach(([el, f, isDiv]) => {
+      if (!isDiv && !svgOk) return;
       el.style.transform = `rotate(${qr(-base * f)}deg)`;
     });
     // growth + saturation run on a 4s timeline once the section lands
@@ -1126,15 +1160,13 @@ class Component extends DCLogic {
     const phase = Math.round(Math.abs(base) * 1.6 * 2) / 2;
     if (svgOk && phase !== this._lastPhase) {
     this._lastPhase = phase;
-    document.querySelectorAll('.sf-wm-meridian').forEach(g => {
-      const lon = parseFloat(g.getAttribute('data-lon')) || 0;
+    Q.meridians.forEach(([g, lon, f, bk]) => {
       const a = (lon + phase) * Math.PI / 180;
       const rx = Math.max(0.5, Math.abs(56 * Math.cos(a))).toFixed(2);
       const bulgeRight = Math.sin(a) >= 0;
       const frontIsThisHalf = Math.cos(a) > 0;
       const fSweep = (frontIsThisHalf === bulgeRight) ? 0 : 1;
       const arc = (sweep) => 'M60,4 A' + rx + ',56 0 0 ' + sweep + ' 60,116';
-      const f = g.querySelector('.sf-mer-f'), bk = g.querySelector('.sf-mer-b');
       if (f) f.setAttribute('d', arc(fSweep));
       if (bk) bk.setAttribute('d', arc(1 - fSweep));
     });
@@ -1143,10 +1175,14 @@ class Component extends DCLogic {
     // particles at 30fps: their svg is the only thing re-rastering on every frame,
     // and half the raster + texture-upload rate is invisible at this dot size
     const fnow = performance.now();
-    if (fnow - (this._flowT || 0) < 33) return;
+    // off-screen in the pre-warm band, 2Hz is enough to keep this svg's texture
+    // resident — 30fps of particle churn behind another chapter was the single
+    // largest idle cost on the page (~8k attribute writes/s)
+    const flowGate = this._loopVis ? 33 : 500;
+    if (fnow - (this._flowT || 0) < flowGate) return;
     this._flowT = fnow;
     const fp = fnow / 3400;
-    const discs = document.querySelectorAll('.sf-loop-node > div > div');
+    const discs = Q.discs;
     const starts = [];
     if (discs.length >= 3) {
       const th = -(base * 0.45) * Math.PI / 180;
@@ -1158,21 +1194,20 @@ class Component extends DCLogic {
       }
     }
     const stopR = 200 * 0.46 * (0.58 + 0.55 * (this._t || 0));
-    document.querySelectorAll('#sf-flow circle').forEach(c => {
-      const st = starts[parseInt(c.getAttribute('data-node'), 10)];
-      const sx = st ? st[0] : parseFloat(c.getAttribute('data-sx'));
-      const sy = st ? st[1] : parseFloat(c.getAttribute('data-sy'));
+    Q.flow.forEach(([c, ni, dsx, dsy, jit, spd, delay, op]) => {
+      const st = starts[ni];
+      const sx = st ? st[0] : dsx;
+      const sy = st ? st[1] : dsy;
       const a0 = Math.atan2(sy - 200, sx - 200);
       const r0 = Math.hypot(sx - 200, sy - 200);
-      const jit = parseFloat(c.getAttribute('data-jit')) || 0;
-      const p = ((fp * (parseFloat(c.getAttribute('data-spd')) || 1) + parseFloat(c.getAttribute('data-delay'))) % 1 + 1) % 1;
+      const p = ((fp * spd + delay) % 1 + 1) % 1;
       const e = p * p * (3 - 2 * p);
       const ang = a0 + (jit / 160) * (1 - e) - 0.085 * e;
       const rr = r0 + (stopR - r0) * e;
       c.setAttribute('cx', (200 + rr * Math.cos(ang)).toFixed(1));
       c.setAttribute('cy', (200 + rr * Math.sin(ang)).toFixed(1));
       c.setAttribute('r', (0.98 + 1.28 * Math.sin(Math.PI * p)).toFixed(2));
-      c.setAttribute('opacity', (Math.sin(Math.PI * p) * (parseFloat(c.getAttribute('data-op')) || 0.7)).toFixed(2));
+      c.setAttribute('opacity', (Math.sin(Math.PI * p) * op).toFixed(2));
     });
   }
   componentDidUpdate(prevProps) {
