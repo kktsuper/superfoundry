@@ -129,8 +129,8 @@ contact
 <g id="sf-flow"></g>
 </svg>
 </div>
-<div id="sf-wm-glow" style="position:absolute;top:50%;left:50%;width:62%;height:62%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:1;background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.5) 42%, rgba(255,255,255,0) 70%)"></div>
-<div id="sf-wm-ring-inner" style="position:absolute;top:50%;left:50%;width:46%;height:46%;transform:translate(-50%,-50%) rotate(14deg)">
+<div id="sf-wm-glow" style="will-change:transform;position:absolute;top:50%;left:50%;width:62%;height:62%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:1;background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.5) 42%, rgba(255,255,255,0) 70%)"></div>
+<div id="sf-wm-ring-inner" style="will-change:transform;position:absolute;top:50%;left:50%;width:46%;height:46%;transform:translate(-50%,-50%) rotate(14deg)">
 <svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;overflow:hidden">
 <defs><clipPath id="sf-globe-clip"><circle cx="60" cy="60" r="55"></circle></clipPath></defs>
 <circle cx="60" cy="60" r="55" fill="rgba(147,180,222,0.34)"></circle>
@@ -602,6 +602,10 @@ class Component extends DCLogic {
         return;
       }
       this._paintT = nowP;
+      // background-position is the one non-compositor write in the field: cap it at
+      // 60fps so a 120Hz glide doesn't repaint six oversized layers twice per frame
+      const bpOk = nowP - (this._bpT || 0) >= 15;
+      if (bpOk) this._bpT = nowP;
       this._starPhase = (this._starPhase || 0) + d;
       // forward-only odometer: travel in either direction always moves the camera ahead
       this._zoomP = (this._zoomP || 0) + Math.abs(d);
@@ -643,7 +647,7 @@ class Component extends DCLogic {
           }
           grp.style.opacity = (env * env * tw).toFixed(3);
           for (const tile of grp.children) {
-            if (tile.style.backgroundPosition !== bp) tile.style.backgroundPosition = bp;
+            if (bpOk && tile.style.backgroundPosition !== bp) tile.style.backgroundPosition = bp;
           }
         }
       });
@@ -1113,7 +1117,10 @@ class Component extends DCLogic {
     // rasters update at half rate (invisible under the pan) — halves GPU upload
     // bandwidth exactly in the window where the layer purge/flash was triggered.
     const fnow2 = performance.now();
-    const svgOk = !this._snapping || fnow2 - (this._svgT || 0) >= 33;
+    // SVG-internal updates never need display rate: 40fps settled, 30fps during
+    // glides AND the entrance spin-up — the two windows whose texture-upload spikes
+    // made Chrome purge neighbouring layers (starfield / nav flash)
+    const svgOk = fnow2 - (this._svgT || 0) >= ((this._snapping || !this._entDone) ? 33 : 25);
     if (svgOk) this._svgT = fnow2;
     const qr = (x) => Math.round(x * 5) / 5;
     Q.rings.forEach(([el, f, isDiv]) => {
@@ -1133,31 +1140,38 @@ class Component extends DCLogic {
     // the SVGs permanently invalidated; skip the block once the entrance is done
     if (!this._entDone) {
     if (ep >= 1) this._entDone = true;
-    document.querySelectorAll('.sf-loop-node').forEach(n => { n.style.opacity = '1'; });
+    // the entrance colors are constants — re-setting them every frame kept the whole
+    // globe SVG invalidated for the entire growth (the globe-only blink: full
+    // re-raster + texture upload at display rate on a large Retina layer). Set once.
+    if (!this._entStyled) {
+      this._entStyled = true;
+      document.querySelectorAll('.sf-loop-node').forEach(n => { n.style.opacity = '1'; });
+      const glow0 = document.getElementById('sf-wm-glow');
+      if (glow0) glow0.style.opacity = '1';
+      const bd0 = document.getElementById('sf-wm-border');
+      if (bd0) bd0.setAttribute('stroke', 'rgba(232,112,58,1)');
+      const gratStroke = 'rgba(110,159,232,0.55)';
+      document.querySelectorAll('.sf-wm-grat, .sf-wm-meridian').forEach(el => el.setAttribute('stroke', gratStroke));
+      if (landEl) {
+        landEl.setAttribute('stroke', 'rgba(122,148,72,0.85)');
+        landEl.setAttribute('fill', 'rgba(122,148,72,0.23)');
+      }
+    }
     const ri = document.getElementById('sf-wm-ring-inner');
     if (ri) ri.style.transform = 'translate(-50%,-50%) rotate(14deg) scale(' + (0.58 + 0.55 * t).toFixed(3) + ')';
     const glow = document.getElementById('sf-wm-glow');
-    if (glow) {
-      glow.style.opacity = '1';
-      glow.style.transform = 'translate(-50%,-50%) scale(' + (0.72 + 0.55 * t).toFixed(3) + ')';
-    }
-    const ct = 1 - Math.pow(1 - ep, 2.6);
-    const lerp = (a, b) => Math.round(a + (b - a) * ct);
+    if (glow) glow.style.transform = 'translate(-50%,-50%) scale(' + (0.72 + 0.55 * t).toFixed(3) + ')';
+    // stroke-width invalidates the svg raster — quantize to ~13 changes per entrance
+    const bw = (Math.round((0.375 + 0.625 * t) * 20) / 20).toFixed(2);
     const bd = document.getElementById('sf-wm-border');
-    if (bd) {
-      bd.setAttribute('stroke-width', (0.375 + 0.625 * t).toFixed(2));
-      bd.setAttribute('stroke', 'rgba(232,112,58,1)');
-    }
-    const gratStroke = 'rgba(110,159,232,0.55)';
-    document.querySelectorAll('.sf-wm-grat, .sf-wm-meridian').forEach(el => el.setAttribute('stroke', gratStroke));
-    if (landEl) {
-      landEl.setAttribute('stroke', 'rgba(122,148,72,0.85)');
-      landEl.setAttribute('fill', 'rgba(122,148,72,0.23)');
-    }
+    if (bd && bd.getAttribute('stroke-width') !== bw) bd.setAttribute('stroke-width', bw);
     }
     // globe redraw quantized to 0.5° — an unchanged phase skips the meridian arcs and
     // the coastline path rebuild (the biggest per-frame string churn in the page)
-    const phase = Math.round(Math.abs(base) * 1.6 * 2) / 2;
+    // coarser steps while gliding or spinning up: the coastline rebuild + meridian
+    // re-arcs are the biggest uploads, and 2° steps are invisible on a fast globe
+    const pq = (this._snapping || !this._entDone) ? 0.5 : 2;
+    const phase = Math.round(Math.abs(base) * 1.6 * pq) / pq;
     if (svgOk && phase !== this._lastPhase) {
     this._lastPhase = phase;
     Q.meridians.forEach(([g, lon, f, bk]) => {
@@ -1178,7 +1192,7 @@ class Component extends DCLogic {
     // off-screen in the pre-warm band, 2Hz is enough to keep this svg's texture
     // resident — 30fps of particle churn behind another chapter was the single
     // largest idle cost on the page (~8k attribute writes/s)
-    const flowGate = this._loopVis ? 33 : 500;
+    const flowGate = !this._loopVis ? 500 : (this._snapping ? 66 : 33);
     if (fnow - (this._flowT || 0) < flowGate) return;
     this._flowT = fnow;
     const fp = fnow / 3400;
