@@ -386,16 +386,23 @@ class Component extends DCLogic {
     };
     this.onOrientFlip = () => { this._orB = null; this._orG = null; };
     this.armGyro = () => {
-      if (this._gyroArmed) return; this._gyroArmed = true;
-      const add = () => window.addEventListener('deviceorientation', this.onTiltOrient, { passive: true });
+      if (this._gyroArmed) return;
+      const add = () => {
+        if (this._gyroArmed) return; this._gyroArmed = true;
+        window.addEventListener('deviceorientation', this.onTiltOrient, { passive: true });
+        window.removeEventListener('touchend', this.armGyro);
+      };
       if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) {
         DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') add(); }).catch(() => {});
       } else add();
     };
-    // android and desktop arm silently; iOS needs its permission prompt to come from a
-    // user gesture, so arm on the first tap anywhere
+    // iOS: try a silent arm at load — if permission was granted in a previous visit this
+    // resolves without a gesture, so the gyro works before the first touch. If it needs
+    // the prompt, every tap retries until it's granted (the old once-only tap left the
+    // first section gyro-dead until the user happened to scroll).
     if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) {
-      window.addEventListener('touchend', this.armGyro, { once: true });
+      this.armGyro();
+      window.addEventListener('touchend', this.armGyro);
     } else if ('ontouchstart' in window) this.armGyro();
     window.addEventListener('orientationchange', this.onOrientFlip);
     window.addEventListener('pointermove', this.onTiltMove, { passive: true });
