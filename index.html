@@ -53,10 +53,8 @@
 <div style="font:var(--text-mono-s);color:var(--text-accent);min-height:1.2em">{{ pwError }}</div>
 </div>
 </sc-if>
-<div id="sf-stars" style="position:fixed;inset:-28%;z-index:{{ starsZ }};pointer-events:none;opacity:{{ starsOpacity }};transition:opacity 900ms cubic-bezier(0.2,0,0,1)">
-<div class="sf-star-layer" id="sf-stars-far" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;background-image:radial-gradient(1.2px 1.2px at 12% 22%,rgba(245,243,238,0.55),transparent 62%),radial-gradient(1px 1px at 34% 68%,rgba(245,243,238,0.45),transparent 62%),radial-gradient(1px 1px at 46% 34%,rgba(245,243,238,0.4),transparent 62%),radial-gradient(1px 1px at 6% 58%,rgba(245,243,238,0.4),transparent 62%),radial-gradient(1.2px 1.2px at 80% 10%,rgba(245,243,238,0.5),transparent 62%),radial-gradient(1px 1px at 54% 74%,rgba(245,243,238,0.38),transparent 62%);background-size:300px 300px,360px 360px,280px 280px,310px 310px,430px 430px,290px 290px"></div>
-<div class="sf-star-layer" id="sf-stars-mid" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;background-image:radial-gradient(1.8px 1.8px at 58% 14%,rgba(91,143,219,0.7),transparent 62%),radial-gradient(1.5px 1.5px at 72% 44%,rgba(245,243,238,0.6),transparent 62%),radial-gradient(1.5px 1.5px at 24% 88%,rgba(232,112,58,0.55),transparent 62%),radial-gradient(1.6px 1.6px at 92% 28%,rgba(91,143,219,0.55),transparent 62%),radial-gradient(1.6px 1.6px at 18% 46%,rgba(245,243,238,0.55),transparent 62%);background-size:420px 420px,330px 330px,350px 350px,370px 370px,250px 250px"></div>
-<div class="sf-star-layer" id="sf-stars-near" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;background-image:radial-gradient(2.6px 2.6px at 88% 76%,rgba(245,243,238,0.95),transparent 62%),radial-gradient(2.6px 2.6px at 66% 92%,rgba(245,243,238,0.85),transparent 62%),radial-gradient(2.2px 2.2px at 38% 6%,rgba(91,143,219,0.75),transparent 62%),radial-gradient(2.2px 2.2px at 30% 52%,rgba(245,243,238,0.8),transparent 62%);background-size:390px 390px,410px 410px,260px 260px,340px 340px"></div>
+<div id="sf-stars" style="position:fixed;inset:0;z-index:{{ starsZ }};pointer-events:none;opacity:{{ starsOpacity }};transition:opacity 900ms cubic-bezier(0.2,0,0,1)">
+<canvas id="sf-stars-cv" style="position:absolute;inset:0;width:100%;height:100%"></canvas>
 </div>
 <div id="sf-streaks" style="position:fixed;inset:-14% -30%;z-index:0;pointer-events:none;opacity:{{ chromeOpacity }};transition:opacity 900ms cubic-bezier(0.2,0,0,1)">
 <div class="sf-streak-layer" id="sf-streaks-far" style="position:absolute;inset:0;will-change:transform,opacity;opacity:0"></div>
@@ -466,8 +464,10 @@ class Component extends DCLogic {
 
 
 
-  // stars are drawn to one big offscreen tile with seeded jitter — the old stack of
-  // repeating radial-gradients lined them up on a grid
+  // stars are drawn to seeded offscreen tiles kept as raw canvases and composited
+  // into ONE viewport-sized <canvas> per frame — the old stack of six oversized
+  // composited layers (hundreds of MB of GPU textures at Retina) is what Chrome
+  // kept purging under pressure: the residual starfield/nav flicker
   buildStars() {
     if (this._starsBuilt) return;
     this._starsBuilt = true;
@@ -475,66 +475,56 @@ class Component extends DCLogic {
     let seed = 8675309;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
     const dens = Math.max(0.1, this.props.starDensity ?? 1) * (window.innerWidth < 700 ? 0.55 : 1);
-    // desktop: 2 twinkle sub-tiles (was 4); mobile: 1, no twinkle — fewer composited layers
     const SUB = window.innerWidth < 700 ? 1 : 2;
     this._noTwinkle = window.innerWidth < 700;
     const specs = [
-      ['sf-stars-far', Math.round(182 * dens), [0.7, 1.3], [0.28, 0.5]],
-      ['sf-stars-mid', Math.round(91 * dens), [1.1, 1.9], [0.4, 0.7]],
-      ['sf-stars-near', Math.round(42 * dens), [1.7, 2.8], [0.6, 0.95]]
+      [Math.round(182 * dens), [0.7, 1.3], [0.28, 0.5]],
+      [Math.round(91 * dens), [1.1, 1.9], [0.4, 0.7]],
+      [Math.round(42 * dens), [1.7, 2.8], [0.6, 0.95]]
     ];
-    specs.forEach(([id, count, size, alpha]) => {
-      const host = document.getElementById(id);
-      if (!host) return;
-      host.innerHTML = '';
-      host.style.backgroundImage = 'none';
+    this._starTiles = specs.map(([count, size, alpha]) => {
+      const groups = [];
       // two star populations per band, half a zoom-cycle apart: as one grows past the
       // viewer and fades, the other rises from the distance — an endless forward dolly
       for (let gi = 0; gi < 2; gi++) {
-      const grp = document.createElement('div');
-      grp.className = 'sf-star-grp';
-      grp.style.cssText = 'position:absolute;inset:0;transform-origin:50% 50%;will-change:transform,opacity';
-      host.appendChild(grp);
-      // each depth band is split across four tiles so groups of stars can breathe on their
-      // own period and phase — one baked tile could only pulse as a single block
-      for (let sub = 0; sub < SUB; sub++) {
-      const el = document.createElement('div');
-      el.className = 'sf-star-tile';
-      el.style.cssText = 'position:absolute;inset:0;background-repeat:repeat';
-      el.dataset.per = (4.5 + rnd() * 5).toFixed(2);
-      el.dataset.ph = (rnd() * 6.283).toFixed(3);
-      el.dataset.amp = (0.12 + rnd() * 0.2).toFixed(3);
-      grp.appendChild(el);
-      const cv = document.createElement('canvas');
-      cv.width = W; cv.height = H;
-      const g = cv.getContext('2d');
-      for (let i = 0; i < Math.round(count / SUB); i++) {
-        const x = rnd() * W, y = rnd() * H;
-        const r = size[0] + rnd() * (size[1] - size[0]);
-        const a = alpha[0] + rnd() * (alpha[1] - alpha[0]);
-        const hue = rnd();
-        const col = hue > 0.9 ? '58,103,175' : (hue > 0.84 ? '196,85,31' : '255,255,255');
-        // draw every star in all nine wrapped positions: a star clipped at the tile edge
-        // reappears on the opposite edge, so the repeat has no visible seam
-        const R = r * 2.2;
-        for (const ox of [-W, 0, W]) {
-          for (const oy of [-H, 0, H]) {
-            const cx = x + ox, cy = y + oy;
-            if (cx < -R || cx > W + R || cy < -R || cy > H + R) continue;
-            const grad = g.createRadialGradient(cx, cy, 0, cx, cy, R);
-            grad.addColorStop(0, 'rgba(' + col + ',' + a.toFixed(3) + ')');
-            grad.addColorStop(0.45, 'rgba(' + col + ',' + (a * 0.45).toFixed(3) + ')');
-            grad.addColorStop(1, 'rgba(' + col + ',0)');
-            g.fillStyle = grad;
-            g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.fill();
+        const subs = [];
+        // each population is split into sub-tiles so groups of stars can breathe on
+        // their own twinkle period and phase
+        for (let sub = 0; sub < SUB; sub++) {
+          const m = { per: 4.5 + rnd() * 5, ph: rnd() * 6.283, amp: 0.12 + rnd() * 0.2, pat: null };
+          const cv = document.createElement('canvas');
+          cv.width = W; cv.height = H;
+          const g = cv.getContext('2d');
+          for (let i = 0; i < Math.round(count / SUB); i++) {
+            const x = rnd() * W, y = rnd() * H;
+            const r = size[0] + rnd() * (size[1] - size[0]);
+            const a = alpha[0] + rnd() * (alpha[1] - alpha[0]);
+            const hue = rnd();
+            const col = hue > 0.9 ? '58,103,175' : (hue > 0.84 ? '196,85,31' : '255,255,255');
+            // draw every star in all nine wrapped positions: a star clipped at the tile
+            // edge reappears on the opposite edge, so the repeat has no visible seam
+            const R = r * 2.2;
+            for (const ox of [-W, 0, W]) {
+              for (const oy of [-H, 0, H]) {
+                const cx = x + ox, cy = y + oy;
+                if (cx < -R || cx > W + R || cy < -R || cy > H + R) continue;
+                const grad = g.createRadialGradient(cx, cy, 0, cx, cy, R);
+                grad.addColorStop(0, 'rgba(' + col + ',' + a.toFixed(3) + ')');
+                grad.addColorStop(0.45, 'rgba(' + col + ',' + (a * 0.45).toFixed(3) + ')');
+                grad.addColorStop(1, 'rgba(' + col + ',0)');
+                g.fillStyle = grad;
+                g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.fill();
+              }
+            }
           }
+          m.cv = cv;
+          subs.push(m);
         }
+        groups.push(subs);
       }
-      el.style.backgroundImage = 'url(' + cv.toDataURL('image/png') + ')';
-      el.style.backgroundSize = W + 'px ' + H + 'px';
-      }
-      }
+      return groups;
     });
+    this._patSrc = null;
   }
 
   // accent zoom lines: thin ember / azure / olive streaks on three depth bands, only
@@ -581,10 +571,7 @@ class Component extends DCLogic {
     // depth bands travel at very different rates and scale apart as they pass
     const STREAKS = [['sf-streaks-far', 260, 0.5], ['sf-streaks-mid', 620, 1], ['sf-streaks-near', 1300, 1.9]];
     const paint = () => {
-      // a template re-render can recreate the host divs and drop the built tiles —
-      // detect the wipe and rebuild
-      const farHost = document.getElementById('sf-stars-far');
-      if (farHost && !farHost.children.length) { this._starsBuilt = false; this.buildStars(); this.buildStreaks(); }
+      if (!this._starTiles) { this._starsBuilt = false; this.buildStars(); this.buildStreaks(); }
       const raw = window.scrollY / (window.innerHeight || 800);
       // the field runs on its own accumulated phase rather than raw scroll position: the
       // chapter loop's rebase is a teleport, and skipping that one delta means the stars
@@ -602,10 +589,6 @@ class Component extends DCLogic {
         return;
       }
       this._paintT = nowP;
-      // background-position is the one non-compositor write in the field: cap it at
-      // 60fps so a 120Hz glide doesn't repaint six oversized layers twice per frame
-      const bpOk = nowP - (this._bpT || 0) >= 15;
-      if (bpOk) this._bpT = nowP;
       this._starPhase = (this._starPhase || 0) + d;
       // forward-only odometer: travel in either direction always moves the camera ahead
       this._zoomP = (this._zoomP || 0) + Math.abs(d);
@@ -613,41 +596,54 @@ class Component extends DCLogic {
       const TAN_IN = -Math.tan(20 * Math.PI / 180), TAN_OUT = -Math.tan(10 * Math.PI / 180);
       // idle float: a slow, barely-there drift so the camera never feels locked down
       const ft = performance.now() / 1000;
+      // the whole field renders into ONE viewport-sized canvas — a single GPU texture
+      // instead of six oversized composited layers, so there is nothing left for
+      // Chrome to purge. Same math as the DOM version: pattern offset = travel,
+      // transform scale = dolly, alpha = envelope × twinkle
+      const cvs = document.getElementById('sf-stars-cv');
+      if (!cvs) { this._starRaf = requestAnimationFrame(paint); return; }
+      const vwC = window.innerWidth || 800, vhC = window.innerHeight || 600;
+      const dprC = Math.min(window.devicePixelRatio || 1, 2);
+      const cw = Math.round(vwC * dprC), ch = Math.round(vhC * dprC);
+      if (cvs.width !== cw || cvs.height !== ch) { cvs.width = cw; cvs.height = ch; }
+      const g2 = this._starCtx && this._starCtx.canvas === cvs ? this._starCtx : (this._starCtx = cvs.getContext('2d'));
+      if (this._patSrc !== this._starTiles) {
+        this._patSrc = this._starTiles;
+        this._starTiles.forEach(grps => grps.forEach(subs => subs.forEach(m => { m.pat = g2.createPattern(m.cv, 'repeat'); })));
+      }
+      g2.setTransform(dprC, 0, 0, dprC, 0, 0);
+      g2.clearRect(0, 0, vwC, vhC);
       LAYERS.forEach(([id, k, dx], li) => {
-        const el = document.getElementById(id);
         // parallax: near layers swing several times further than far ones, on one shared
         // rhythm so the whole field reads as a single camera drift
         const amp = 5 + li * li * 11;
         const fx = Math.sin(ft * 0.11) * amp;
         const fy = Math.sin(ft * 0.079 + 1.1) * amp * 0.72;
-        if (!el) return;
-        // travel is painted as background offset on a repeating tile, so it wraps forever
-        // and the chapter loop's rebase lands on an identical field — the old transform
-        // translate + scale ramp grew without bound and jumped at the seam
+        // travel is painted as a pattern offset on a repeating tile, so it wraps forever
+        // and the chapter loop's rebase lands on an identical field
         const px = -t * dx * 12, py = px * TAN_IN;
-        const bp = `${px.toFixed(1)}px ${py.toFixed(1)}px`;
-        el.style.transform = `translate3d(${fx.toFixed(1)}px,${fy.toFixed(1)}px,0)`;
-        // continuous forward dolly: each band's two populations cycle scale 0.5→2 half a
-        // cycle apart (sin² envelopes sum to 1), so the field only ever moves toward the
-        // viewer — near bands advance fastest
         const ZR = [0.05, 0.11, 0.21][li];
-        for (let gi = 0; gi < el.children.length; gi++) {
-          const grp = el.children[gi];
+        const grps = this._starTiles[li] || [];
+        const cx = vwC / 2 + fx, cy = vhC / 2 + fy;
+        for (let gi = 0; gi < grps.length; gi++) {
+          // continuous forward dolly: each band's two populations cycle scale 0.5→2 half
+          // a cycle apart (sin² envelopes sum to 1) — the field only moves toward the viewer
           const q = ((tz * ZR + gi * 0.5) % 1 + 1) % 1;
-          grp.style.transform = `scale(${Math.pow(2, 2 * q - 1).toFixed(4)})`;
-          const env = Math.sin(Math.PI * q);
-          // twinkle folded into the group's opacity: animating opacity on every tile kept
-          // 12 viewport-sized tiles alive as separate GPU layers, and the GPU purging
-          // that set under pressure is what flashed the starfield + loop after travel
-          let tw = 1;
-          const t0 = grp.firstElementChild;
-          if (!this._noTwinkle && t0) {
-            const per = +t0.dataset.per || 6, ph = +t0.dataset.ph || 0, a = +t0.dataset.amp || 0.15;
-            tw = 1 - a + a * Math.sin(ft * (6.283 / per) + ph);
-          }
-          grp.style.opacity = (env * env * tw).toFixed(3);
-          for (const tile of grp.children) {
-            if (bpOk && tile.style.backgroundPosition !== bp) tile.style.backgroundPosition = bp;
+          const s = Math.pow(2, 2 * q - 1);
+          const env = Math.sin(Math.PI * q), e2 = env * env;
+          if (e2 < 0.004) continue;
+          for (const m of grps[gi]) {
+            const tw = this._noTwinkle ? 1 : 1 - m.amp + m.amp * Math.sin(ft * (6.283 / m.per) + m.ph);
+            const a2 = e2 * tw;
+            if (a2 <= 0.003 || !m.pat) continue;
+            g2.save();
+            g2.translate(cx, cy);
+            g2.scale(s, s);
+            g2.translate(px, py);
+            g2.globalAlpha = Math.min(1, a2);
+            g2.fillStyle = m.pat;
+            g2.fillRect(-cx / s - px, -cy / s - py, vwC / s, vhC / s);
+            g2.restore();
           }
         }
       });
