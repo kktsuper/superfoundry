@@ -430,6 +430,7 @@ class Component extends DCLogic {
         // stamp the foundry headline in as soon as the chapter starts fading in
         // fire mid-reveal: earlier and the page is still too dim to see the stamps
         if (reveal && prog > 0.5 && this._ffOn && !this._ffFired) this.foundryFlash();
+        if (reveal && prog > 0.5 && !this._sfIntroDone) { this._sfIntroDone = true; this._sfIntro = performance.now(); }
         const sw = document.getElementById('sf-stars');
         const lockedNow = (this.props.maintenanceLock ?? true) && !this.state.unlocked;
         if (sw && !lockedNow) { sw.style.transition = 'none'; sw.style.opacity = reveal ? prog.toFixed(3) : '0'; }
@@ -489,6 +490,8 @@ class Component extends DCLogic {
     this.buildStars();
     this.buildStreaks();
     this.initStars();
+    // already open at mount: play the one-time arrival zoom now
+    if (this.state.open && !this._sfIntroDone) { this._sfIntroDone = true; this._sfIntro = performance.now(); }
     this.initLoop();
     this.initSnap();
     this.initPan();
@@ -661,7 +664,7 @@ class Component extends DCLogic {
       // the slow float + twinkle — 30fps is visually identical and halves (quarters, on
       // 120Hz displays, where Chrome runs rAF at full refresh) the always-on work
       const nowP = performance.now();
-      if (d === 0 && (this._strV || 0) < 0.002 && nowP - (this._paintT || 0) < 33) {
+      if (this._sfIntro == null && d === 0 && (this._strV || 0) < 0.002 && nowP - (this._paintT || 0) < 33) {
         this._starRaf = requestAnimationFrame(paint);
         return;
       }
@@ -688,8 +691,33 @@ class Component extends DCLogic {
         this._patSrc = this._starTiles;
         this._starTiles.forEach(grps => grps.forEach(subs => subs.forEach(m => { m.pat = g2.createPattern(m.cv, 'repeat'); })));
       }
+      // one-time arrival: the field starts magnified and un-zooms into place (quintic
+      // ease-out, ~2.4s), and while it moves each frame only partially erases the last —
+      // a fading ghost trail that smears radially and dies away as the zoom stops
+      let iS = 1, iTrail = 0;
+      if (this._sfIntro != null) {
+        const ip = Math.min(1, (nowP - this._sfIntro) / 3600);
+        const rem = Math.pow(1 - ip, 5);
+        iS = 1 + 10 * rem;
+        iTrail = Math.min(0.96, Math.pow(1 - ip, 0.8) * 0.98);
+        if (ip >= 1) this._sfIntro = null;
+      } else if (!this._sfIntroDone) {
+        // reveal not reached yet: hold the field at the intro's start scale so the
+        // un-zoomed field is never visible before the animation plays
+        iS = 11;
+      }
       g2.setTransform(dprC, 0, 0, dprC, 0, 0);
-      g2.clearRect(0, 0, vwC, vhC);
+      if (iTrail > 0.02) {
+        g2.globalCompositeOperation = 'destination-out';
+        g2.fillStyle = 'rgba(0,0,0,' + (1 - iTrail).toFixed(3) + ')';
+        g2.fillRect(0, 0, vwC, vhC);
+        g2.globalCompositeOperation = 'source-over';
+      } else {
+        g2.clearRect(0, 0, vwC, vhC);
+      }
+      if (iS > 1.0005) {
+        g2.translate(vwC / 2, vhC / 2); g2.scale(iS, iS); g2.translate(-vwC / 2, -vhC / 2);
+      }
       LAYERS.forEach(([id, k, dx], li) => {
         // parallax: near layers swing several times further than far ones, on one shared
         // rhythm so the whole field reads as a single camera drift
@@ -1306,6 +1334,10 @@ class Component extends DCLogic {
     // once the page is open the intro videos are invisible but were still decoding two
     // filtered fullscreen layers — on phones that exhausts the compositor and makes it
     // drop layers (starfield flicker, vanishing nav). Park them completely.
+    // first reveal: kick the one-time arrival zoom as the field fades in
+    if (prevOpen !== undefined && prevOpen !== this.state.open && this.state.open && !this._sfIntroDone) {
+      this._sfIntroDone = true; this._sfIntro = performance.now();
+    }
     if (prevOpen !== this.state.open) {
       [this.video.current, this.blend.current].forEach(el => {
         if (!el) return;
@@ -1446,6 +1478,7 @@ class Component extends DCLogic {
           }
           if (c) c.style.opacity = (prog * prog).toFixed(3);
           if (prog > 0.5 && this._ffOn && !this._ffFired) this.foundryFlash();
+          if (prog > 0.5 && !this._sfIntroDone) { this._sfIntroDone = true; this._sfIntro = performance.now(); }
           if (sw) { sw.style.transition = 'none'; sw.style.opacity = prog.toFixed(3); }
           if (left > 0) requestAnimationFrame(step);
           else {
