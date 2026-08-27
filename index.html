@@ -20,6 +20,7 @@
   #mission-copy h2{font-size:0.95rem !important;line-height:1.3 !important}
   #mission-copy > div > div{font-size:0.62rem !important}
   .sf-loop{width:min(56vw, 32vh) !important;margin:0 auto !important}
+  #sec-mission > .sf-tilt{position:static !important;pointer-events:auto !important;width:100% !important}
   #sec-mission{flex-direction:column !important;align-items:stretch !important;justify-content:center !important;gap:18px !important}
   #mission-copy{position:static !important;width:100% !important;text-shadow:none !important;gap:10px !important}
   #mission-copy > div{max-width:100% !important;width:100% !important}
@@ -208,7 +209,7 @@ contact
 <div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">About the co-founders</div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px,1fr));gap:64px">
 <div style="display:flex;flex-direction:column;gap:16px;max-width:360px">
-<div class="sf-photo" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><img src="assets/founder-jad.webp" alt="Jad Tarifi" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
+<div class="sf-photo sf-near" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><img src="assets/founder-jad.webp" alt="Jad Tarifi" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
 <div style="display:flex;align-items:baseline;gap:12px">
 <span class="sf-near" style="display:inline-block;font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight)">Jad Tarifi</span>
 <span class="sf-mid" style="display:inline-block;font:var(--text-mono-s);color:var(--text-accent);letter-spacing:var(--tracking-wide)">CEO</span>
@@ -221,7 +222,7 @@ contact
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:16px;max-width:360px">
-<div class="sf-photo" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><img src="assets/founder-nima.webp" alt="Nima Asgharbeygi" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
+<div class="sf-photo sf-near" style="width:160px;height:160px;border:1px solid var(--border-subtle)"><img src="assets/founder-nima.webp" alt="Nima Asgharbeygi" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
 <div style="display:flex;align-items:baseline;gap:12px">
 <span class="sf-near" style="display:inline-block;font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight)">Nima Asgharbeygi</span>
 <span class="sf-mid" style="display:inline-block;font:var(--text-mono-s);color:var(--text-accent);letter-spacing:var(--tracking-wide)">CTO</span>
@@ -332,6 +333,9 @@ class Component extends DCLogic {
       for (const w of el2s) w.style.transform = tf;
       // the margin rules sit a step behind the text plane: a small lag translate against
       // the tilt (same direction as the starfield's slide) reads as z-depth
+      // refresh the element caches every 2s so template edits / re-renders are picked up
+      const cacheStale = !this._tiltCacheT || performance.now() - this._tiltCacheT > 2000;
+      if (cacheStale) { this._tiltCacheT = performance.now(); this._tiltRules = this._tiltNear = this._tiltMid = null; }
       if (!this._tiltRules || !this._tiltRules.length || !this._tiltRules[0].isConnected) this._tiltRules = Array.from(document.querySelectorAll('.sf-rule'));
       for (const r of this._tiltRules) r.style.transform = 'translate3d(' + (-c.y * 2.2).toFixed(1) + 'px,' + (c.x * 2.2).toFixed(1) + 'px,0)';
       // display-size text rides a step CLOSER than the plane: a lag translate with the
@@ -373,8 +377,8 @@ class Component extends DCLogic {
       if (e.beta == null || e.gamma == null) return;
       if (this._orB == null) { this._orB = e.beta; this._orG = e.gamma; }
       const deg = this.props.tiltDegrees ?? 3.5;
-      const nx = Math.max(-1, Math.min(1, (e.beta - this._orB) / 12));
-      const ny = Math.max(-1, Math.min(1, (e.gamma - this._orG) / 12));
+      const nx = Math.max(-1, Math.min(1, (e.beta - this._orB) / 16));
+      const ny = Math.max(-1, Math.min(1, (e.gamma - this._orG) / 16));
       this._tiltT.x = -nx * deg; this._tiltT.y = ny * deg;
       this.tiltKick();
     };
