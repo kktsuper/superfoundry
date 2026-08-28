@@ -105,7 +105,7 @@
     </div>
     <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
       <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
-      <span style="cursor: pointer; pointer-events: auto; color: {{ featherColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleFeather }}">SOFT EDGE</span>
+      <span style="cursor: pointer; pointer-events: auto; color: {{ featherColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleFeather }}">SOFT</span>
     </div>
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
       <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
@@ -143,6 +143,7 @@ class Component extends DCLogic {
     this.onTouchStart = null;
     this.onTouchMove = (e) => {
       if (this.state.control !== 'drag') return;
+      if (e.target && e.target.closest && e.target.closest('#li-bar')) return;
       if (e.touches.length === 1) {
         this.Lt.x = e.touches[0].clientX; this.Lt.y = e.touches[0].clientY;
       }
@@ -239,7 +240,7 @@ class Component extends DCLogic {
       if (op2 > 0.01) {
         const c = Math.cos(ang), sn = Math.sin(ang);
         st.transform = `translate3d(${ox * c - oy * sn}px, ${ox * sn + oy * c}px, 0) scale(${scale})`;
-        st.filter = `blur(${coreBlur}px)`;
+        st.filter = `blur(${this.state.feather ? blur : coreBlur}px)`;
       }
     };
     setRay(0, P.twin, 180 * D);
