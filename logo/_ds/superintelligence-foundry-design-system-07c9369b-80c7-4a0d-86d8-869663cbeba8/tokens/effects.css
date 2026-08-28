@@ -1,0 +1,31 @@
+/* Superintelligence Foundry — radii, shadows, motion */
+
+:root {
+  /* Radii — mostly square/industrial, small radii only on small controls */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-pill: 999px;
+  --radius-focus-ring: 2px;
+
+  /* Shadows — dark UI: deep warm-black depth, plus an ember glow reserved for
+     accent/focus states */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.55);
+  --shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-glow-accent: 0 0 0 1px rgba(232, 112, 58, 0.4), 0 0 24px rgba(232, 112, 58, 0.25);
+  --shadow-focus-ring: 0 0 0 3px rgba(242, 137, 79, 0.35);
+
+  /* Motion — quick, mechanical, no bounce/spring. A stamp-press feel:
+     fast ease-out on the way in, nothing decorative or looping. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-press: cubic-bezier(0.4, 0, 0.6, 1); /* @kind other */
+  --duration-fast: 120ms; /* @kind other */
+  --duration-base: 200ms; /* @kind other */
+  --duration-slow: 360ms; /* @kind other */
+
+  --border-width-thin: 1px;
+  --border-width-thick: 2px;
+}

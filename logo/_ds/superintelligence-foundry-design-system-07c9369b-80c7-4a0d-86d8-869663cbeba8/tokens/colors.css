@@ -1,0 +1,137 @@
+/* Superintelligence Foundry — color tokens
+   The palette is unchanged: warm molten-ember as the single energy accent (from
+   the SF mark), a cool azure counterpart for intelligence/output, a rare olive
+   for live status, plus a pure charcoal ink ramp.
+
+   As of the light-mode site relaunch, the SEMANTIC layer defaults to the warm
+   paper surfaces used on superfoundry.dev. The dark treatment is preserved
+   verbatim under [data-theme="dark"] for decks, video and inverse panels. */
+
+:root {
+  /* Base neutrals — charcoal ink scale (pure grey; used for marks + inverse UI) */
+  --sf-black: #0A0A0A;
+  --sf-char-900: #121212;
+  --sf-char-800: #1A1A1A;
+  --sf-char-700: #242424;
+  --sf-char-600: #333333;
+  --sf-char-500: #4A4A4A;
+  --sf-char-400: #6B6B6B;
+  --sf-char-300: #8F8F8F;
+  --sf-char-200: #B8B8B8;
+  --sf-char-100: #DEDEDE;
+  --sf-white: #F5F3EE; /* warm off-white, not paper-white */
+
+  /* Warm paper & ink — the light-mode ramp, taken from the live site. Paper is
+     warmer and lower-contrast than the charcoal ramp; ink is warm near-black. */
+  --sf-paper-050: #FFFDFA; /* cards — the lightest surface */
+  --sf-paper-100: #FBF8F3; /* curtain / hero sheet */
+  --sf-paper-200: #F7F3EC; /* raised */
+  --sf-paper-300: #F3EFE8; /* app base */
+  --sf-paper-400: #F1ECE4; /* gradient midpoint */
+  --sf-paper-500: #E4DDD2; /* gradient floor, chip fills */
+  --sf-ink-900: #161311; /* primary text */
+  --sf-ink-700: #3D3833; /* secondary text */
+  --sf-ink-500: #7A7168; /* tertiary text */
+  --sf-ink-300: #2A2521; /* hatch texture stroke */
+
+  /* Molten accent — the SF mark's orange, an ember scale. The forge: process,
+     action, heat — primary CTAs, active states, selection. */
+  --sf-ember-900: #5C2408;
+  --sf-ember-800: #7A300C;
+  --sf-ember-700: #9C3E10;
+  --sf-ember-650: #C4551F; /* light-mode accent — the site's link + CTA orange */
+  --sf-ember-600: #C24F1A;
+  --sf-ember-500: #E8703A;
+  --sf-ember-400: #F2894F; /* primary brand accent */
+  --sf-ember-300: #F7A876;
+  --sf-ember-200: #FBCBA8;
+  --sf-ember-100: #FDE6D4;
+
+  /* AI accent — a cool azure scale. The product: intelligence, outputs, the
+     system itself. Counterpart to ember — orange is the forge, blue is what
+     comes out of it. Used for AI/product markers, data, system-output UI. */
+  --sf-azure-900: #0E2440;
+  --sf-azure-800: #133056;
+  --sf-azure-700: #1A4173;
+  --sf-azure-600: #2456A0;
+  --sf-azure-550: #3A67AF; /* light-mode AI text */
+  --sf-azure-500: #2F6FCC;
+  --sf-azure-400: #5B8FDB; /* primary AI accent */
+  --sf-azure-300: #8AB0E8;
+  --sf-azure-200: #BBD1F2;
+  --sf-azure-100: #E1EBFA;
+
+  /* Olive accent — a muted machined-green. Used minimally: live/operational
+     status, "running" indicators, the occasional highlight — a spot color that
+     pops precisely because it is rare. */
+  --sf-olive-900: #1C2412;
+  --sf-olive-800: #28331A;
+  --sf-olive-700: #3A4A25;
+  --sf-olive-650: #5C6E36; /* light-mode olive label */
+  --sf-olive-600: #566B36;
+  --sf-olive-500: #7A9448;
+  --sf-olive-400: #9BB365; /* primary olive accent */
+  --sf-olive-300: #B9CC8D;
+  --sf-olive-200: #D5E2B8;
+  --sf-olive-100: #ECF2DD;
+
+  /* Signal colors (sparingly used, kept within the same warm/neutral logic) */
+  --sf-signal-success: #4E8B5C;
+  --sf-signal-warning: #D9A441;
+  --sf-signal-error: #C0432E;
+
+  /* ─────────── Semantic — light "foundry floor" is the brand default ─────────── */
+  --surface-app: var(--sf-paper-300);
+  --surface-raised: var(--sf-paper-200);
+  --surface-card: var(--sf-paper-050);
+  --surface-sunken: var(--sf-paper-500);
+  --surface-overlay: rgba(22, 19, 17, 0.45);
+  --surface-inverse: var(--sf-ink-900);
+  --surface-nav-blur: rgba(251, 248, 243, 0.82);
+
+  /* The page never sits on a flat fill: a shallow warm gradient runs corner to
+     corner, fixed to the viewport. */
+  --gradient-app: linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%); /* @kind other */
+
+  --border-subtle: rgba(22, 19, 17, 0.10);
+  --border-default: rgba(22, 19, 17, 0.18);
+  --border-strong: rgba(22, 19, 17, 0.30);
+  --border-accent: var(--sf-ember-400);
+
+  --text-primary: var(--sf-ink-900);
+  --text-secondary: var(--sf-ink-700);
+  --text-tertiary: var(--sf-ink-500);
+  --text-disabled: rgba(22, 19, 17, 0.32);
+  --text-accent: var(--sf-ember-650);
+  --text-on-accent: var(--sf-paper-050);
+  --text-inverse: var(--sf-white);
+
+  --accent-default: var(--sf-ember-400);
+  --accent-hover: var(--sf-ember-300);
+  --accent-active: var(--sf-ember-500);
+  --accent-muted: rgba(242, 137, 79, 0.14);
+
+  /* AI/product semantic accent */
+  --accent-ai: var(--sf-azure-400);
+  --accent-ai-hover: var(--sf-azure-300);
+  --accent-ai-active: var(--sf-azure-500);
+  --accent-ai-muted: rgba(91, 143, 219, 0.14);
+  --text-ai: var(--sf-azure-550);
+  --border-ai: var(--sf-azure-400);
+
+  /* Olive semantic accent — live/operational, spot highlights. Minimal use. */
+  --accent-olive: var(--sf-olive-400);
+  --accent-olive-muted: rgba(155, 179, 101, 0.16);
+  --text-olive: var(--sf-olive-650);
+  --border-olive: var(--sf-olive-400);
+
+  /* Signal text, tuned per theme so badges stay legible on either surface */
+  --text-success: #2F6B41;
+  --text-warning: #8A6414;
+  --text-error: #9E3524;
+  --accent-success-muted: rgba(78, 139, 92, 0.14);
+  --accent-warning-muted: rgba(217, 164, 65, 0.18);
+  --accent-error-muted: rgba(192, 67, 46, 0.12);
+
+  --focus-ring: var(--sf-ember-400);
+}
