@@ -54,17 +54,15 @@
         <use href="#li-al-top" fill="#5B8FDB"></use>
         <use href="#li-al-low" fill="#F2894F"></use>
       </svg>
-      <svg id="li-sh" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform, opacity; mix-blend-mode: multiply;">
-        <g id="li-sh-pen" style="will-change: filter;">
-          <use href="#li-al-mid" fill="#9BB365"></use>
-          <use href="#li-al-top" fill="#5B8FDB"></use>
-          <use href="#li-al-low" fill="#F2894F"></use>
-        </g>
-        <g id="li-sh-core" style="will-change: filter;">
-          <use href="#li-al-mid" fill="#9BB365"></use>
-          <use href="#li-al-top" fill="#5B8FDB"></use>
-          <use href="#li-al-low" fill="#F2894F"></use>
-        </g>
+      <svg id="li-sh-pen" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform, filter, opacity; mix-blend-mode: multiply;">
+        <use href="#li-al-mid" fill="#9BB365"></use>
+        <use href="#li-al-top" fill="#5B8FDB"></use>
+        <use href="#li-al-low" fill="#F2894F"></use>
+      </svg>
+      <svg id="li-sh-core" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform, filter, opacity; mix-blend-mode: multiply;">
+        <use href="#li-al-mid" fill="#9BB365"></use>
+        <use href="#li-al-top" fill="#5B8FDB"></use>
+        <use href="#li-al-low" fill="#F2894F"></use>
       </svg>
       <svg id="li-symbol" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: #1A1A1A;">
         <use href="#li-al-top"></use>
@@ -126,7 +124,7 @@ class Component extends DCLogic {
   NAMES = { 1: 'ORTHO SPOT', 2: 'TWIN ORTHO' };
   componentDidMount() {
     const g = (id) => document.getElementById(id);
-    this.el = { gS: g('li-glow-soft'), gH: g('li-glow-hard'), fall: g('li-falloff'), sh: g('li-sh'), shPen: g('li-sh-pen'), shCore: g('li-sh-core'), sh2: g('li-sh2'), quad: g('li-quad'), quadEls: Array.from(document.querySelectorAll('.li-q')), grain: g('li-grain-layer'), symbol: g('li-symbol'), word: g('li-word'), ao: g('li-ao'), wrap: g('li-symwrap'), stage: g('li-stage') };
+    this.el = { gS: g('li-glow-soft'), gH: g('li-glow-hard'), fall: g('li-falloff'), shPen: g('li-sh-pen'), shCore: g('li-sh-core'), sh2: g('li-sh2'), quad: g('li-quad'), quadEls: Array.from(document.querySelectorAll('.li-q')), grain: g('li-grain-layer'), symbol: g('li-symbol'), word: g('li-word'), ao: g('li-ao'), wrap: g('li-symwrap'), stage: g('li-stage') };
     this.Lt = { x: innerWidth * 0.63, y: innerHeight * 0.30 };
     this.L = { ...this.Lt };
     this.z = 900; this.zt = 900;
@@ -223,14 +221,16 @@ class Component extends DCLogic {
     const ink = dark ? '#F2EFE9' : '#1A1A1A';
     this.el.symbol.style.fill = ink;
     this.el.word.style.fill = ink;
-    this.el.sh.style.mixBlendMode = blend;
+    this.el.shPen.style.mixBlendMode = blend;
+    this.el.shCore.style.mixBlendMode = blend;
     this.el.sh2.style.mixBlendMode = blend;
     this.el.quadEls.forEach((q) => { q.style.mixBlendMode = blend; });
-    const s = this.el.sh.style;
-    s.transform = `translate3d(${ox}px, ${oy}px, 0) scale(${scale})`;
-    s.opacity = 1;
-    this.el.shPen.style.filter = `blur(${blur}px)`;
-    this.el.shCore.style.filter = `blur(${coreBlur}px)`;
+    const shT = `translate3d(${ox}px, ${oy}px, 0) scale(${scale})`;
+    const pen = this.el.shPen.style, core = this.el.shCore.style;
+    pen.transform = shT; core.transform = shT;
+    pen.opacity = 1; core.opacity = 1;
+    pen.filter = `blur(${blur}px)`;
+    core.filter = `blur(${coreBlur}px)`;
     // twin: a second identical ortho shadow mirrored through the symbol centre.
     this.el.quad.style.opacity = 1;
     const D = Math.PI / 180;
