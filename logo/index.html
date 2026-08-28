@@ -54,16 +54,18 @@
         <use href="#li-al-top" fill="#5B8FDB"></use>
         <use href="#li-al-low" fill="#F2894F"></use>
       </svg>
-      <svg id="li-sh-pen" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform, filter, opacity; mix-blend-mode: multiply;">
-        <use href="#li-al-mid" fill="#9BB365"></use>
-        <use href="#li-al-top" fill="#5B8FDB"></use>
-        <use href="#li-al-low" fill="#F2894F"></use>
-      </svg>
-      <svg id="li-sh-core" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform, filter, opacity; mix-blend-mode: multiply;">
-        <use href="#li-al-mid" fill="#9BB365"></use>
-        <use href="#li-al-top" fill="#5B8FDB"></use>
-        <use href="#li-al-low" fill="#F2894F"></use>
-      </svg>
+      <div id="li-shwrap" style="position: absolute; inset: 0; mix-blend-mode: multiply; isolation: isolate; will-change: opacity;">
+        <svg id="li-sh-pen" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform, filter, opacity;">
+          <use href="#li-al-mid" fill="#9BB365"></use>
+          <use href="#li-al-top" fill="#5B8FDB"></use>
+          <use href="#li-al-low" fill="#F2894F"></use>
+        </svg>
+        <svg id="li-sh-core" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform, filter, opacity;">
+          <use href="#li-al-mid" fill="#9BB365"></use>
+          <use href="#li-al-top" fill="#5B8FDB"></use>
+          <use href="#li-al-low" fill="#F2894F"></use>
+        </svg>
+      </div>
       <svg id="li-symbol" viewBox="542 56 218 316" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: #1A1A1A;">
         <use href="#li-al-top"></use>
         <use href="#li-al-low"></use>
@@ -124,7 +126,7 @@ class Component extends DCLogic {
   NAMES = { 1: 'ORTHO SPOT', 2: 'TWIN ORTHO' };
   componentDidMount() {
     const g = (id) => document.getElementById(id);
-    this.el = { gS: g('li-glow-soft'), gH: g('li-glow-hard'), fall: g('li-falloff'), shPen: g('li-sh-pen'), shCore: g('li-sh-core'), sh2: g('li-sh2'), quad: g('li-quad'), quadEls: Array.from(document.querySelectorAll('.li-q')), grain: g('li-grain-layer'), symbol: g('li-symbol'), word: g('li-word'), ao: g('li-ao'), wrap: g('li-symwrap'), stage: g('li-stage') };
+    this.el = { gS: g('li-glow-soft'), gH: g('li-glow-hard'), fall: g('li-falloff'), shWrap: g('li-shwrap'), shPen: g('li-sh-pen'), shCore: g('li-sh-core'), sh2: g('li-sh2'), quad: g('li-quad'), quadEls: Array.from(document.querySelectorAll('.li-q')), grain: g('li-grain-layer'), symbol: g('li-symbol'), word: g('li-word'), ao: g('li-ao'), wrap: g('li-symwrap'), stage: g('li-stage') };
     this.Lt = { x: innerWidth * 0.63, y: innerHeight * 0.30 };
     this.L = { ...this.Lt };
     this.z = 900; this.zt = 900;
@@ -132,7 +134,10 @@ class Component extends DCLogic {
     this.P = { ...this.MODES[this.state.mode] };
     this.measure();
     this.onResize = () => { this.measure(); this.forceUpdate(); };
-    this.onMove = (e) => { this.Lt.x = e.clientX; this.Lt.y = e.clientY; };
+    this.onMove = (e) => {
+      if (e.target && e.target.closest && e.target.closest('#li-bar')) return;
+      this.Lt.x = e.clientX; this.Lt.y = e.clientY;
+    };
     this.onWheel = null;
     this.onKey = (e) => {
       if (e.key >= '1' && e.key <= '2') this.setMode(parseInt(e.key, 10));
@@ -221,8 +226,7 @@ class Component extends DCLogic {
     const ink = dark ? '#F2EFE9' : '#1A1A1A';
     this.el.symbol.style.fill = ink;
     this.el.word.style.fill = ink;
-    this.el.shPen.style.mixBlendMode = blend;
-    this.el.shCore.style.mixBlendMode = blend;
+    this.el.shWrap.style.mixBlendMode = blend;
     this.el.sh2.style.mixBlendMode = blend;
     this.el.quadEls.forEach((q) => { q.style.mixBlendMode = blend; });
     const shT = `translate3d(${ox}px, ${oy}px, 0) scale(${scale})`;
