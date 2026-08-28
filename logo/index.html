@@ -8,7 +8,7 @@
 <body>
 <x-dc>
 <helmet>
-  <title>Aleph Mark — Superintelligence Foundry</title>
+  <title>Superintelligence Foundry Logo</title>
   <link rel="icon" type="image/svg+xml" href="../assets/logo/aleph-mark-light.svg">
   <link rel="stylesheet" href="_ds/superintelligence-foundry-design-system-07c9369b-80c7-4a0d-86d8-869663cbeba8/tokens/fonts.css">
   <link rel="stylesheet" href="_ds/superintelligence-foundry-design-system-07c9369b-80c7-4a0d-86d8-869663cbeba8/tokens/colors.css">
@@ -92,24 +92,24 @@
     <rect width="100%" height="100%" filter="url(#li-grain)"></rect>
   </svg>
   <div style="position: absolute; inset: 0; z-index: 16; pointer-events: none; background: radial-gradient(ellipse at 50% 52%, rgba(26,22,18,0) 36%, rgba(26,22,18,0.06) 56%, rgba(26,22,18,0.16) 72%, rgba(26,22,18,0.32) 87%, rgba(26,22,18,0.52) 100%);"></div>
-  <div style="position: absolute; left: 0; right: 0; bottom: 20px; z-index: 20; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: 26px; row-gap: 10px; padding: 0 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: #A79D91; white-space: nowrap; text-shadow: 0 1px 3px rgba(18,14,10,0.6), 0 0 10px rgba(18,14,10,0.45);">
-    <div style="display: flex; gap: 9px; align-items: baseline; pointer-events: auto;">
+  <div id="li-bar" style="position: absolute; left: 0; right: 0; bottom: 20px; z-index: 20; display: {{ barDisplay }}; grid-template-columns: {{ barCols }}; justify-content: center; flex-wrap: wrap; align-items: baseline; column-gap: {{ barGap }}; row-gap: 10px; padding: 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: {{ barTracking }}; color: #A79D91; white-space: nowrap; text-shadow: 0 1px 3px rgba(18,14,10,0.6), 0 0 10px rgba(18,14,10,0.45);">
+    <div style="display: flex; gap: 9px; align-items: baseline; justify-content: center; pointer-events: auto;">
       <span style="color: {{ nameColor }};">LIGHTS</span>
       <sc-for list="{{ modes }}" as="m" hint-placeholder-count="6">
         <span style="color: {{ m.color }}; cursor: pointer; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ m.pick }}">{{ m.n }}</span>
       </sc-for>
     </div>
-    <div style="display: flex; gap: 26px; align-items: baseline;">
-      <span style="color: {{ dotColor }};">·</span>
+    <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
+      <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
       <span style="cursor: pointer; pointer-events: auto; color: {{ darkColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleDark }}">{{ darkLabel }}</span>
     </div>
-    <div style="display: flex; gap: 26px; align-items: baseline;">
-      <span style="color: {{ dotColor }};">·</span>
+    <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
+      <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
       <span style="cursor: pointer; pointer-events: auto; color: {{ featherColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleFeather }}">SOFT EDGE</span>
     </div>
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-      <div style="display: flex; gap: 26px; align-items: baseline;">
-        <span style="color: {{ dotColor }};">·</span>
+      <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
+        <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
         <span style="cursor: pointer; pointer-events: auto; color: {{ controlColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleControl }}">{{ controlLabel }}</span>
       </div>
     </sc-if>
@@ -133,7 +133,7 @@ class Component extends DCLogic {
     this.h = 12; this.ht = 12;
     this.P = { ...this.MODES[this.state.mode] };
     this.measure();
-    this.onResize = () => this.measure();
+    this.onResize = () => { this.measure(); this.forceUpdate(); };
     this.onMove = (e) => { this.Lt.x = e.clientX; this.Lt.y = e.clientY; };
     this.onWheel = null;
     this.onKey = (e) => {
@@ -283,6 +283,9 @@ class Component extends DCLogic {
   renderVals() {
     const mode = this.state.mode;
     const dark = this.state.dark;
+    const mob = this.state.isMobile;
+    // mobile: tighter bar; if even that can't fit one row, fall back to a 2x2 grid
+    const grid = mob && innerWidth < 390;
     const idle = dark ? '#C4BEB4' : '#EAE5DC';
     const active = dark ? '#FFFFFF' : '#FFFFFF';
     return {
@@ -295,6 +298,11 @@ class Component extends DCLogic {
       toggleDark: () => this.setState((s) => ({ dark: !s.dark })),
       toggleFeather: () => this.setState((s) => ({ feather: !s.feather })),
       isMobile: this.state.isMobile,
+      barGap: mob ? '12px' : '26px',
+      barTracking: mob ? '0.12em' : '0.18em',
+      showDots: !grid,
+      barDisplay: grid ? 'grid' : 'flex',
+      barCols: grid ? 'auto auto' : 'none',
       controlLabel: this.state.control === 'gyro' ? 'GYRO' : 'DRAG',
       controlColor: active,
       toggleControl: () => {
