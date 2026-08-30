@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
   .sf-loop-node{width:76px !important}
   .sf-loop-node > div > div{width:30px !important;height:30px !important;font-size:0.7rem !important}
   .sf-loop-node span{font-size:0.58rem !important}
-  #sec-founders{gap:16px !important;padding-top:7vh !important;padding-bottom:70px !important;justify-content:center !important}
+  #sec-founders{gap:16px !important;padding-top:0 !important;padding-bottom:104px !important;justify-content:center !important}
   #sec-founders > div{gap:12px !important;grid-template-columns:1fr !important}
   /* polaroids keep desktop proportions on mobile, just smaller: three across */
   #sec-founders > div[style*="grid"]{grid-template-columns:repeat(2, 1fr) !important;gap:12px !important;max-width:340px !important}
@@ -358,12 +358,14 @@ class Component extends DCLogic {
       if (!this._tiltMid || !this._tiltMid.length || !this._tiltMid[0].isConnected) this._tiltMid = Array.from(document.querySelectorAll('.sf-mid'));
       // parallax portrait: background slides against the tilt, subject with it —
       // the cutout appears to float in front of the room
+      // gyro drives much larger tilt excursions than the mouse — damp portrait parallax
+      const gs = this._tiltGyro ? 0.3 : 0.6;
       for (const pbg of document.querySelectorAll('.sf-plx-bg')) {
-        const pol = pbg.closest('.sf-pol'), f = pol ? parseFloat(pol.dataset.ctf) * (parseFloat(pol.dataset.plx) || 1) : 1;
+        const pol = pbg.closest('.sf-pol'), f = pol ? parseFloat(pol.dataset.ctf) * (parseFloat(pol.dataset.plx) || 1) * gs : gs;
         pbg.style.transform = 'translate3d(' + (-c.y * 4 * f).toFixed(1) + 'px,' + (c.x * 4 * f).toFixed(1) + 'px,0)';
       }
       for (const pfg of document.querySelectorAll('.sf-plx-fg')) {
-        const pol = pfg.closest('.sf-pol'), f = pol ? parseFloat(pol.dataset.ctf) * (parseFloat(pol.dataset.plx) || 1) : 1;
+        const pol = pfg.closest('.sf-pol'), f = pol ? parseFloat(pol.dataset.ctf) * (parseFloat(pol.dataset.plx) || 1) * gs : gs;
         pfg.style.transform = 'translate3d(' + (c.y * 2.6 * f).toFixed(1) + 'px,' + (-c.x * 2.6 * f).toFixed(1) + 'px,0)';
       }
       // polaroids counter-tilt against the plane, each at its own strength, on top of
@@ -401,6 +403,7 @@ class Component extends DCLogic {
       const deg = this.props.tiltDegrees ?? 3.5;
       this._tiltT.x = -((e.clientY / (window.innerHeight || 1)) - 0.5) * 2 * deg;
       this._tiltT.y = ((e.clientX / (window.innerWidth || 1)) - 0.5) * 2 * deg;
+      this._tiltGyro = false;
       this.tiltKick();
     };
     this.onTiltLeave = () => { this._tiltT.x = 0; this._tiltT.y = 0; this._tiltKT = 0.07; this.tiltKick(); };
@@ -415,6 +418,7 @@ class Component extends DCLogic {
       const nx = Math.max(-1, Math.min(1, (e.beta - this._orB) / 16));
       const ny = Math.max(-1, Math.min(1, (e.gamma - this._orG) / 16));
       this._tiltT.x = -nx * deg; this._tiltT.y = ny * deg;
+      this._tiltGyro = true;
       this.tiltKick();
     };
     this.onOrientFlip = () => { this._orB = null; this._orG = null; };
