@@ -18,6 +18,7 @@
   #sec-foundry h2{font-size:clamp(1rem, 4vw, 1.35rem) !important;line-height:1.35 !important}
   main p, #mission-copy span{font-size:0.75rem !important;line-height:1.4 !important}
   #mission-copy h2{font-size:0.95rem !important;line-height:1.3 !important}
+  #mission-copy h2 span{font-size:inherit !important}
   #mission-copy > div > div{font-size:0.62rem !important}
   .sf-loop{width:min(56vw, 32vh) !important;margin:0 auto !important}
   #sec-mission > .sf-tilt{position:static !important;pointer-events:auto !important;width:100% !important}
@@ -32,10 +33,17 @@
   /* polaroids keep desktop proportions on mobile, just smaller: three across */
   #sec-founders > div[style*="grid"]{grid-template-columns:repeat(2, 1fr) !important;gap:12px !important;max-width:340px !important}
   .sf-pol{padding:6px 6px 0 !important;transform:none !important}
+  /* scatter at mobile scale: small flat rotations + stagger, no 3d lean */
+  #sec-founders .sf-near:nth-child(1) .sf-pol{transform:rotate(-1.6deg) !important}
+  #sec-founders .sf-near:nth-child(2){margin-top:10px !important}
+  #sec-founders .sf-near:nth-child(2) .sf-pol{transform:rotate(1.2deg) !important}
+  #sec-founders .sf-near:nth-child(3){margin-top:-4px !important}
+  #sec-founders .sf-near:nth-child(3) .sf-pol{transform:rotate(-0.9deg) !important}
   .sf-pol > div[style*="baseline"]{padding:7px 1px !important;gap:6px !important}
   #sec-founders .sf-pol span{font-size:0.66rem !important;white-space:nowrap !important}
   #sec-founders .sf-pol span[style*="mono"]{font-size:0.42rem !important;letter-spacing:0.02em !important}
   #sec-founders .sf-near{margin-top:0 !important}
+  #sec-founders .sf-mid[style*="uppercase"]{margin-top:14px !important;margin-bottom:-8px !important}
   #sec-founders span{font-size:0.95rem !important}
   #sec-founders .sf-mid > div[style*="height:56px"]{height:44px !important;width:130px !important}
   .sf-nav-item{padding:10px 3px !important;font-size:0.6rem !important}
