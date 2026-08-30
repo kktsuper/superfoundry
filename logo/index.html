@@ -16,6 +16,9 @@
   <style>
     html, body { margin: 0; padding: 0; overflow: hidden; overscroll-behavior: none; height: 100%; background: #F2EEE7; }
     a, a:hover { color: #3D3833; }
+    #li-panel input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: rgba(255,253,248,0.22); outline: none; margin: 6px 0; }
+    #li-panel input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 11px; height: 11px; border-radius: 2px; background: #E8703A; border: none; cursor: pointer; }
+    #li-panel input[type=range]::-moz-range-thumb { width: 11px; height: 11px; border-radius: 2px; background: #E8703A; border: none; cursor: pointer; }
   </style>
 </helmet>
 <div id="li-stage" style="position: fixed; inset: 0; overflow: hidden; background: linear-gradient(160deg, #EDE7DD 0%, #E5DFD3 55%, #D9D1C3 100%); user-select: none; touch-action: none;">
@@ -24,6 +27,7 @@
       <path id="li-al-top" d="M753.569,159.713c.001-9.747-3.356-19.536-10.281-27.445l-41.507-47.407c-7.936-9.064-18.933-13.819-30.095-14.161l.002-.064h-24.043c-3.437,0-6.223,2.786-6.223,6.223,0,1.56.594,2.968,1.542,4.06l-.012.026h0l88.051,100.567-.016.032c5.197,5.935,8.373,13.681,8.393,22.184,2.702-.761,5.295-2.048,7.551-4.023,4.422-3.872,6.682-9.295,6.678-14.744v-25.235l-.041-.012Z"></path>
       <path id="li-al-low" d="M547.297,274.959c-.001,9.747,3.356,19.536,10.281,27.445l41.507,47.407c7.936,9.064,18.933,13.819,30.095,14.161l-.002.064h24.043c3.437,0,6.223-2.786,6.223-6.223,0-1.56-.594-2.968-1.542-4.06l.012-.026h0l-88.051-100.567.016-.032c-5.197-5.935-8.373-13.681-8.393-22.184-2.702.761-5.295,2.048-7.551,4.023-4.422,3.872-6.682,9.295-6.678,14.744v25.235l.041.012Z"></path>
       <path id="li-al-mid" d="M753.569,319.209c.004-9.75-3.353-19.543-10.28-27.455l-92.857-106.056h0s-80.571-92.024-80.571-92.024v-.048c-5.178-5.922-8.344-13.644-8.376-22.122-2.703.743-5.298,2.003-7.553,3.978-4.417,3.867-6.595,9.281-6.597,14.723h-.081v25.257h.041c-.004,9.75,3.353,19.543,10.28,27.455l92.857,106.056h0s80.571,92.024,80.571,92.024v.048c5.178,5.922,8.344,13.644,8.376,22.122,2.703-.743,5.298-2.003,7.553-3.978,4.417-3.867,6.595-9.281,6.597-14.723h.081v-25.257h-.041Z"></path>
+      <filter id="li-wf" x="-30%" y="-30%" width="160%" height="160%"><feMorphology id="li-wf-m" operator="dilate" radius="0"></feMorphology></filter>
     </defs>
   </svg>
   <div id="li-glow-soft" style="position: absolute; left: 0; top: 0; width: 118vmax; height: 118vmax; margin-left: -59vmax; margin-top: -59vmax; background: radial-gradient(circle, rgba(255,253,248,0.6) 0%, rgba(255,253,248,0.53) 8%, rgba(255,253,248,0.46) 16%, rgba(255,253,248,0.39) 23%, rgba(255,253,248,0.32) 30%, rgba(255,253,248,0.26) 37%, rgba(255,253,248,0.2) 44%, rgba(255,253,248,0.15) 51%, rgba(255,253,248,0.11) 58%, rgba(255,253,248,0.077) 65%, rgba(255,253,248,0.05) 72%, rgba(255,253,248,0.03) 78%, rgba(255,253,248,0.015) 84%, rgba(255,253,248,0.006) 89%, rgba(255,253,248,0) 94%); filter: blur(28px); will-change: transform, opacity; pointer-events: none;"></div>
@@ -92,33 +96,62 @@
     <rect width="100%" height="100%" filter="url(#li-grain)"></rect>
   </svg>
   <div style="position: absolute; inset: 0; z-index: 16; pointer-events: none; background: radial-gradient(ellipse at 50% 52%, rgba(26,22,18,0) 36%, rgba(26,22,18,0.06) 56%, rgba(26,22,18,0.16) 72%, rgba(26,22,18,0.32) 87%, rgba(26,22,18,0.52) 100%);"></div>
+  <div id="li-panel" style="position: absolute; left: 0; top: 50%; z-index: 22; transform: translate3d({{ panelX }}, -50%, 0); transition: transform 360ms cubic-bezier(0.2,0,0,1); display: flex; align-items: center; pointer-events: none;">
+    <div style="box-sizing: border-box; width: 232px; padding: 22px 22px 24px; background: rgba(18,14,10,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,253,248,0.14); border-left: none; border-radius: 0 10px 10px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #A79D91; pointer-events: auto; display: flex; flex-direction: column; gap: 18px;">
+      <div style="color: #F4F0E8; letter-spacing: 0.22em; padding-bottom: 12px; border-bottom: 1px solid rgba(255,253,248,0.12);">LOGO EDITS</div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between;"><span>WEIGHT</span><span style="color: #F4F0E8;">{{ weightLabel }}</span></div>
+        <input type="range" min="-4" max="4" step="0.1" value="{{ weight }}" onInput="{{ setWeight }}" onChange="{{ setWeight }}">
+        <div style="display: flex; justify-content: space-between; color: #6B655C; font-size: 8px;"><span>THIN</span><span>THICK</span></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between;"><span>HOOKS</span><span style="color: #F4F0E8;">{{ hookLabel }}</span></div>
+        <input type="range" min="-4" max="4" step="0.1" value="{{ hook }}" onInput="{{ setHook }}" onChange="{{ setHook }}">
+        <div style="display: flex; justify-content: space-between; color: #6B655C; font-size: 8px;"><span>SHARP</span><span>ROUND</span></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between;"><span>CORNERS</span><span style="color: #F4F0E8;">{{ bendLabel }}</span></div>
+        <input type="range" min="-4" max="4" step="0.1" value="{{ bend }}" onInput="{{ setBend }}" onChange="{{ setBend }}">
+        <div style="display: flex; justify-content: space-between; color: #6B655C; font-size: 8px;"><span>SHARP</span><span>ROUND</span></div>
+      </div>
+    </div>
+    <div onClick="{{ togglePanel }}" style="pointer-events: auto; cursor: pointer; padding: 14px 7px; background: rgba(18,14,10,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,253,248,0.12); border-left: none; border-radius: 0 8px 8px 0; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #F4F0E8; writing-mode: vertical-rl;">{{ panelTab }}</div>
+  </div>
   <div id="li-bar" style="position: absolute; left: 0; right: 0; bottom: 20px; z-index: 20; display: {{ barDisplay }}; grid-template-columns: {{ barCols }}; justify-content: center; flex-wrap: wrap; align-items: baseline; column-gap: {{ barGap }}; row-gap: 10px; padding: 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: {{ barTracking }}; color: #A79D91; white-space: nowrap; text-shadow: 0 1px 3px rgba(18,14,10,0.6), 0 0 10px rgba(18,14,10,0.45);">
     <div style="display: flex; gap: 9px; align-items: baseline; justify-content: center; pointer-events: auto;">
-      <span style="color: {{ nameColor }};">LIGHTS</span>
-      <sc-for list="{{ modes }}" as="m" hint-placeholder-count="6">
-        <span style="color: {{ m.color }}; cursor: pointer; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ m.pick }}">{{ m.n }}</span>
-      </sc-for>
+      <span style="cursor: pointer; color: {{ dimColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleDim }}">{{ dimLabel }}</span>
     </div>
-    <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
-      <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
-      <span style="cursor: pointer; pointer-events: auto; color: {{ darkColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleDark }}">{{ darkLabel }}</span>
-    </div>
-    <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
-      <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
-      <span style="cursor: pointer; pointer-events: auto; color: {{ featherColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleFeather }}">SOFT</span>
-    </div>
+    <sc-if value="{{ is2d }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; gap: 9px; align-items: baseline; justify-content: center; pointer-events: auto;">
+        <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="pointer-events: none; color: {{ dotColor }};">·</span></sc-if>
+        <span style="color: {{ nameColor }};">LIGHTS</span>
+        <sc-for list="{{ modes }}" as="m" hint-placeholder-count="6">
+          <span style="color: {{ m.color }}; cursor: pointer; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ m.pick }}">{{ m.n }}</span>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ is2d }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
+        <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
+        <span style="cursor: pointer; pointer-events: auto; color: {{ featherColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleFeather }}">SOFT</span>
+      </div>
+    </sc-if>
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
       <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
         <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
         <span style="cursor: pointer; pointer-events: auto; color: {{ controlColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleControl }}">{{ controlLabel }}</span>
       </div>
     </sc-if>
+    <div style="display: flex; gap: {{ barGap }}; align-items: baseline; justify-content: center;">
+      <sc-if value="{{ showDots }}" hint-placeholder-val="{{ true }}"><span style="color: {{ dotColor }};">·</span></sc-if>
+      <span style="cursor: pointer; pointer-events: auto; color: {{ darkColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleDark }}">{{ darkLabel }}</span>
+    </div>
   </div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;grain&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.14, &quot;min&quot;: 0, &quot;max&quot;: 0.2, &quot;step&quot;: 0.005, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Environment&quot;}, &quot;inertia&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.068, &quot;min&quot;: 0.012, &quot;max&quot;: 0.4, &quot;step&quot;: 0.004, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Interaction&quot;}, &quot;initialMode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;1&quot;, &quot;options&quot;: [&quot;1&quot;, &quot;2&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Interaction&quot;}}">
 class Component extends DCLogic {
-  state = { mode: Math.min(2, Math.max(1, parseInt(this.props.initialMode ?? '1', 10) || 1)), dark: !!this.props.dark, feather: !!this.props.feather, control: 'drag', isMobile: false };
+  state = { mode: Math.min(2, Math.max(1, parseInt(this.props.initialMode ?? '1', 10) || 1)), dark: !!this.props.dark, feather: !!this.props.feather, control: 'drag', isMobile: false, panel: false, weight: 0, hook: 0, bend: 0, dim: '2d' };
   MODES = {
     1: { off: 1.0,  dir: 1, twin: 0, src: 0.02, blurM: 0.35, op: 0.50, gS: 0.80, gSop: 0.62, gH: 1.0, fall: 0.28, fScale: 0.7 },
     2: { off: 1.0,  dir: 1, twin: 1, src: 0.02, blurM: 0.35, op: 0.50, gS: 0.80, gSop: 0.62, gH: 1.0, fall: 0.28, fScale: 0.7 }
@@ -133,9 +166,24 @@ class Component extends DCLogic {
     this.h = 12; this.ht = 12;
     this.P = { ...this.MODES[this.state.mode] };
     this.measure();
+    // 3D walls: stacked copies of the mark between floor and roof, farthest first
+    const wallsHost = document.createElement('div');
+    wallsHost.id = 'li-walls';
+    wallsHost.style.cssText = 'position:absolute;inset:0;opacity:0;pointer-events:none;';
+    const NW = 36; this.wallEls = [];
+    for (let i = NW; i >= 1; i--) {
+      const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('viewBox', '542 56 218 316');
+      s.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;overflow:visible;';
+      s.innerHTML = '<use href="#li-al-mid" fill="#9BB365" stroke="#9BB365" stroke-width="2"></use><use href="#li-al-top" fill="#5B8FDB" stroke="#5B8FDB" stroke-width="2"></use><use href="#li-al-low" fill="#F2894F" stroke="#F2894F" stroke-width="2"></use>';
+      s.dataset.f = i / NW;
+      wallsHost.appendChild(s); this.wallEls.push(s);
+    }
+    this.el.wrap.insertBefore(wallsHost, this.el.shWrap);
+    this.el.walls = wallsHost;
     this.onResize = () => { this.measure(); this.forceUpdate(); };
     this.onMove = (e) => {
-      if (e.target && e.target.closest && e.target.closest('#li-bar')) return;
+      if (e.target && e.target.closest && e.target.closest('#li-bar, #li-panel')) return;
       this.Lt.x = e.clientX; this.Lt.y = e.clientY;
     };
     this.onWheel = null;
@@ -144,20 +192,30 @@ class Component extends DCLogic {
     };
     this.pinch = null;
     this.onTouchStart = null;
+    // mobile sensitivity: amplified response that eases out near the screen edge
+    this.amp = (vx, vy) => {
+      const g = 2.2;
+      let ax = vx * g, ay = vy * g;
+      const Rm = Math.hypot(innerWidth, innerHeight) * 0.5;
+      const m = Math.hypot(ax, ay);
+      if (m > 1) { const s = Rm * Math.tanh(m / Rm); ax *= s / m; ay *= s / m; }
+      return [ax, ay];
+    };
     this.onTouchMove = (e) => {
       if (this.state.control !== 'drag') return;
-      if (e.target && e.target.closest && e.target.closest('#li-bar')) return;
+      if (e.target && e.target.closest && e.target.closest('#li-bar, #li-panel')) return;
       if (e.touches.length === 1) {
-        this.Lt.x = e.touches[0].clientX; this.Lt.y = e.touches[0].clientY;
+        const [ax, ay] = this.amp(e.touches[0].clientX - this.S.x, e.touches[0].clientY - this.S.y);
+        this.Lt.x = this.S.x + ax; this.Lt.y = this.S.y + ay;
       }
     };
     this.onOrient = (e) => {
       if (this.state.control !== 'gyro') return;
       const g = e.gamma || 0, b = e.beta || 0;
-      const nx = Math.max(-1, Math.min(1, g / 40));
-      const ny = Math.max(-1, Math.min(1, (b - 45) / 40));
-      this.Lt.x = this.S.x + nx * innerWidth * 0.75;
-      this.Lt.y = this.S.y + ny * innerHeight * 0.75;
+      const nx = Math.tanh(g / 22);
+      const ny = Math.tanh((b - 45) / 22);
+      this.Lt.x = this.S.x + nx * innerWidth * 0.9;
+      this.Lt.y = this.S.y + ny * innerHeight * 0.9;
     };
     this.gyroBound = false;
     if (matchMedia('(pointer: coarse)').matches) this.setState({ isMobile: true });
@@ -188,6 +246,101 @@ class Component extends DCLogic {
   gyroOn() {
     if (!this.gyroBound) { addEventListener('deviceorientation', this.onOrient); this.gyroBound = true; }
   }
+  // Regenerate the three strokes with adjustable rounding.
+  // HOOKS: the 4 stroke tips (2 ends of the middle stroke, 1 tip on each outer stroke) — the
+  // tip cap's control points are lerped about the chord T→E: m=0 straight chamfer, 1 original,
+  // >1 fuller round. CORNERS: same treatment on the 2 big outer shoulders of the outer strokes.
+  // The low stroke and the middle stroke's second hook are point reflections through the centre.
+  buildLogoPaths() {
+    const h = this.state.hook;
+    const shape = (T, E, pts, m) => {
+      const cx = E[0] - T[0], cy = E[1] - T[1], L2 = cx * cx + cy * cy;
+      let prev = 0;
+      return pts.map((p) => {
+        let t = ((p[0] - T[0]) * cx + (p[1] - T[1]) * cy) / L2;
+        t = Math.max(prev + 0.02, Math.min(1, Math.max(0, t)));
+        prev = t;
+        const qx = T[0] + t * cx, qy = T[1] + t * cy;
+        return [qx + (p[0] - qx) * m, qy + (p[1] - qy) * m];
+      });
+    };
+    const split = (P0, P1, P2, P3, u) => {
+      const lp = (a, b) => [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u];
+      const A = lp(P0, P1), B = lp(P1, P2), C = lp(P2, P3), D = lp(A, B), E2 = lp(B, C), Fm = lp(D, E2);
+      return { l: [A, D, Fm], r: [E2, C] };
+    };
+    // one hook: inner sweep S0→T (cubic i1,i2), tip cap T→E (cubics c1,c2,M then c3,c4,E).
+    // h<0 flattens the cap toward a chamfer; h>0 fillets the sharp tip itself — both curves are
+    // trimmed back from T and joined with a rounded cubic, fully rounding the tip at +4.
+    const hookSegs = (S0, i1, i2, T, c1, c2, M, c3, c4, E) => {
+      const m = h < 0 ? Math.max(0, 1 + h / 4) : 1;
+      const [C1, C2, Mm, C3, C4] = shape(T, E, [c1, c2, M, c3, c4], m);
+      if (h <= 0) return [[i1, i2, T], [C1, C2, Mm], [C3, C4, E]];
+      const t = h / 4;
+      const inn = split(S0, i1, i2, T, 1 - 0.9 * t);
+      const Q = inn.l[2];
+      const capT = t * 1.4;
+      let Q2, tanP, tail;
+      if (capT >= 1) {
+        const u = Math.min(0.95, (capT - 1) / 0.4);
+        const sec = split(Mm, C3, C4, E, u);
+        Q2 = sec.l[2]; tanP = sec.r[0]; tail = [[sec.r[0], sec.r[1], E]];
+      } else {
+        const cap = split(T, C1, C2, Mm, capT);
+        Q2 = cap.l[2]; tanP = cap.r[0]; tail = [[cap.r[0], cap.r[1], Mm], [C3, C4, E]];
+      }
+      // tangent-matched join: controls continue each curve's direction, so no corner survives
+      const nrm = (v) => { const m = Math.hypot(v[0], v[1]) || 1; return [v[0] / m, v[1] / m]; };
+      const u1 = nrm([Q[0] - inn.l[1][0], Q[1] - inn.l[1][1]]);
+      const u2 = nrm([tanP[0] - Q2[0], tanP[1] - Q2[1]]);
+      const L = Math.hypot(Q2[0] - Q[0], Q2[1] - Q[1]);
+      const a = L * 0.5;
+      const j1 = [Q[0] + u1[0] * a, Q[1] + u1[1] * a];
+      const j2 = [Q2[0] - u2[0] * a, Q2[1] - u2[1] * a];
+      const out = [[inn.l[0], inn.l[1], Q], [j1, j2, Q2]];
+      tail.forEach((s) => out.push(s));
+      return out;
+    };
+    const R = (p) => [1300.866 - p[0], 434.672 - p[1]];
+    const mT = [739.379, 363.167], mE = [753.529, 344.466];
+    const mSegs = hookSegs([731.003, 341.045], [736.181, 346.967], [739.347, 354.689], mT,
+      [742.082, 362.424], [744.677, 361.164], [746.932, 359.189], [751.349, 355.322], [753.527, 349.908], mE);
+    const tT = [739.380, 203.728], tE = [753.609, 184.961];
+    const tSegs = hookSegs([730.987, 181.544], [736.184, 187.479], [739.360, 195.225], tT,
+      [742.082, 202.967], [744.675, 201.680], [746.931, 199.705], [751.353, 195.833], [753.613, 190.410], tE);
+    // CORNERS: the sharp top-left corner of the top stroke (mirrored bottom-right on the low
+    // stroke) — the whole corner arc is scaled about the corner's virtual vertex V: 0 original,
+    // −4 collapses to a square point, +4 grows a wide round.
+    const mm = 1 + this.state.bend * (this.state.bend > 0 ? 0.35 : 0.25);
+    const V = [633.969, 70.636];
+    const W = (pt) => [V[0] + (pt[0] - V[0]) * mm, V[1] + (pt[1] - V[1]) * mm];
+    const seg = (t) => (s) => 'C' + s.map((pt) => { const q = t(pt); return q[0].toFixed(3) + ',' + q[1].toFixed(3); }).join(' ');
+    const topPath = (t) => {
+      const p = (pt) => { const q = t(pt); return q[0].toFixed(3) + ',' + q[1].toFixed(3); };
+      return 'M' + p([753.569, 159.713]) +
+        'C' + p([753.570, 149.966]) + ' ' + p([750.213, 140.177]) + ' ' + p([743.288, 132.268]) +
+        'L' + p([701.781, 84.861]) + 'C' + p([693.845, 75.797]) + ' ' + p([682.848, 71.042]) + ' ' + p([671.686, 70.700]) +
+        'L' + p([671.688, 70.636]) + 'L' + p(W([647.645, 70.636])) +
+        'C' + p(W([644.208, 70.636])) + ' ' + p(W([641.422, 73.422])) + ' ' + p(W([641.422, 76.859])) +
+        'C' + p(W([641.422, 78.419])) + ' ' + p(W([642.016, 79.827])) + ' ' + p(W([642.964, 80.919])) +
+        'L' + p([730.987, 181.544]) +
+        tSegs.map(seg(t)).join('') +
+        'L' + p([753.609, 159.726]) + 'Z';
+    };
+    const id = (q) => q;
+    const dMid = 'M753.569,319.209' +
+      'C753.573,309.459 750.216,299.666 743.289,291.754' +
+      'L650.432,185.698L569.861,93.674L569.863,93.627' +
+      mSegs.map((s) => seg(R)(s)).join('') +
+      'L547.254,90.206L547.254,115.462L547.295,115.462' +
+      'C547.291,125.212 550.648,135.005 557.575,142.917' +
+      'L650.432,248.973L731.003,340.997L731.003,341.045' +
+      mSegs.map(seg(id)).join('') +
+      'L753.610,344.466L753.610,319.209Z';
+    document.getElementById('li-al-top').setAttribute('d', topPath(id));
+    document.getElementById('li-al-low').setAttribute('d', topPath(R));
+    document.getElementById('li-al-mid').setAttribute('d', dMid);
+  }
   measure() {
     const r = this.el.wrap.getBoundingClientRect();
     this.S = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
@@ -209,13 +362,41 @@ class Component extends DCLogic {
     const G = 2.4;
     const pX = dx * persp * G, pY = dy * persp * G;
     const dLen = (this.h * 1.5 + 18);
-    const orthoK = 0.025 * (0.6 + this.z / 1500);
+    const orthoK = 0.0375 * (0.6 + this.z / 1500);
     const dX = dx * orthoK, dY = dy * orthoK;
     const ox = (pX * (1 - P.dir) + dX * P.dir) * P.off;
     const oy = (pY * (1 - P.dir) + dY * P.dir) * P.off;
     const scale = 1 + persp * (1 - P.dir) * 1.1 * P.off;
     const blur = Math.min(60, Math.max(0.5, (0.6 + 300 * persp * P.src) * P.blurM * (this.state.feather ? 11 : 1)));
     const coreBlur = this.state.feather ? blur * 0.75 : Math.min(blur * 0.18, 3);
+    // logo weight: dilate/erode filter prefix shared by symbol and shadows
+    const w = this.state.weight;
+    const wf = w === 0 ? '' : 'url(#li-wf) ';
+    if (w !== this.wApplied) {
+      const m = document.getElementById('li-wf-m');
+      if (m) { m.setAttribute('operator', w > 0 ? 'dilate' : 'erode'); m.setAttribute('radius', Math.abs(w)); }
+      this.wApplied = w;
+    }
+    if (this.state.hook !== this.hookA || this.state.bend !== this.bendA) {
+      if (this.state.hook !== 0 || this.state.bend !== 0 || this.hookA !== undefined) this.buildLogoPaths();
+      this.hookA = this.state.hook; this.bendA = this.state.bend;
+    }
+    this.el.symbol.style.filter = wf;
+    const is3d = this.state.dim === '3d';
+    // 3D: no shadows; extruded walls in the shadow accents, roof stays put, cursor = camera
+    this.el.walls.style.opacity = is3d ? 1 : 0;
+    this.el.shWrap.style.opacity = is3d ? 0 : 1;
+    if (is3d) {
+      this.el.walls.style.filter = wf;
+      const cap = Math.min(innerWidth, innerHeight) * 0.07;
+      let wx = dx * 0.1, wy = dy * 0.1;
+      const mL = Math.hypot(wx, wy);
+      if (mL > cap) { wx *= cap / mL; wy *= cap / mL; }
+      for (const s of this.wallEls) {
+        const f = parseFloat(s.dataset.f);
+        s.style.transform = `translate3d(${(wx * f).toFixed(2)}px, ${(wy * f).toFixed(2)}px, 0)`;
+      }
+    }
     // theme: light = multiply (overlaps darken), dark = screen (overlaps brighten)
     const dark = this.state.dark;
     const blend = dark ? 'screen' : 'multiply';
@@ -233,10 +414,10 @@ class Component extends DCLogic {
     const pen = this.el.shPen.style, core = this.el.shCore.style;
     pen.transform = shT; core.transform = shT;
     pen.opacity = 1; core.opacity = 1;
-    pen.filter = `blur(${blur}px)`;
-    core.filter = `blur(${coreBlur}px)`;
+    pen.filter = `${wf}blur(${blur}px)`;
+    core.filter = `${wf}blur(${coreBlur}px)`;
     // twin: a second identical ortho shadow mirrored through the symbol centre.
-    this.el.quad.style.opacity = 1;
+    this.el.quad.style.opacity = is3d ? 0 : 1;
     const D = Math.PI / 180;
     const setRay = (idx, op2, ang) => {
       const st = this.el.quadEls[idx].style;
@@ -244,24 +425,26 @@ class Component extends DCLogic {
       if (op2 > 0.01) {
         const c = Math.cos(ang), sn = Math.sin(ang);
         st.transform = `translate3d(${ox * c - oy * sn}px, ${ox * sn + oy * c}px, 0) scale(${scale})`;
-        st.filter = `blur(${this.state.feather ? blur : coreBlur}px)`;
+        st.filter = `${wf}blur(${this.state.feather ? blur : coreBlur}px)`;
       }
     };
     setRay(0, P.twin, 180 * D);
     for (let i = 1; i < 5; i++) this.el.quadEls[i].style.opacity = 0;
     const s2 = this.el.sh2.style;
     s2.transform = `translate3d(${ox * -0.42}px, ${oy * -0.42}px, 0) scale(${1 + (scale - 1) * 0.5})`;
-    s2.filter = `blur(${blur * 1.5}px)`;
-    s2.opacity = P.sec;
+    s2.filter = `${wf}blur(${blur * 1.5}px)`;
+    s2.opacity = is3d ? 0 : P.sec;
     const ao = this.el.ao.style;
     ao.opacity = Math.max(0, 0.55 - persp * 3.5);
     ao.transform = `scale(${1 + persp * 0.8})`;
     const conc = Math.min(1.5, Math.max(0.6, 900 / this.z));
     const aim = 0.14;
-    const glX = this.S.x + dx * aim, glY = this.S.y + innerHeight * 0.06 + dy * aim, zEff = this.z;
+    // 3D: spotlight is static over the object
+    const pdx = is3d ? 0 : dx, pdy = is3d ? 0 : dy;
+    const glX = this.S.x + pdx * aim, glY = this.S.y + innerHeight * 0.06 + pdy * aim, zEff = this.z;
     // oblique projection: pool stretches to an ellipse pointing away from the light
-    const obl = Math.min(1, dist / (Math.hypot(innerWidth, innerHeight) * 0.5));
-    const ang = Math.atan2(dy, dx);
+    const obl = is3d ? 0 : Math.min(1, dist / (Math.hypot(innerWidth, innerHeight) * 0.5));
+    const ang = Math.atan2(pdy, pdx);
     const ex = 1 + obl * 0.28, ey = 1 - obl * 0.07;
     // twin: one merged pool centred on the logo, elongated to span both light positions
     const dPool = Math.hypot(glX - this.S.x, glY - this.S.y);
@@ -303,6 +486,22 @@ class Component extends DCLogic {
       toggleDark: () => this.setState((s) => ({ dark: !s.dark })),
       toggleFeather: () => this.setState((s) => ({ feather: !s.feather })),
       isMobile: this.state.isMobile,
+      panelX: this.state.panel ? '0' : '-232px',
+      panelTab: this.state.panel ? 'CLOSE' : 'EDIT',
+      togglePanel: () => this.setState((s) => ({ panel: !s.panel })),
+      weight: this.state.weight,
+      weightLabel: (this.state.weight > 0 ? '+' : '') + this.state.weight.toFixed(1),
+      setWeight: (e) => this.setState({ weight: parseFloat(e.target.value) }),
+      hook: this.state.hook,
+      hookLabel: (this.state.hook > 0 ? '+' : '') + this.state.hook.toFixed(1),
+      setHook: (e) => this.setState({ hook: parseFloat(e.target.value) }),
+      bend: this.state.bend,
+      bendLabel: (this.state.bend > 0 ? '+' : '') + this.state.bend.toFixed(1),
+      setBend: (e) => this.setState({ bend: parseFloat(e.target.value) }),
+      dimLabel: this.state.dim === '3d' ? '3D' : '2D',
+      dimColor: active,
+      is2d: this.state.dim !== '3d',
+      toggleDim: () => this.setState((s) => ({ dim: s.dim === '3d' ? '2d' : '3d' })),
       barGap: mob ? '12px' : '26px',
       barTracking: mob ? '0.12em' : '0.18em',
       showDots: !grid,
