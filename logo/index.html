@@ -107,7 +107,7 @@
       </div>
     </div>
   </div>
-  <div id="li-bar" style="position: absolute; left: 0; right: 0; bottom: 20px; z-index: 20; display: {{ barDisplay }}; grid-template-columns: {{ barCols }}; justify-content: center; flex-wrap: wrap; align-items: baseline; column-gap: {{ barGap }}; row-gap: 10px; padding: 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: {{ barTracking }}; color: #A79D91; white-space: nowrap; text-shadow: 0 1px 3px rgba(18,14,10,0.6), 0 0 10px rgba(18,14,10,0.45);">
+  <div id="li-bar" style="position: absolute; left: 0; right: 0; bottom: 20px; z-index: 20; display: flex; justify-content: center; flex-wrap: nowrap; transform-origin: 50% 100%; align-items: baseline; column-gap: {{ barGap }}; row-gap: 10px; padding: 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: {{ barTracking }}; color: #A79D91; white-space: nowrap; text-shadow: 0 1px 3px rgba(18,14,10,0.6), 0 0 10px rgba(18,14,10,0.45);">
     <div style="display: flex; gap: 9px; align-items: baseline; justify-content: center; pointer-events: auto;">
       <span style="cursor: pointer; color: {{ dimColor }}; transition: color 200ms cubic-bezier(0.2,0,0,1);" onClick="{{ toggleDim }}">{{ dimLabel }}</span>
     </div>
@@ -177,6 +177,16 @@ class Component extends DCLogic {
     this.el.walls = wallsHost;
     this.wgEls = Array.from(document.querySelectorAll('.li-wg'));
     this.onResize = () => { this.measure(); this.forceUpdate(); };
+    // scale the bar down so it always fits one row
+    this.fitBar = () => {
+      const bar = document.getElementById('li-bar');
+      if (!bar) return;
+      bar.style.transform = '';
+      const need = bar.scrollWidth;
+      const avail = innerWidth - 16;
+      bar.style.transform = need > avail ? `scale(${(avail / need).toFixed(3)})` : '';
+    };
+    setTimeout(this.fitBar, 450);
     this.onMove = (e) => {
       if (e.target && e.target.closest && e.target.closest('#li-bar, #li-panel')) return;
       this.Lt.x = e.clientX; this.Lt.y = e.clientY;
@@ -493,12 +503,11 @@ class Component extends DCLogic {
     fl.transform = ellG(P.fScale * (0.5 + zEff / 1500), 120 * vmax);
     fl.opacity = P.fall * litK;
   }
+  componentDidUpdate() { this.fitBar && this.fitBar(); }
   renderVals() {
     const mode = this.state.mode;
     const dark = this.state.dark;
     const mob = this.state.isMobile;
-    // mobile: tighter bar; if even that can't fit one row, fall back to a 2x2 grid
-    const grid = mob && innerWidth < 390;
     const idle = dark ? '#C4BEB4' : '#EAE5DC';
     const active = dark ? '#FFFFFF' : '#FFFFFF';
     return {
@@ -532,9 +541,7 @@ class Component extends DCLogic {
       toggleDim: () => this.setState((s) => ({ dim: s.dim === '3d' ? '2d' : '3d' })),
       barGap: mob ? '12px' : '26px',
       barTracking: mob ? '0.12em' : '0.18em',
-      showDots: !grid,
-      barDisplay: grid ? 'grid' : 'flex',
-      barCols: grid ? 'auto auto' : 'none',
+      showDots: true,
       controlLabel: this.state.control === 'gyro' ? 'GYRO' : 'DRAG',
       controlColor: active,
       toggleControl: () => {
