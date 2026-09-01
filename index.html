@@ -51,20 +51,6 @@
   .sf-nav-grp{gap:12px !important}
   /* center each chapter between the viewport top and the top of the bottom menu */
   .sf-chapter{padding-top:0 !important;padding-bottom:50px !important}
-  /* resources chapter: tighter stacks, media tiles in a row of 3 */
-  #sec-resources{gap:14px !important;padding-bottom:96px !important}
-  #sec-resources > div{gap:10px !important}
-  #sec-resources a[class*="sf-near"]{padding:10px 0 !important;gap:10px !important}
-  #sec-resources a .sf-res-t{font-size:0.85rem !important}
-  #sec-resources a span[style*="mono"]{font-size:0.55rem !important}
-  /* media: 2-up grid, larger tiles, captions clamp */
-  #sec-resources .sf-near[style*="wrap"]{display:grid !important;grid-template-columns:1fr 1fr !important;gap:12px !important}
-  #sec-resources .sf-near[style*="wrap"] > div{width:auto !important;min-width:0 !important}
-  #sec-resources .sf-near[style*="wrap"] > div:nth-child(3){display:none !important}
-  #sec-resources .sf-near[style*="wrap"] span[style*="body-m"]{font-size:0.72rem !important;margin-top:4px !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important}
-  #sec-resources .sf-near[style*="wrap"] span[style*="0.6rem"]{font-size:0.5rem !important}
-  /* resource rows: domain hidden, title + arrow only */
-  #sec-resources a span[style*="mono"][style*="tracking-wide"]{display:none !important}
 }
 @media (max-width: 600px){
   #sf-nav{gap:12px !important;padding-bottom:18px !important}
@@ -274,57 +260,6 @@
 </a>
 </section>
 </div>
-<div class="sf-tilt" style="position:absolute;inset:0;pointer-events:none;will-change:transform">
-<section id="sec-resources" class="sf-chapter" data-nav="resources" style="pointer-events:auto;position:absolute;top:0;left:calc(var(--page-margin) * 2);right:var(--page-margin);height:100vh;will-change:transform;padding:12vh 0 110px;max-width:900px;display:flex;flex-direction:column;justify-content:center;gap:22px">
-<div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
-<div style="display:flex;flex-direction:column;gap:16px">
-<div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">Socials</div>
-<div class="sf-near" style="display:flex;align-items:center;gap:22px">
-<svg aria-label="LinkedIn" width="20" height="20" viewBox="0 0 24 24" fill="none" class="sf-soc" stroke="var(--text-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;transition:stroke 300ms cubic-bezier(0.2,0,0,1);cursor:pointer"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v2"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-<svg aria-label="X" class="sf-soc-x" width="18" height="18" viewBox="0 0 24 24" fill="var(--text-primary)" style="display:block;transition:fill 300ms cubic-bezier(0.2,0,0,1);cursor:pointer"><path d="M17.6 3H20.6l-6.6 7.5L21.8 21h-6.1l-4.8-6.2L5.4 21H2.4l7-8L2.5 3h6.2l4.3 5.7L17.6 3zm-1.1 16.2h1.7L7.8 4.7H6L16.5 19.2z"></path></svg>
-<svg aria-label="Instagram" width="20" height="20" viewBox="0 0 24 24" fill="none" class="sf-soc" stroke="var(--text-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;transition:stroke 300ms cubic-bezier(0.2,0,0,1);cursor:pointer"><rect width="20" height="20" x="2" y="2" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-</div>
-</div>
-<div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase;margin-bottom:-10px">Resources</div>
-<div style="display:flex;flex-direction:column">
-<a class="sf-near" href="https://www.freedomseries.ai/" target="_blank" rel="noopener" style="display:flex;align-items:baseline;gap:16px;padding:6px 0 18px;border-bottom:1px solid var(--border-default);text-decoration:none;width:100%">
-<span class="sf-res-t" style="font:var(--text-display-s);letter-spacing:var(--tracking-tight)">Freedom Series</span>
-<span style="font:var(--text-mono-s);color:var(--text-tertiary);letter-spacing:var(--tracking-wide)">freedomseries.ai</span>
-<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-default)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex:none;align-self:center"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-</a>
-<a class="sf-near" style="cursor:default;display:flex;align-items:baseline;gap:16px;padding:18px 0;border-bottom:1px solid var(--border-default);text-decoration:none;width:100%">
-<span class="sf-res-t" style="font:var(--text-display-s);letter-spacing:var(--tracking-tight)">Resource placeholder</span>
-<span style="font:var(--text-mono-s);color:var(--text-tertiary);letter-spacing:var(--tracking-wide)">example.com</span>
-<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-default)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex:none;align-self:center"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-</a>
-<a class="sf-near" style="cursor:default;display:flex;align-items:baseline;gap:16px;padding:18px 0;text-decoration:none;width:100%">
-<span class="sf-res-t" style="font:var(--text-display-s);letter-spacing:var(--tracking-tight)">Resource placeholder</span>
-<span style="font:var(--text-mono-s);color:var(--text-tertiary);letter-spacing:var(--tracking-wide)">example.com</span>
-<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-default)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;flex:none;align-self:center"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-</a>
-</div>
-<div style="display:flex;flex-direction:column;gap:16px">
-<div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">Media</div>
-<div class="sf-near" style="display:flex;gap:20px;flex-wrap:wrap">
-<div style="width:180px;display:flex;flex-direction:column;gap:2px">
-<div style="width:100%;aspect-ratio:16/9;background:#D8D2C8;border:1px solid var(--border-subtle)"></div>
-<span style="font:var(--text-body-m);color:var(--text-primary);margin-top:6px">News Title</span>
-<span style="font:400 0.6rem/1.3 var(--font-mono);color:var(--text-accent);letter-spacing:var(--tracking-wide)">OUTLET — DATE</span>
-</div>
-<div style="width:180px;display:flex;flex-direction:column;gap:2px">
-<div style="width:100%;aspect-ratio:16/9;background:#D8D2C8;border:1px solid var(--border-subtle)"></div>
-<span style="font:var(--text-body-m);color:var(--text-primary);margin-top:6px">News Title</span>
-<span style="font:400 0.6rem/1.3 var(--font-mono);color:var(--text-accent);letter-spacing:var(--tracking-wide)">OUTLET — DATE</span>
-</div>
-<div style="width:180px;display:flex;flex-direction:column;gap:2px">
-<div style="width:100%;aspect-ratio:16/9;background:#D8D2C8;border:1px solid var(--border-subtle)"></div>
-<span style="font:var(--text-body-m);color:var(--text-primary);margin-top:6px">News Title</span>
-<span style="font:400 0.6rem/1.3 var(--font-mono);color:var(--text-accent);letter-spacing:var(--tracking-wide)">OUTLET — DATE</span>
-</div>
-</div>
-</div>
-</section>
-</div>
 </main>
 <div aria-hidden="true" style="position:fixed;inset:0;z-index:-1;background:linear-gradient(160deg, #FBF8F3 0%, #F1ECE4 45%, #E4DDD2 100%);pointer-events:none"></div>
 <div id="scroll-track" style="height:400vh;pointer-events:none"></div>
@@ -344,7 +279,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;headline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;From Generative AI to Creative AGI&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;maintenanceLock&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Access&quot;},&quot;foundryFlash&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Foundry&quot;},&quot;planeTilt&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;tiltDegrees&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3.5,&quot;min&quot;:0.5,&quot;max&quot;:10,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;deg&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;forgeSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.3,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Foundry&quot;},&quot;snappiness&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2.5,&quot;min&quot;:0.5,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;starDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0.2,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Starfield&quot;},&quot;introOutStart&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:2,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;introOutEnd&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:6,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;revealSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:4,&quot;min&quot;:0.5,&quot;max&quot;:5,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;holdSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0,&quot;max&quot;:4,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;overlayPattern&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;diagonal /&quot;,&quot;options&quot;:[&quot;diagonal /&quot;,&quot;diagonal \\&quot;,&quot;cross hatch&quot;,&quot;dots&quot;,&quot;vertical&quot;,&quot;horizontal&quot;,&quot;none&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:7,&quot;min&quot;:2,&quot;max&quot;:24,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.1,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayWeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:6,&quot;step&quot;:0.5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;headline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;From Generative AI to Creative AGI&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;maintenanceLock&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Access&quot;},&quot;foundryFlash&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Foundry&quot;},&quot;planeTilt&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;tiltDegrees&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3.5,&quot;min&quot;:0.5,&quot;max&quot;:10,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;deg&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;forgeSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.3,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Foundry&quot;},&quot;snappiness&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2.5,&quot;min&quot;:0.5,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;starDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0.2,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Starfield&quot;},&quot;introOutStart&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:2,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;introOutEnd&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:6,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;revealSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:4,&quot;min&quot;:0.5,&quot;max&quot;:5,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;holdSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0,&quot;max&quot;:4,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;overlayPattern&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;diagonal /&quot;,&quot;options&quot;:[&quot;diagonal /&quot;,&quot;diagonal \\&quot;,&quot;cross hatch&quot;,&quot;dots&quot;,&quot;vertical&quot;,&quot;horizontal&quot;,&quot;none&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:7,&quot;min&quot;:2,&quot;max&quot;:24,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.1,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;},&quot;overlayWeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:6,&quot;step&quot;:0.5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Overlay&quot;}}">
 class Component extends DCLogic {
   state = { open: !!this.props.startOpen, active: 'foundry', unlocked: sessionStorage.getItem('sf-ml') === '1' };
 
@@ -394,7 +329,7 @@ class Component extends DCLogic {
     this._tryEnter = tryEnter;
     // defer the whole intro (video load included) until the gate is unlocked
     this.startIntro = () => { if (!this._introStarted) { this._introStarted = true; this._runIntro(showHero, whenStyled, tryEnter); } };
-    if (!((this.props.maintenanceLock ?? true) && !this.state.unlocked)) this.startIntro();
+    if (!((this.props.maintenanceLock ?? false) && !this.state.unlocked)) this.startIntro();
     this._ffOn = this.props.foundryFlash ?? true;
     // mouse tilt: the whole content plane (sections only — logo, nav, starfield stay
     // flat) leans in 3d toward the cursor, rotating about the viewport centre.
@@ -642,7 +577,7 @@ class Component extends DCLogic {
         if (reveal && prog > 0.5 && this._ffOn && !this._ffFired) this.foundryFlash();
         if (reveal && prog > 0.5 && !this._sfIntroDone) { this._sfIntroDone = true; this._sfIntro = performance.now(); }
         const sw = document.getElementById('sf-stars');
-        const lockedNow = (this.props.maintenanceLock ?? true) && !this.state.unlocked;
+        const lockedNow = (this.props.maintenanceLock ?? false) && !this.state.unlocked;
         if (sw && !lockedNow) { sw.style.transition = 'none'; sw.style.opacity = reveal ? prog.toFixed(3) : '0'; }
         else if (sw) { sw.style.transition = 'none'; sw.style.opacity = '1'; }
         const hero = this.hero.current;
@@ -1540,7 +1475,7 @@ class Component extends DCLogic {
     const prevOpen = this._prevOpen; this._prevOpen = this.state.open;
     const prevActive = this._prevActive; this._prevActive = this.state.active;
     // safety net: if the gate is open but the intro never started, start it now
-    if (!((this.props.maintenanceLock ?? true) && !this.state.unlocked) && this.startIntro) this.startIntro();
+    if (!((this.props.maintenanceLock ?? false) && !this.state.unlocked) && this.startIntro) this.startIntro();
     if (prevOpen !== undefined && prevOpen !== this.state.open && this.lockScroll) this.lockScroll(!this.state.open);
     // once the page is open the intro videos are invisible but were still decoding two
     // filtered fullscreen layers — on phones that exhausts the compositor and makes it
@@ -1650,7 +1585,7 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const locked = (this.props.maintenanceLock ?? true) && !this.state.unlocked;
+    const locked = (this.props.maintenanceLock ?? false) && !this.state.unlocked;
     const tryUnlock = (e) => {
       e.preventDefault();
       const v = this.pwRef.current ? this.pwRef.current.value : '';
