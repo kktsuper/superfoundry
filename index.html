@@ -1128,12 +1128,16 @@ class Component extends DCLogic {
       }
     };
     this.onWrapTouchStart = (e) => {
+      if (e.touches.length > 1) { this._pinching = true; this._touchY = null; this._touchX = null; this._touchAcc = 0; return; }
+      this._pinching = false;
       const t0 = e.touches[0];
       this._touchY = t0 ? t0.clientY : null;
       this._touchX = t0 ? t0.clientX : null;
       this._touchAcc = 0;
     };
     this.onWrapTouchMove = (e) => {
+      // two fingers = pinch zoom: hand it to the browser, cancel any pending swipe
+      if (e.touches.length > 1 || this._pinching || (window.visualViewport && window.visualViewport.scale > 1.02)) { this._touchY = null; this._touchX = null; this._touchAcc = 0; return; }
       const t0 = e.touches[0];
       const y = t0 ? t0.clientY : null, x = t0 ? t0.clientX : null;
       if (y == null || this._touchY == null || this._touchX == null) { this._touchY = y; this._touchX = x; return; }
