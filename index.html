@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet><title>Superintelligence Foundry</title><link rel="icon" type="image/svg+xml" href="assets/logo/aleph-mark-light.svg"><style>:root{--text-primary:#161311 !important;--text-secondary:#3D3833 !important;--text-tertiary:#7A7168 !important;--surface-app:#F3EFE8 !important;--surface-card:#FFFDFA !important;--surface-raised:#F7F3EC !important;--surface-inverse:#161311 !important;--border-subtle:rgba(22,19,17,0.10) !important;--border-default:rgba(22,19,17,0.18) !important;--border-strong:rgba(22,19,17,0.30) !important;--text-olive:#5C6E36 !important;--text-ai:#3A67AF !important;--text-accent:#C4551F !important;--accent-default:#C4551F !important}body{color:#161311 !important}</style><script src="./ds-base.js"></script><style>body{margin:0;background:#F3EFE8;color:var(--text-primary);font-family:var(--font-body)}*{box-sizing:border-box}a{color:var(--text-accent);text-decoration:none}a:hover{color:var(--text-primary)}.sf-res-t{color:var(--text-primary);transition:color 900ms cubic-bezier(0.2,0,0,1)}a:hover .sf-res-t{color:var(--accent-default)}.sf-soc{stroke:var(--text-primary) !important;transition:stroke 900ms cubic-bezier(0.2,0,0,1) !important}.sf-soc:hover{stroke:var(--accent-ai) !important}.sf-soc-x{fill:var(--text-primary) !important;transition:fill 900ms cubic-bezier(0.2,0,0,1) !important}.sf-soc-x:hover{fill:var(--accent-ai) !important}.sf-mail:hover svg{stroke:var(--accent-default)}.sf-mail:hover .sf-mail-f{color:var(--accent-default)}html{overflow-x:clip}body{overflow-x:clip}
+.sf-loop-node span, #sf-wm-label, .sf-loop-node > div > div{text-shadow:0 0 3px #FFFDFA, 0 0 6px #FFFDFA, 1px 1px 0 #FFFDFA, -1px 1px 0 #FFFDFA, 1px -1px 0 #FFFDFA, -1px -1px 0 #FFFDFA}
 @media (max-width: 900px){
   :root{--font-size-display-l:1.55rem !important;--font-size-display-m:1.1rem !important;--font-size-display-s:0.95rem !important;--text-display-s:600 0.95rem/1.3 var(--font-display) !important;--text-display-m:600 1.1rem/1.3 var(--font-display) !important;--text-body-m:400 0.8rem/1.45 var(--font-body) !important;--text-body-s:400 0.7rem/1.4 var(--font-body) !important;--text-label:600 0.6rem/1.3 var(--font-mono) !important;--text-mono-s:400 0.65rem/1.35 var(--font-mono) !important}
   main > section{left:var(--page-margin) !important;right:var(--page-margin) !important;padding-top:9vh !important;padding-bottom:64px !important}
@@ -90,12 +91,12 @@
 <div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
 
 <div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">The Foundry</div>
-<h2 class="sf-near" style="font-family:var(--font-display);font-size:var(--font-size-display-m);font-weight:var(--font-weight-display-m);line-height:var(--line-height-display-m);letter-spacing:var(--tracking-tight);margin:0;color:#161311;max-width:32ch;text-wrap:balance" id="foundry-h2">The next frontier of AI is the <span style="color:var(--text-accent)">physical world</span>. We extend foundation models downward into reality; an artificial general <span style="color:var(--text-ai)">scientist, engineer, and inventor</span> that learns through interaction.</h2>
+<h2 class="sf-near" style="font-family:var(--font-display);font-size:var(--font-size-display-m);font-weight:var(--font-weight-display-m);line-height:var(--line-height-display-m);letter-spacing:var(--tracking-tight);margin:0;color:#161311;max-width:32ch;text-wrap:balance" id="foundry-h2">The next frontier of AI is the <span style="color:var(--text-accent)">physical world</span>.<br /><br />We bring foundation models down into reality: a general <span style="color:var(--text-ai)">scientist, engineer, and inventor</span> that learns by interacting with the world, keeps improving, and is intrinsically aligned: it acts to grow freedom for all.</h2>
 </section>
 </div>
 <section id="sec-mission" class="sf-chapter" data-nav="process" style="position:absolute;top:0;left:calc(var(--page-margin) * 2);right:var(--page-margin);height:100vh;will-change:transform;padding-bottom:110px;display:flex;align-items:center;justify-content:center">
 
-<div class="sf-loop" style="position:relative;width:min(85vh, 1040px);max-width:100%;aspect-ratio:1/1;margin:0 auto;transform:translateZ(0)">
+<div class="sf-loop" style="position:relative;width:min(68vh, 832px);max-width:100%;aspect-ratio:1/1;margin:0 0 0 auto;transform:translateZ(0)">
 <div style="position:absolute;inset:0;border-radius:50%;border:1px dashed var(--border-default)" data-loop-ring="1"></div>
 <div style="position:absolute;inset:26px;border-radius:50%;border:1px solid var(--border-subtle)" data-loop-ring="-0.6"></div>
 <div data-loop-ring="1.35" style="position:absolute;inset:0;transform-origin:50% 50%;will-change:transform">
@@ -163,43 +164,43 @@
 <div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
 <div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--text-accent);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-accent)">01</div>
 <span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">MODEL</span>
-<span style="font:var(--text-body-s);color:#161311;text-align:center">Writes an executable model</span>
+<span style="font:var(--text-body-s);color:#161311;text-align:center">Understands the domain, plans the work</span>
 </div>
 </div>
 <div class="sf-loop-node" style="position:absolute;top:68.75%;left:82.475%;transform:translate(-50%,-50%);width:124px">
 <div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
 <div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--text-olive);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-olive)">02</div>
-<span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">EXPLORE</span>
-<span style="font:var(--text-body-s);color:#161311;text-align:center">Probes what's uncertain</span>
+<span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">EXPERIMENT</span>
+<span style="font:var(--text-body-s);color:#161311;text-align:center">Generates safe experiments to resolve what it needs to know</span>
 </div>
 </div>
 <div class="sf-loop-node" style="position:absolute;top:68.75%;left:17.525%;transform:translate(-50%,-50%);width:124px">
 <div data-loop-counter="0.45" style="display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 50%">
 <div style="width:52px;height:52px;border-radius:50%;background:var(--surface-card);border:1px solid var(--text-ai);display:flex;align-items:center;justify-content:center;font:var(--text-display-s);color:var(--text-ai)">03</div>
 <span style="font:700 0.875rem/1.4 var(--font-mono);color:#161311;letter-spacing:var(--tracking-wide)">UPDATE</span>
-<span style="font:var(--text-body-s);color:#161311;text-align:center">Tests against reality, feeds back</span>
+<span style="font:var(--text-body-s);color:#161311;text-align:center">Tests against reality, writes back what it learns</span>
 </div>
 </div>
 </div>
 </div>
 <div class="sf-tilt" style="position:absolute;inset:0;pointer-events:none;will-change:transform">
 <div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
-<div id="mission-copy" style="pointer-events:auto;text-shadow:0 0 3px #F1ECE4, 0 0 6px #F1ECE4, 1px 1px 0 #F1ECE4, -1px 1px 0 #F1ECE4, 1px -1px 0 #F1ECE4, -1px -1px 0 #F1ECE4;position:absolute;left:0;bottom:6vh;width:300px;display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+<div id="mission-copy" style="pointer-events:auto;text-shadow:0 0 3px #F1ECE4, 0 0 6px #F1ECE4, 1px 1px 0 #F1ECE4, -1px 1px 0 #F1ECE4, 1px -1px 0 #F1ECE4, -1px -1px 0 #F1ECE4;position:absolute;left:0;bottom:6vh;width:450px;display:flex;flex-direction:column;gap:18px;align-items:flex-start">
 <div style="position:relative;width:max-content;max-width:100%">
 <div style="position:relative;font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">Our process</div>
 </div>
 <div style="position:relative;width:max-content;max-width:100%">
-<h2 class="sf-near" style="position:relative;font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight);margin:0;text-wrap:balance">Every solution paves the way for solving <span style="color:var(--text-accent)">what comes next</span>.</h2>
+<h2 class="sf-near" style="position:relative;font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight);margin:0;text-wrap:balance">We build <span style="color:var(--text-accent)">self-improving</span> world models.</h2>
 </div>
-<div style="width:300px;display:flex;flex-direction:column;gap:12px;font:400 1rem/1.5 var(--font-body);color:var(--text-secondary);text-wrap:pretty">
+<div style="width:450px;display:flex;flex-direction:column;gap:12px;font:400 1rem/1.5 var(--font-body);color:var(--text-secondary);text-wrap:pretty">
 <div style="position:relative;width:max-content;max-width:100%">
-<span style="position:relative">We build self-improving world models.</span>
-</div>
-<div style="position:relative;width:max-content;max-width:100%">
-<span style="position:relative">The LLM already holds a vast ontology of the world and externalizes it by writing programs, because a program is a model.</span>
+<span style="position:relative">A program is a model you can run. A large language model holds a rich picture of how the world works, and writing code turns that picture into a world model it can run, test, and improve.</span>
 </div>
 <div style="position:relative;width:max-content;max-width:100%">
-<span style="position:relative">It writes an executable model of a domain, proposes minimal experiments to resolve what's uncertain, and tests its predictions against reality.</span>
+<span style="position:relative">Given a task, it writes a world model of the domain, generates safe experiments to resolve only what it still needs to know, and tests its predictions against reality. What it learns goes back continually into the model. We call this interactive learning.</span>
+</div>
+<div style="position:relative;width:max-content;max-width:100%">
+<span style="position:relative">The same loop runs in code, in the lab, and in robots. Every solution paves the way for the next. Over time the system discovers new science and invents new things, including its own models and everything beneath them.</span>
 </div>
 </div>
 </div>
@@ -210,7 +211,7 @@
 <div aria-hidden="true" class="sf-rule" style="position:absolute;left:-22px;top:0;height:0;width:2px;background:var(--border-default)"></div>
 
 <div style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">The team</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px,1fr));gap:32px;align-items:start">
+<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(155px,1fr));gap:24px;align-items:start;max-width:390px">
 <div class="sf-near"><div class="sf-pol" data-base="2.5,-4,-0.6" data-ctf="0.83" data-plx="1.27" style="position:relative;overflow:hidden;padding:10px 10px 0;background:#FFFDFA;border:1px solid var(--border-default);box-shadow:var(--shadow-sm);transform:perspective(900px) rotateX(2.5deg) rotateY(-4deg) rotate(-0.6deg);transform-origin:50% 40%">
 <div aria-hidden="true" style="position:absolute;inset:0;background:url('uploads/polaroidtexture.jpg');background-size:cover;opacity:0.85;pointer-events:none"></div>
 <div style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden">
@@ -235,23 +236,11 @@
 <span style="font:var(--text-mono-s);color:var(--text-ai);letter-spacing:var(--tracking-wide)">CTO</span>
 </div>
 </div></div>
-<div class="sf-near" style="margin-top:4px"><div class="sf-pol" data-base="3,5,-0.3" data-ctf="0.9" data-plx="0.86" style="position:relative;overflow:hidden;padding:10px 10px 0;background:#FFFDFA;border:1px solid var(--border-default);box-shadow:var(--shadow-sm);transform:perspective(900px) rotateX(3deg) rotateY(5deg) rotate(-0.3deg);transform-origin:40% 50%">
-<div aria-hidden="true" style="position:absolute;inset:0;background:url('uploads/polaroidtexture.jpg');background-size:cover;opacity:0.85;pointer-events:none;transform:scaleX(-1)"></div>
-<div style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden">
-<img class="sf-plx-bg" src="uploads/parallax_kkt_bg-5dc4dbb5.jpg" alt="" aria-hidden="true" style="position:absolute;top:-16.67%;left:-16.67%;width:133.34%;height:133.34%;object-fit:cover;display:block;will-change:transform" />
-<img class="sf-plx-fg" src="uploads/parallax_kkt-3417876e.png" alt="Kevin Tseng" style="position:absolute;top:-16.67%;left:-16.67%;width:133.34%;height:133.34%;object-fit:cover;display:block;will-change:transform" />
-<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 2px 5px rgba(22,19,17,0.25), inset 0 0 2px rgba(22,19,17,0.18)"></div>
-</div>
-<div style="position:relative;display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 2px">
-<span style="font:var(--text-display-s);color:var(--text-primary);letter-spacing:var(--tracking-tight)">Kevin Tseng</span>
-<span style="font:var(--text-mono-s);color:var(--text-tertiary);letter-spacing:var(--tracking-wide)">DESIGN</span>
-</div>
-</div></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:16px">
 <div class="sf-mid" style="font:var(--text-label);color:var(--text-olive);letter-spacing:var(--tracking-wider);text-transform:uppercase">Partners</div>
 <div class="sf-near" style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
-<img src="uploads/a16zlogo.svg" alt="Andreessen Horowitz" style="height:34px;width:auto;display:block;opacity:0.82" />
+<img src="uploads/a16zlogo.svg" alt="Andreessen Horowitz" style="height:58px;width:auto;display:block;opacity:0.82" />
 </div>
 </div>
 <a class="sf-mid sf-mail" href="mailto:jad@superfoundry.dev" style="display:flex;align-items:center;gap:10px;width:max-content;text-decoration:none">
