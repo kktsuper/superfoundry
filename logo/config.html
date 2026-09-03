@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Superintelligence Foundry — Config</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: linear-gradient(160deg, #EDE7DD 0%, #E5DFD3 55%, #D9D1C3 100%); }
+  #gate { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; background: linear-gradient(160deg, #EDE7DD 0%, #E5DFD3 55%, #D9D1C3 100%); }
+  #gate form { display: flex; flex-direction: column; gap: 14px; align-items: center; font-family: 'IBM Plex Mono', monospace; }
+  #gate label { font-size: 10px; letter-spacing: 0.22em; color: #7A7168; }
+  #gate input { box-sizing: border-box; width: 220px; padding: 10px 12px; font-family: inherit; font-size: 13px; letter-spacing: 0.12em; color: #161311; background: #FFFDFA; border: 1px solid rgba(22,19,17,0.25); border-radius: 2px; outline: none; text-align: center; }
+  #gate input:focus { border-color: #E8703A; box-shadow: 0 0 0 3px rgba(232,112,58,0.18); }
+  #gate button { padding: 9px 26px; font-family: inherit; font-size: 10px; letter-spacing: 0.22em; color: #FFFDFA; background: #C4551F; border: none; border-radius: 2px; cursor: pointer; transition: background 200ms cubic-bezier(0.2,0,0,1); }
+  #gate button:hover { background: #E8703A; }
+  #gate button:active { transform: scale(0.97); }
+  #err { font-size: 9px; letter-spacing: 0.18em; color: #B3352C; min-height: 12px; }
+  #app { position: fixed; inset: 0; border: none; width: 100%; height: 100%; display: none; }
+</style>
+</head>
+<body>
+<div id="gate">
+  <form id="f">
+    <label for="pw">ENTER PASSWORD</label>
+    <input id="pw" type="password" autocomplete="off" autofocus>
+    <div id="err"></div>
+    <button type="submit">UNLOCK</button>
+  </form>
+</div>
+<iframe id="app"></iframe>
+<script>
+  var KEY = 'sf-config-auth';
+  function unlock() {
+    document.getElementById('gate').style.display = 'none';
+    var app = document.getElementById('app');
+    app.src = 'index.html?config=1';
+    app.style.display = 'block';
+  }
+  if (sessionStorage.getItem(KEY) === '1') unlock();
+  document.getElementById('f').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (document.getElementById('pw').value === 'creativeagi') {
+      sessionStorage.setItem(KEY, '1');
+      unlock();
+    } else {
+      document.getElementById('err').textContent = 'INCORRECT PASSWORD';
+      document.getElementById('pw').value = '';
+    }
+  });
+</script>
+</body>
+</html>
