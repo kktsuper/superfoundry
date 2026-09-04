@@ -247,8 +247,9 @@
     let wx = -dx * 0.1, wy = -dy * 0.1;
     const capW = vmin * 0.07, mL = Math.hypot(wx, wy);
     if (mL > capW) { wx *= capW / mL; wy *= capW / mL; }
-    const wrapW = (c.text === 'horizontal' ? 0.15 : 0.23) * vmin;
-    const u = 1240 / wrapW;
+    // shadow geometry is MARK-relative: same u for every lockup, so the logo+shadow
+    // looks identical whether the wordmark is present or not
+    const u = 1240 / (0.23 * vmin);
     let svg = svgMarkup(c, { ink: ink });
     const MP = markPaths(c);
     const tri = ['mid', 'top', 'low'].map(function (w) { return '<path d="' + MP[w] + '" fill="' + fills[w] + '" transform="' + strokeTransform(w, c) + '"/>'; }).join('');
