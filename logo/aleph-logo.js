@@ -257,7 +257,10 @@
     if (sh.hideShadow) {
       pad = 30;
     } else if (is3d) {
-      const N = 36;
+      // many thin slices via <use> — no morphology filter (feMorphology rasterizes in device px
+      // and stops eroding at small render sizes, fattening the walls and closing the whitespace)
+      const N = feather ? 60 : 160;
+      defs += ['mid', 'top', 'low'].map(function (w) { return '<path id="w-' + w + '" d="' + MP[w] + '" transform="' + strokeTransform(w, c) + '"/>'; }).join('');
       for (let i = N; i >= 1; i--) {
         const f = i / N;
         let flt = '';
@@ -266,10 +269,8 @@
           flt = ' filter="url(#shw' + i + ')"';
         }
         shm += '<g transform="translate(' + (wx * f * u).toFixed(1) + ' ' + (wy * f * u).toFixed(1) + ')"' + flt + '>' +
-          ['mid', 'top', 'low'].map(function (w) { return '<path d="' + MP[w] + '" fill="' + fills[w] + '" stroke="' + fills[w] + '" stroke-width="11" transform="' + strokeTransform(w, c) + '"/>'; }).join('') + '</g>';
+          ['mid', 'top', 'low'].map(function (w) { return '<use href="#w-' + w + '" fill="' + fills[w] + '" stroke="' + fills[w] + '" stroke-width="3"/>'; }).join('') + '</g>';
       }
-      defs += '<filter id="wef" x="-20%" y="-20%" width="140%" height="140%"><feMorphology operator="erode" radius="5.5"/></filter>';
-      shm = '<g filter="url(#wef)">' + shm + '</g>';
       pad = Math.hypot(wx, wy) * u + 30 + (feather ? 27 * u : 0);
     } else {
       defs = '<filter id="shb" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="' + (blur * u).toFixed(1) + '"/></filter><filter id="shc" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="' + (coreBlur * u).toFixed(1) + '"/></filter>';
