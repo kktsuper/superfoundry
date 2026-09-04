@@ -366,7 +366,15 @@ class Component extends DCLogic {
     this.isEmbed = /[?&]embed=1/.test(location.search);
     // viewer + embed: apply the published shadow/light state (localStorage, then committed json)
     if (!this.isConfig) {
-      const applyPub = (pub) => { if (pub && pub.shadow) setTimeout(() => { this.applyShadow(pub.shadow); this.setState({ hideShadow: !!pub.shadow.hideShadow }); }, 60); };
+      const applyPub = (pub) => {
+        if (!pub) return;
+        setTimeout(() => {
+          // full published look: mark + colors + shadow/light
+          this.upd({ weight: pub.weight ?? 0, spread: pub.spread ?? 0, hook: pub.hook ?? 0, curve: pub.curve ?? 0, text: pub.text ?? 'none',
+            inkColor: pub.inkColor ?? null, shTop: pub.shTop ?? null, shMid: pub.shMid ?? null, shBot: pub.shBot ?? null });
+          if (pub.shadow) { this.applyShadow(pub.shadow); this.setState({ hideShadow: !!pub.shadow.hideShadow }); }
+        }, 60);
+      };
       let pub = null;
       try { pub = JSON.parse(localStorage.getItem('sf-logo-published')); } catch (e) {}
       if (pub && pub.shadow) applyPub(pub);
