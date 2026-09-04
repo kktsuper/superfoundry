@@ -7,5 +7,17 @@
   "inkColor": null,
   "shTop": null,
   "shMid": null,
-  "shBot": null
+  "shBot": null,
+  "shadow": {
+    "light": {
+      "nx": 0.18,
+      "ny": -0.22
+    },
+    "mode": 1,
+    "dark": false,
+    "feather": false,
+    "dim": "3d",
+    "frozen": false,
+    "hideShadow": false
+  }
 }

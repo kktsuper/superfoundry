@@ -89,7 +89,7 @@
     <rect width="100%" height="100%" filter="url(#li-grain)"></rect>
   </svg>
   <div style="position: absolute; inset: 0; z-index: 16; pointer-events: none; background: radial-gradient(ellipse at 50% 52%, rgba(26,22,18,0) 36%, rgba(26,22,18,0.06) 56%, rgba(26,22,18,0.16) 72%, rgba(26,22,18,0.32) 87%, rgba(26,22,18,0.52) 100%);"></div>
-  <div id="li-panel" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 22; transform: translateY({{ drawerY }}); transition: transform 360ms cubic-bezier(0.2,0,0,1);">
+  <div id="li-panel" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 22; display: {{ panelDisplay }}; transform: translateY({{ drawerY }}); transition: transform 360ms cubic-bezier(0.2,0,0,1);">
     <div style="box-sizing: border-box; background: rgba(18,14,10,0.5); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,253,248,0.14); padding: 0 18px 18px; display: flex; flex-direction: column; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #A79D91;">
       <div style="box-sizing: border-box; height: 42px; display: flex; gap: 26px; justify-content: center; align-items: center; border-bottom: 1px solid rgba(255,253,248,0.12); position: relative;">
         <div id="li-toprt" onClick="{{ toggleDark }}" title="{{ bulbTitle }}" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); cursor: pointer; padding: 6px; opacity: {{ bulbOpacity }}; transition: opacity 200ms cubic-bezier(0.2,0,0,1);">
@@ -288,6 +288,7 @@
             <span style="cursor: pointer; color: #9BB8E8;" onClick="{{ exportPng }}">PNG</span>
           </div>
           <span style="cursor: pointer; color: {{ publishColor }};" onClick="{{ publish }}">{{ publishLabel }}</span>
+          <span style="cursor: pointer; color: #9BB8E8;" onClick="{{ downloadConfig }}">CONFIG FILE</span>
         </div>
       </div>
       </sc-if>
@@ -362,6 +363,15 @@ class Component extends DCLogic {
       if (this.state.frozen) { this.Lt.x = e.clientX; this.Lt.y = e.clientY; }
     };
     this.isConfig = /[?&]config=1/.test(location.search);
+    this.isEmbed = /[?&]embed=1/.test(location.search);
+    // viewer + embed: apply the published shadow/light state (localStorage, then committed json)
+    if (!this.isConfig) {
+      const applyPub = (pub) => { if (pub && pub.shadow) setTimeout(() => { this.applyShadow(pub.shadow); this.setState({ hideShadow: !!pub.shadow.hideShadow }); }, 60); };
+      let pub = null;
+      try { pub = JSON.parse(localStorage.getItem('sf-logo-published')); } catch (e) {}
+      if (pub && pub.shadow) applyPub(pub);
+      else fetch('./logo-config.json').then((r) => r.json()).then(applyPub).catch(() => {});
+    }
     this.pinch = null;
     this.onTouchStart = null;
     // mobile sensitivity: amplified response that eases out near the screen edge
@@ -763,6 +773,7 @@ class Component extends DCLogic {
       toggleFeather: () => this.setState((s) => ({ feather: !s.feather })),
       isMobile: this.state.isMobile,
       drawerY: this.state.panel ? '0' : 'calc(100% - 42px)',
+      panelDisplay: this.isEmbed ? 'none' : 'block',
       showEdit: !!this.isConfig,
       tabEditColor: this.state.tab === 'edit' && this.state.panel ? '#F2894F' : '#F4F0E8',
       tabColorColor: this.state.tab === 'color' && this.state.panel ? '#F2894F' : '#F4F0E8',
@@ -812,15 +823,24 @@ class Component extends DCLogic {
       showEditTab: this.state.tab === 'edit',
       showExport: this.state.tab === 'export' && !!this.isConfig,
       publishLabel: this.state.published ? 'PUBLISHED' : 'PUBLISH TO WEBSITE',
+      downloadConfig: () => {
+        const pub = Object.assign(AlephLogo.norm(this.state.cfg), {
+          shadow: Object.assign(this.shadowSnapshot(), { hideShadow: !!this.state.hideShadow })
+        });
+        this.download('logo-config.json', 'application/json', JSON.stringify(pub, null, 2));
+      },
       publishColor: this.state.published ? '#9FB06D' : '#F2894F',
       publish: () => {
         if (window.AlephLogo) {
-          const pubCfg = AlephLogo.norm(this.state.cfg);
-          localStorage.setItem('sf-logo-published', JSON.stringify(pubCfg));
-          // committed publish: download logo-config.json to commit next to the site
-          this.download('logo-config.json', 'application/json', JSON.stringify(pubCfg, null, 2));
+          // full live snapshot: mark + colors + shadow/light state
+          const pub = Object.assign(AlephLogo.norm(this.state.cfg), {
+            shadow: Object.assign(this.shadowSnapshot(), { hideShadow: !!this.state.hideShadow })
+          });
+          localStorage.setItem('sf-logo-published', JSON.stringify(pub));
         }
         this.setState({ published: true });
+        clearTimeout(this._pubT);
+        this._pubT = setTimeout(() => this.setState({ published: false }), 2500);
         clearTimeout(this._pubT);
         this._pubT = setTimeout(() => this.setState({ published: false }), 2000);
       },
