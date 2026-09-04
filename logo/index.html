@@ -17,6 +17,7 @@
   <style>
     html, body { margin: 0; padding: 0; overflow: hidden; overscroll-behavior: none; height: 100%; background: #F2EEE7; }
     a, a:hover { color: #3D3833; }
+    #li-panel input::placeholder { color: #9BB365; opacity: 1; }
     #li-panel input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: rgba(255,253,248,0.22); outline: none; margin: 6px 0; }
     #li-panel input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 11px; height: 11px; border-radius: 2px; background: #E8703A; border: none; cursor: pointer; }
     #li-panel input[type=range]::-moz-range-thumb { width: 11px; height: 11px; border-radius: 2px; background: #E8703A; border: none; cursor: pointer; }
@@ -93,7 +94,7 @@
   <div id="li-panel" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 22; display: {{ panelDisplay }}; transform: translateY({{ drawerY }}); transition: transform 360ms cubic-bezier(0.2,0,0,1);">
     <sc-if value="{{ isViewer }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ resetShadowColors }}" title="Reset colors and shadow to published default" style="position: absolute; top: 25px; right: 50px; z-index: 24; cursor: pointer; padding: 6px;">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A79D91" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display: block; transition: stroke 200ms cubic-bezier(0.2,0,0,1);" style-hover="stroke: #E8703A;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C0B7AA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display: block; transition: stroke 200ms cubic-bezier(0.2,0,0,1);" style-hover="stroke: #E8703A;">
         <path d="M3 12a9 9 0 1 0 3-6.7"></path>
         <path d="M3 4v5h5"></path>
       </svg>
@@ -110,13 +111,13 @@
     </div>
     </sc-if>
     <sc-if value="{{ isViewer }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ togglePanel }}" title="{{ panelTitle }}" style="box-sizing: border-box; height: 15px; cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; background-color: rgba(18,14,10,0.5); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,253,248,0.14);">
+    <div onClick="{{ togglePanel }}" title="{{ panelTitle }}" style="box-sizing: border-box; height: 30px; cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; background-color: rgba(18,14,10,0.5); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,253,248,0.14);">
       <div style="position: absolute; inset: 0; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cg stroke='%23F4F0E8' stroke-opacity='0.32' stroke-width='1'%3E%3Cpath d='M-1.5 4.5l3 3M0 0l6 6M4.5 -1.5l3 3'/%3E%3C/g%3E%3C/svg%3E&quot;); background-size: 6px 6px; -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 calc(50% - 78px), transparent calc(50% - 44px), transparent calc(50% + 44px), #000 calc(50% + 78px), #000 100%); mask-image: linear-gradient(90deg, #000 0%, #000 calc(50% - 78px), transparent calc(50% - 44px), transparent calc(50% + 44px), #000 calc(50% + 78px), #000 100%); pointer-events: none;"></div>
       <span style="position: relative; font-size: 8px; letter-spacing: 0.3em; color: #D8D2C6; text-indent: 0.3em;">OPTIONS</span>
     </div>
     </sc-if>
-    <div style="box-sizing: border-box; background: rgba(18,14,10,0.5); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,253,248,0.14); padding: 0 18px 18px; display: flex; flex-direction: column; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #A79D91;">
-      <div style="box-sizing: border-box; height: 42px; display: {{ tabRowDisplay }}; gap: 26px; justify-content: center; align-items: center; border-bottom: 1px solid rgba(255,253,248,0.12); position: relative;">
+    <div style="box-sizing: border-box; background: rgba(18,14,10,0.5); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,253,248,0.14); padding: {{ panelPad }}; display: flex; flex-direction: column; gap: {{ panelGap }}; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #C0B7AA; max-height: {{ panelMaxH }}; overflow-y: {{ panelScroll }}; -webkit-overflow-scrolling: touch;">
+      <div style="box-sizing: border-box; height: 42px; flex: none; display: {{ tabRowDisplay }}; gap: {{ tabGap }}; justify-content: {{ tabJustify }}; align-items: center; border-bottom: 1px solid rgba(255,253,248,0.12); position: sticky; top: 0; z-index: 2; background: {{ tabRowBg }};">
         <div id="li-toprt" onClick="{{ toggleDark }}" title="{{ bulbTitle }}" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); cursor: pointer; padding: 6px; opacity: {{ bulbOpacity }}; transition: opacity 200ms cubic-bezier(0.2,0,0,1);">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{ bulbStroke }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
             <path d="M15 14c.2-1 .7-1.7 1.5-2.5a5.5 5.5 0 1 0-9 0c.8.8 1.3 1.5 1.5 2.5"></path>
@@ -143,7 +144,7 @@
         <sc-if value="{{ showEdit }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: center; justify-content: center;">
           <div style="display: flex; gap: 18px; align-items: center;">
-            <span style="color: #C4BCB0; font-size: 8px;">TEXT</span>
+            <span style="color: #8AB0E8; font-size: 8px;">TEXT</span>
             <label style="display: flex; gap: 6px; align-items: center; cursor: pointer;">
               <input type="checkbox" checked="{{ isStacked }}" onChange="{{ pickStacked }}" style="accent-color: #E8703A; margin: 0;">
               <span style="color: {{ stackedColor }};">VERTICAL</span>
@@ -155,37 +156,37 @@
           </div>
         </div>
         </sc-if>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, {{ gridTrackMax }})); gap: 16px 40px; border-top: {{ gridBorderTop }}; padding-top: 14px; justify-items: {{ gridJustify }}; justify-content: center;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax({{ gridTrackMin }}, {{ gridTrackMax }})); gap: {{ sectionGap }}; border-top: {{ gridBorderTop }}; padding-top: 14px; justify-items: {{ gridJustify }}; justify-content: center;">
           <sc-if value="{{ showEdit }}" hint-placeholder-val="{{ false }}">
           <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 440px;">
-            <span style="color: #C4BCB0; font-size: 8px;">LOGO</span>
+            <span style="color: #8AB0E8; font-size: 8px;">LOGO</span>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px 26px;">
               <div style="display: flex; flex-direction: column; gap: 2px;">
                 <div style="display: flex; justify-content: space-between;"><span>WEIGHT</span><span style="color: #F4F0E8;">{{ weightLabel }}</span></div>
                 <input type="range" min="-4" max="4" step="0.1" value="{{ weight }}" onInput="{{ setWeight }}" onChange="{{ setWeight }}">
-                <div style="display: flex; justify-content: space-between; color: #A79D91; font-size: 8px;"><span>THIN</span><span>THICK</span></div>
+                <div style="display: flex; justify-content: space-between; color: #9BB365; font-size: 8px;"><span>THIN</span><span>THICK</span></div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 2px;">
                 <div style="display: flex; justify-content: space-between;"><span>SPREAD</span><span style="color: #F4F0E8;">{{ spreadLabel }}</span></div>
                 <input type="range" min="-60" max="120" step="1" value="{{ spread }}" onInput="{{ setSpread }}" onChange="{{ setSpread }}">
-                <div style="display: flex; justify-content: space-between; color: #A79D91; font-size: 8px;"><span>TIGHT</span><span>WIDE</span></div>
+                <div style="display: flex; justify-content: space-between; color: #9BB365; font-size: 8px;"><span>TIGHT</span><span>WIDE</span></div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 2px;">
                 <div style="display: flex; justify-content: space-between;"><span>HOOK</span><span style="color: #F4F0E8;">{{ hookLabel }}</span></div>
                 <input type="range" min="-4" max="4" step="0.1" value="{{ hook }}" onInput="{{ setHook }}" onChange="{{ setHook }}">
-                <div style="display: flex; justify-content: space-between; color: #A79D91; font-size: 8px;"><span>SHARP</span><span>ROUND</span></div>
+                <div style="display: flex; justify-content: space-between; color: #9BB365; font-size: 8px;"><span>SHARP</span><span>ROUND</span></div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 2px;">
                 <div style="display: flex; justify-content: space-between;"><span>CURVE</span><span style="color: #F4F0E8;">{{ curveLabel }}</span></div>
                 <input type="range" min="-4" max="4" step="0.1" value="{{ curve }}" onInput="{{ setCurve }}" onChange="{{ setCurve }}">
-                <div style="display: flex; justify-content: space-between; color: #A79D91; font-size: 8px;"><span>SHARP</span><span>ROUND</span></div>
+                <div style="display: flex; justify-content: space-between; color: #9BB365; font-size: 8px;"><span>SHARP</span><span>ROUND</span></div>
               </div>
             </div>
           </div>
           </sc-if>
           <div style="display: flex; flex-direction: column; gap: 12px;">
             <sc-if value="{{ isViewer }}" hint-placeholder-val="{{ false }}">
-            <span style="color: #C4BCB0; font-size: 8px;">TEXT</span>
+            <span style="color: #8AB0E8; font-size: 8px;">TEXT</span>
             <div style="display: flex; gap: 18px; align-items: center;">
               <label style="display: flex; gap: 6px; align-items: center; cursor: pointer;">
                 <input type="checkbox" checked="{{ isStacked }}" onChange="{{ pickStacked }}" style="accent-color: #E8703A; margin: 0;">
@@ -197,7 +198,7 @@
               </label>
             </div>
             </sc-if>
-            <span style="color: #C4BCB0; font-size: 8px;">SHADOW</span>
+            <span style="color: #8AB0E8; font-size: 8px;">SHADOW</span>
             <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
               <div style="display: flex; gap: 22px; align-items: center;">
                 <label style="display: flex; gap: 7px; align-items: center; cursor: pointer;">
@@ -239,7 +240,7 @@
           </div>
           <sc-if value="{{ isViewer }}" hint-placeholder-val="{{ false }}">
           <div style="display: flex; flex-direction: column; gap: 12px;">
-            <span style="color: #C4BCB0; font-size: 8px;">COLOR</span>
+            <span style="color: #8AB0E8; font-size: 8px;">COLOR</span>
             <div style="display: flex; flex-direction: column; gap: 8px;">
               <sc-for list="{{ colorItems }}" as="ci" hint-placeholder-count="3">
                 <div onClick="{{ ci.pick }}" style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
@@ -271,14 +272,14 @@
               <span style="color: {{ ci.labelColor }};">{{ ci.label }}</span>
             </div>
           </sc-for>
-          <span onClick="{{ resetColors }}" style="cursor: pointer; color: #A79D91; border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; padding: 4px 10px; align-self: flex-start; margin-top: 4px;">DEFAULT</span>
+          <span onClick="{{ resetColors }}" style="cursor: pointer; color: #C0B7AA; border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; padding: 4px 10px; align-self: flex-start; margin-top: 4px;">DEFAULT</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 4px; min-width: 280px;">
           <div style="display: flex; gap: 4px; align-items: center;">
             <span style="width: 40px; height: 18px; background: {{ customPreview }}; border: 1px solid rgba(255,253,248,0.35); box-sizing: border-box; display: inline-block; flex: none;"></span>
             <div style="display: flex; align-items: center; box-sizing: border-box; width: 62px; height: 18px; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; padding: 0 0 0 6px;">
-              <span style="color: #A79D91;">#</span>
-              <input value="{{ customHex }}" onInput="{{ setCustomHex }}" maxLength="6" placeholder="1A1A1A" style="width: 100%; height: 100%; padding: 0 2px 0 2px; font-family: inherit; font-size: 9px; letter-spacing: 0.02em; color: #F4F0E8; background: transparent; border: none; outline: none; box-sizing: border-box;">
+              <span style="color: #C0B7AA;">#</span>
+              <input value="{{ customHex }}" onInput="{{ setCustomHex }}" maxLength="6" style="width: 100%; height: 100%; padding: 0 2px 0 2px; font-family: inherit; font-size: 9px; letter-spacing: 0.02em; color: #F4F0E8; background: transparent; border: none; outline: none; box-sizing: border-box;">
             </div>
           </div>
           <sc-for list="{{ colorRows }}" as="cr" hint-placeholder-count="5">
@@ -296,16 +297,16 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px 32px;">
           <sc-for list="{{ libCols }}" as="lc" hint-placeholder-count="3">
             <div style="display: flex; flex-direction: column; gap: 8px;">
-              <span style="color: #C4BCB0; font-size: 8px;">{{ lc.name }}</span>
+              <span style="color: #8AB0E8; font-size: 8px;">{{ lc.name }}</span>
               <sc-for list="{{ lc.items }}" as="it" hint-placeholder-count="2">
                 <div style="display: flex; gap: 8px; align-items: center;">
                   <sc-if value="{{ it.editing }}" hint-placeholder-val="{{ false }}">
-                    <input value="{{ it.editVal }}" onInput="{{ it.setEditVal }}" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 4px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+                    <input value="{{ it.editVal }}" onInput="{{ it.setEditVal }}" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 2px 0; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.05); border: none; border-bottom: 1px solid rgba(255,253,248,0.35); border-radius: 0; outline: none;">
                     <svg onClick="{{ it.saveRename }}" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F2894F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></svg>
                   </sc-if>
                   <sc-if value="{{ it.notEditing }}" hint-placeholder-val="{{ true }}">
                     <span onClick="{{ it.load }}" style="flex: 1; cursor: pointer; color: #EAE5DC; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ it.name }}</span>
-                    <svg onClick="{{ it.edit }}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A79D91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path></svg>
+                    <svg onClick="{{ it.edit }}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C0B7AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path></svg>
                     <sc-if value="{{ it.locked }}" hint-placeholder-val="{{ false }}">
                       <svg onClick="{{ it.toggleLock }}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F2894F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                     </sc-if>
@@ -317,7 +318,7 @@
                 </div>
               </sc-for>
               <div style="display: flex; gap: 6px; align-items: center;">
-                <input value="{{ lc.val }}" onInput="{{ lc.setVal }}" placeholder="name" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 5px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+                <input value="{{ lc.val }}" onInput="{{ lc.setVal }}" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 2px 0; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.05); border: none; border-bottom: 1px solid rgba(255,253,248,0.35); border-radius: 0; outline: none;">
                 <svg onClick="{{ lc.save }}" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F2894F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></svg>
               </div>
             </div>
@@ -325,17 +326,17 @@
         </div>
         <sc-for list="{{ loadoutCols }}" as="lc" hint-placeholder-count="1">
           <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid rgba(255,253,248,0.08); padding-top: 14px; max-width: 400px; width: 100%; margin: 0 auto;">
-            <span style="color: #C4BCB0; font-size: 8px;">{{ lc.name }}</span>
+            <span style="color: #8AB0E8; font-size: 8px;">{{ lc.name }}</span>
             <sc-for list="{{ lc.items }}" as="it" hint-placeholder-count="2">
               <div style="display: flex; gap: 8px; align-items: center;">
                 <span style="color: #9BB365; flex: none; min-width: 14px;">{{ it.num }}</span>
                 <sc-if value="{{ it.editing }}" hint-placeholder-val="{{ false }}">
-                  <input value="{{ it.editVal }}" onInput="{{ it.setEditVal }}" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 4px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+                  <input value="{{ it.editVal }}" onInput="{{ it.setEditVal }}" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 2px 0; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.05); border: none; border-bottom: 1px solid rgba(255,253,248,0.35); border-radius: 0; outline: none;">
                   <svg onClick="{{ it.saveRename }}" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F2894F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></svg>
                 </sc-if>
                 <sc-if value="{{ it.notEditing }}" hint-placeholder-val="{{ true }}">
                   <span onClick="{{ it.load }}" style="flex: 1; cursor: pointer; color: #EAE5DC; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ it.name }}</span>
-                  <svg onClick="{{ it.edit }}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A79D91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path></svg>
+                  <svg onClick="{{ it.edit }}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C0B7AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path></svg>
                   <sc-if value="{{ it.locked }}" hint-placeholder-val="{{ false }}">
                     <svg onClick="{{ it.toggleLock }}" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F2894F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                   </sc-if>
@@ -347,7 +348,7 @@
               </div>
             </sc-for>
             <div style="display: flex; gap: 6px; align-items: center;">
-              <input value="{{ lc.val }}" onInput="{{ lc.setVal }}" placeholder="name" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 5px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+              <input value="{{ lc.val }}" onInput="{{ lc.setVal }}" style="box-sizing: border-box; flex: 1; min-width: 0; padding: 2px 0; font-family: inherit; font-size: 10px; letter-spacing: 0.1em; color: #F4F0E8; background: rgba(255,253,248,0.05); border: none; border-bottom: 1px solid rgba(255,253,248,0.35); border-radius: 0; outline: none;">
               <svg onClick="{{ lc.save }}" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F2894F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer; flex: none;"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></svg>
             </div>
           </div>
@@ -374,7 +375,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;grain&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.14, &quot;min&quot;: 0, &quot;max&quot;: 0.2, &quot;step&quot;: 0.005, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Environment&quot;}, &quot;inertia&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.068, &quot;min&quot;: 0.012, &quot;max&quot;: 0.4, &quot;step&quot;: 0.004, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Interaction&quot;}, &quot;initialMode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;1&quot;, &quot;options&quot;: [&quot;1&quot;, &quot;2&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Interaction&quot;}}">
 class Component extends DCLogic {
-  state = { mode: Math.min(2, Math.max(1, parseInt(this.props.initialMode ?? '1', 10) || 1)), dark: !!this.props.dark, feather: !!this.props.feather, control: 'drag', isMobile: false, panel: !/[?&]config=1/.test(location.search), cfg: (window.AlephLogo ? AlephLogo.load() : { weight: 0, spread: 0, text: 'none' }), frozen: false, presetName: '', bump: 0, dim: '3d', tab: 'edit', colorTarget: /[?&]config=1/.test(location.search) ? 'ink' : 'top' };
+  state = { mode: Math.min(2, Math.max(1, parseInt(this.props.initialMode ?? '1', 10) || 1)), dark: !!this.props.dark, feather: !!this.props.feather, control: 'drag', isMobile: false, panel: false, _unused: !/[?&]config=1/.test(location.search), cfg: (window.AlephLogo ? AlephLogo.load() : { weight: 0, spread: 0, text: 'none' }), frozen: false, presetName: '', bump: 0, dim: '3d', tab: 'edit', colorTarget: /[?&]config=1/.test(location.search) ? 'ink' : 'top' };
   RAMPS = [
     ['WHITE', ['#E4DDD2', '#F1ECE4', '#F3EFE8', '#F5F3EE', '#F7F3EC', '#FBF8F3', '#FFFDFA', 'none']],
     ['BLACK', ['#0A0A0A', '#121212', '#1A1A1A', '#242424', '#333333', '#4A4A4A', '#6B6B6B', '#8F8F8F', '#B8B8B8', '#DEDEDE']],
@@ -806,7 +807,7 @@ class Component extends DCLogic {
     fl.opacity = P.fall * litK;
   }
   ghCfg() { try { return JSON.parse(sessionStorage.getItem('sf-pub')) || {}; } catch (e) { return {}; } }
-  // presets live server-side in logo-presets.json, committed via the worker
+  // presets live server-side in Cloudflare KV, read/written via the worker
   loadLib() {
     const g = this.ghCfg();
     const fromKv = g.url && g.pass
@@ -1003,13 +1004,23 @@ class Component extends DCLogic {
       isMobile: this.state.isMobile,
       drawerY: this.isConfig
         ? (this.state.panel ? '0' : 'calc(100% - 42px)')
-        : (this.state.panel ? '0' : 'calc(100% - 15px)'),
+        : (this.state.panel ? '0' : 'calc(100% - 30px)'),
       togglePanel: () => this.setState((s) => ({ panel: !s.panel })),
       panelTitle: this.state.panel ? 'Hide controls' : 'Show controls',
       gridBorderTop: this.isConfig ? '1px solid rgba(255,253,248,0.08)' : 'none',
       tabRowDisplay: this.isConfig ? 'flex' : 'none',
       editPadTop: this.isConfig ? '0' : '16px',
-      gridJustify: this.isConfig ? 'center' : 'start',
+      gridJustify: this.isConfig && !mob ? 'center' : 'start',
+      // mobile: tighter chrome + scrollable drawer so tall tabs fit
+      panelPad: mob ? '0 12px 12px' : '0 18px 18px',
+      panelGap: mob ? '10px' : '14px',
+      panelMaxH: mob ? '68vh' : 'none',
+      panelScroll: mob ? 'auto' : 'visible',
+      tabGap: mob ? '14px' : '26px',
+      tabJustify: mob && this.isConfig ? 'flex-start' : 'center',
+      tabRowBg: mob ? '#221D18' : 'transparent',
+      gridTrackMin: mob ? '260px' : '300px',
+      sectionGap: mob ? '12px 24px' : '16px 40px',
       showControlToggle: !this.isConfig && this.state.isMobile,
       ctlDrag: this.state.control !== 'gyro',
       ctlGyro: this.state.control === 'gyro',
@@ -1019,7 +1030,7 @@ class Component extends DCLogic {
       pickCtlGyro: () => { this.requestGyro(); this.setState({ control: 'gyro' }); },
       gridTrackMax: this.isConfig ? '1fr' : 'max-content',
       // viewer: the panel is a permanent overlay — reserve its height so the lockup centers in the visible area
-      stagePadBottom: (this.isConfig || this.isEmbed) ? '0' : (this.state.panel ? (this.state.panelH || 130) : 15) + 'px',
+      stagePadBottom: (this.isConfig || this.isEmbed) ? '0' : (this.state.panel ? (this.state.panelH || 130) : 30) + 'px',
       panelDisplay: this.isEmbed ? 'none' : 'block',
       showEdit: !!this.isConfig,
       tabEditColor: this.state.tab === 'edit' && this.state.panel ? '#F2894F' : '#F4F0E8',
@@ -1057,7 +1068,7 @@ class Component extends DCLogic {
         hex: this.colorOf(k) === 'none' ? 'linear-gradient(45deg, #FFFDFA 43%, #B3352C 43%, #B3352C 57%, #FFFDFA 57%)' : this.colorOf(k),
         pick: () => this.setState({ colorTarget: k }),
         border: k === this.state.colorTarget ? '#F2894F' : 'rgba(255,253,248,0.35)',
-        labelColor: k === this.state.colorTarget ? '#F4F0E8' : '#A79D91'
+        labelColor: k === this.state.colorTarget ? '#F4F0E8' : '#C0B7AA'
       })),
       colorRows: (this.isConfig ? this.RAMPS : this.RAMPS.filter(([n]) => n !== 'WHITE' && n !== 'BLACK')).map(([name, cells]) => ({
         name,
@@ -1119,8 +1130,8 @@ class Component extends DCLogic {
       isStacked: c.text === 'stacked', isHoriz: c.text === 'horizontal',
       pickStacked: () => this.upd({ text: c.text === 'stacked' ? 'none' : 'stacked' }),
       pickHoriz: () => this.upd({ text: c.text === 'horizontal' ? 'none' : 'horizontal' }),
-      stackedColor: c.text === 'stacked' ? '#F4F0E8' : '#A79D91',
-      horizColor: c.text === 'horizontal' ? '#F4F0E8' : '#A79D91',
+      stackedColor: c.text === 'stacked' ? '#F4F0E8' : '#C0B7AA',
+      horizColor: c.text === 'horizontal' ? '#F4F0E8' : '#C0B7AA',
       bulbOn: !dark,
       bulbStroke: dark ? '#8A847A' : '#FFFDFA',
       bulbRay: '#F2894F',
