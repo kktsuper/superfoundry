@@ -450,7 +450,7 @@ class Component extends DCLogic {
     else this.setState({ tab: t, panel: true });
   }
   tick = () => {
-    try { this.tickBody(); } catch (e) {}
+    try { this.tickBody(); } catch (e) { if (!this._tickErr) { this._tickErr = true; console.error('tick error:', e); } }
     this.raf = requestAnimationFrame(this.tick);
   };
   tickBody() {
