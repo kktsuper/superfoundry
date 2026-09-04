@@ -29,8 +29,12 @@
 </div>
 <iframe id="app"></iframe>
 <script>
+  // The publish worker is both the password authority and the publish endpoint:
+  // the gate password IS the worker's PUBLISH_PASSWORD secret — one password, no separate setup.
+  var WORKER_URL = 'https://sf-logo-publish.kevin-098.workers.dev';
   var KEY = 'sf-config-auth';
-  function unlock() {
+  function unlock(pass) {
+    if (pass) sessionStorage.setItem('sf-pub', JSON.stringify({ url: WORKER_URL, pass: pass }));
     document.getElementById('gate').style.display = 'none';
     var app = document.getElementById('app');
     app.src = 'index.html?config=1';
@@ -39,13 +43,24 @@
   if (sessionStorage.getItem(KEY) === '1') unlock();
   document.getElementById('f').addEventListener('submit', function (e) {
     e.preventDefault();
-    if (document.getElementById('pw').value === 'creativeagi') {
-      sessionStorage.setItem(KEY, '1');
-      unlock();
-    } else {
-      document.getElementById('err').textContent = 'INCORRECT PASSWORD';
+    var pw = document.getElementById('pw').value;
+    var fail = function (msg) {
+      document.getElementById('err').textContent = msg || 'INCORRECT PASSWORD';
       document.getElementById('pw').value = '';
+    };
+    if (WORKER_URL.indexOf('http') !== 0) {
+      // worker not configured: legacy local password, publish disabled
+      if (pw === 'creativeagi') { sessionStorage.setItem(KEY, '1'); unlock(); } else fail();
+      return;
     }
+    document.getElementById('err').textContent = 'CHECKING\u2026';
+    fetch(WORKER_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pw, verify: true }) })
+      .then(function (r) {
+        if (r.ok) { sessionStorage.setItem(KEY, '1'); unlock(pw); }
+        else if (r.status === 401) fail();
+        else fail('SERVICE ERROR (' + r.status + ')');
+      })
+      .catch(function () { fail('SERVICE UNREACHABLE'); });
   });
 </script>
 </body>
