@@ -2,5 +2,28 @@
   "logo": {},
   "shadow": {},
   "color": {},
-  "loadout": {}
+  "loadout": {
+    "ddss": {
+      "weight": 0,
+      "spread": 0,
+      "hook": 0,
+      "curve": 0,
+      "text": "none",
+      "inkColor": null,
+      "shTop": null,
+      "shMid": null,
+      "shBot": null,
+      "light": {
+        "nx": 0.0493266414919852,
+        "ny": 0.46943521594684384
+      },
+      "mode": 1,
+      "dark": false,
+      "feather": false,
+      "dim": "3d",
+      "frozen": false,
+      "hideShadow": false,
+      "_ts": 1788544400275
+    }
+  }
 }
