@@ -526,7 +526,9 @@ class Component extends DCLogic {
   measure() {
     const r = this.el.wrap.getBoundingClientRect();
     this.S = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
-    this.uu = 1240 / Math.max(1, r.width);
+    // mark-relative, not wrap-relative: the horizontal lockup shrinks the wrap to 15vmin,
+    // which would otherwise lengthen the shadow relative to the mark
+    this.uu = 1240 / Math.max(1, 0.23 * Math.min(innerWidth, innerHeight));
   }
   setMode(m) { if (m !== this.state.mode) this.setState({ mode: m }); }
   pickTab(t) {
