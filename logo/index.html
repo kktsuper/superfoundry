@@ -967,7 +967,8 @@ class Component extends DCLogic {
         shadow: Object.assign(this.shadowSnapshot(), { hideShadow: !!this.state.hideShadow })
       });
       const texts = [['Mark', 'none'], ['Horizontal', 'horizontal'], ['Vertical', 'stacked']];
-      const modes = [['Light', false], ['Dark', true]];
+      // name = the LOGO's color: Dark = dark ink (for light grounds), Light = light ink (for dark grounds)
+      const modes = [['Dark', false], ['Light', true]];
       const colors = [['Color', false], ['Monochrome', true]];
       const enc = new TextEncoder();
       const files = [], pngs = [];
