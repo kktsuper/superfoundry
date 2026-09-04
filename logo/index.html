@@ -293,10 +293,9 @@
         </div>
         <sc-if value="{{ showGh }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: center; border-top: 1px solid rgba(255,253,248,0.08); padding-top: 14px;">
-          <span style="color: #C4BCB0; font-size: 8px;">GITHUB</span>
-          <input value="{{ ghRepo }}" onInput="{{ setGhRepo }}" placeholder="owner/repo" style="box-sizing: border-box; width: 150px; padding: 6px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.05em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
-          <input value="{{ ghPath }}" onInput="{{ setGhPath }}" placeholder="logo/logo-config.json" style="box-sizing: border-box; width: 170px; padding: 6px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.05em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
-          <input value="{{ ghToken }}" onInput="{{ setGhToken }}" type="password" placeholder="fine-grained token" style="box-sizing: border-box; width: 170px; padding: 6px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.05em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+          <span style="color: #C4BCB0; font-size: 8px;">PUBLISH SETUP</span>
+          <input value="{{ ghUrl }}" onInput="{{ setGhUrl }}" placeholder="worker url (https://…workers.dev)" style="box-sizing: border-box; width: 230px; padding: 6px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.05em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+          <input value="{{ ghPass }}" onInput="{{ setGhPass }}" type="password" placeholder="publish password" style="box-sizing: border-box; width: 150px; padding: 6px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.05em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
           <span style="color: {{ ghStatusColor }};">{{ ghStatus }}</span>
         </div>
         </sc-if>
@@ -374,21 +373,16 @@ class Component extends DCLogic {
     };
     this.isConfig = /[?&]config=1/.test(location.search);
     this.isEmbed = /[?&]embed=1/.test(location.search);
-    // viewer + embed: apply the published shadow/light state (localStorage, then committed json)
+    // viewer + embed: apply the published look from the committed config file only (server-side)
     if (!this.isConfig) {
-      const applyPub = (pub) => {
+      fetch('./logo-config.json', { cache: 'no-cache' }).then((r) => r.json()).then((pub) => {
         if (!pub) return;
         setTimeout(() => {
-          // full published look: mark + colors + shadow/light
           this.upd({ weight: pub.weight ?? 0, spread: pub.spread ?? 0, hook: pub.hook ?? 0, curve: pub.curve ?? 0, text: pub.text ?? 'none',
             inkColor: pub.inkColor ?? null, shTop: pub.shTop ?? null, shMid: pub.shMid ?? null, shBot: pub.shBot ?? null });
           if (pub.shadow) { this.applyShadow(pub.shadow); this.setState({ hideShadow: !!pub.shadow.hideShadow }); }
         }, 60);
-      };
-      let pub = null;
-      try { pub = JSON.parse(localStorage.getItem('sf-logo-published')); } catch (e) {}
-      if (pub && pub.shadow) applyPub(pub);
-      else fetch('./logo-config.json').then((r) => r.json()).then(applyPub).catch(() => {});
+      }).catch(() => {});
     }
     this.pinch = null;
     this.onTouchStart = null;
@@ -737,22 +731,17 @@ class Component extends DCLogic {
   }
   async ghPublish(pub) {
     const g = this.ghCfg();
-    if (!g.repo || !g.token) return; // not configured: local publish only
-    const path = g.path || 'logo/logo-config.json';
-    const api = `https://api.github.com/repos/${g.repo}/contents/${path}`;
-    const hdrs = { Authorization: 'Bearer ' + g.token, Accept: 'application/vnd.github+json' };
-    this.setState({ ghStatus: 'pushing…' });
-    try {
-      let sha;
-      const r0 = await fetch(api, { headers: hdrs });
-      if (r0.ok) sha = (await r0.json()).sha;
-      const body = { message: 'Publish logo config', content: btoa(unescape(encodeURIComponent(JSON.stringify(pub, null, 2)))) };
-      if (sha) body.sha = sha;
-      const r1 = await fetch(api, { method: 'PUT', headers: hdrs, body: JSON.stringify(body) });
-      if (!r1.ok) throw new Error((await r1.json()).message || r1.status);
-      this.setState({ ghStatus: 'LIVE — Pages rebuilding (~1 min)' });
-    } catch (e) {
-      this.setState({ ghStatus: 'FAILED: ' + e.message });
+    if (!g.url || !g.pass) { this.setState({ ghStatus: 'not set up — see PUBLISH SETUP' }); }
+    else {
+      this.setState({ ghStatus: 'publishing…' });
+      try {
+        const r = await fetch(g.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: g.pass, config: pub }) });
+        const out = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(out.error || r.status);
+        this.setState({ ghStatus: 'LIVE — Pages rebuilding (~1 min)' });
+      } catch (e) {
+        this.setState({ ghStatus: 'FAILED: ' + e.message });
+      }
     }
     clearTimeout(this._ghT);
     this._ghT = setTimeout(() => this.setState({ ghStatus: null }), 6000);
@@ -871,13 +860,11 @@ class Component extends DCLogic {
       publishLabel: this.state.published ? 'PUBLISHED' : 'PUBLISH TO WEBSITE',
       toggleGh: () => this.setState((s) => ({ showGh: !s.showGh })),
       showGh: !!this.state.showGh,
-      ghLabel: this.ghCfg().token ? 'GITHUB ✓' : 'GITHUB SETUP',
-      ghRepo: this.ghCfg().repo || '',
-      ghPath: this.ghCfg().path || '',
-      ghToken: this.ghCfg().token || '',
-      setGhRepo: (e) => this.setGh({ repo: e.target.value.trim() }),
-      setGhPath: (e) => this.setGh({ path: e.target.value.trim() }),
-      setGhToken: (e) => this.setGh({ token: e.target.value.trim() }),
+      ghLabel: this.ghCfg().url && this.ghCfg().pass ? 'PUBLISH SETUP ✓' : 'PUBLISH SETUP',
+      ghUrl: this.ghCfg().url || '',
+      ghPass: this.ghCfg().pass || '',
+      setGhUrl: (e) => this.setGh({ url: e.target.value.trim() }),
+      setGhPass: (e) => this.setGh({ pass: e.target.value.trim() }),
       ghStatus: this.state.ghStatus || '',
       ghStatusColor: /^FAILED/.test(this.state.ghStatus || '') ? '#D9887A' : '#9BB365',
       downloadConfig: () => {
@@ -893,7 +880,6 @@ class Component extends DCLogic {
           const pub = Object.assign(AlephLogo.norm(this.state.cfg), {
             shadow: Object.assign(this.shadowSnapshot(), { hideShadow: !!this.state.hideShadow })
           });
-          localStorage.setItem('sf-logo-published', JSON.stringify(pub));
           this.ghPublish(pub);
         }
         this.setState({ published: true });
