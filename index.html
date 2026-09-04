@@ -293,13 +293,12 @@ class Component extends DCLogic {
   componentDidMount() {
     this.syncChapters();
     // live Aleph mark from /logo/ (same-origin deploy): shadow baked in from the
-    // published config via AlephLogo.svgWithShadow. The static <img> in the markup
-    // stays as the fallback for local preview where /logo/ doesn't exist.
+    // committed /logo/logo-config.json — the single source of truth, no localStorage.
+    // The static <img> in the markup stays as the fallback where /logo/ doesn't exist.
     (async () => {
       if (typeof AlephLogo === 'undefined') return;
       let cfg = null;
-      try { cfg = JSON.parse(localStorage.getItem('sf-logo-published')); } catch (e) {}
-      if (!cfg) { try { cfg = await (await fetch('/logo/logo-config.json')).json(); } catch (e) {} }
+      try { cfg = await (await fetch('/logo/logo-config.json', { cache: 'no-cache' })).json(); } catch (e) {}
       let markup = null;
       try { markup = AlephLogo.svgWithShadow(cfg || AlephLogo.DEFAULTS); } catch (e) {}
       if (!markup) return;
