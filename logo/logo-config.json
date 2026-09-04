@@ -6,18 +6,18 @@
   "text": "none",
   "inkColor": null,
   "shTop": null,
-  "shBot": null,
   "shMid": null,
+  "shBot": null,
   "shadow": {
     "light": {
-      "nx": -0.1698064072327044,
-      "ny": 0.24818758261731658
+      "nx": 0.2626387176325524,
+      "ny": 0.3664620107444359
     },
     "mode": 1,
     "dark": false,
     "feather": false,
     "dim": "3d",
-    "frozen": true,
+    "frozen": false,
     "hideShadow": false
   }
 }
