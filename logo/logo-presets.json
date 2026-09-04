@@ -3,7 +3,7 @@
   "shadow": {},
   "color": {},
   "loadout": {
-    "123": {
+    "321": {
       "weight": 0,
       "spread": 0,
       "hook": 0,
@@ -14,8 +14,8 @@
       "shMid": null,
       "shBot": null,
       "light": {
-        "nx": 0.049326641491985165,
-        "ny": 0.46943521594684384
+        "nx": -0.49937866060419234,
+        "ny": -0.3026578073089701
       },
       "mode": 1,
       "dark": false,
@@ -23,7 +23,7 @@
       "dim": "3d",
       "frozen": false,
       "hideShadow": false,
-      "_ts": 1788544437567
+      "_ts": 1788544444602
     },
     "ddss": {
       "weight": 0,
