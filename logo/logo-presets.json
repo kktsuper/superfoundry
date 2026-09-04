@@ -3,19 +3,19 @@
   "shadow": {},
   "color": {},
   "loadout": {
-    "dd": {
-      "weight": 4,
+    "123": {
+      "weight": 0,
       "spread": 0,
       "hook": 0,
       "curve": 0,
       "text": "none",
       "inkColor": null,
       "shTop": null,
-      "shMid": "#5B8FDB",
-      "shBot": "#5B8FDB",
+      "shMid": null,
+      "shBot": null,
       "light": {
-        "nx": 0.03836844308035714,
-        "ny": 0.47095246335903257
+        "nx": 0.049326641491985165,
+        "ny": 0.46943521594684384
       },
       "mode": 1,
       "dark": false,
@@ -23,7 +23,29 @@
       "dim": "3d",
       "frozen": false,
       "hideShadow": false,
-      "_ts": 1788544420900
+      "_ts": 1788544437567
+    },
+    "ddss": {
+      "weight": 0,
+      "spread": 0,
+      "hook": 0,
+      "curve": 0,
+      "text": "none",
+      "inkColor": null,
+      "shTop": null,
+      "shMid": null,
+      "shBot": null,
+      "light": {
+        "nx": 0.0493266414919852,
+        "ny": 0.46943521594684384
+      },
+      "mode": 1,
+      "dark": false,
+      "feather": false,
+      "dim": "3d",
+      "frozen": false,
+      "hideShadow": false,
+      "_ts": 1788544400275
     }
   }
 }
