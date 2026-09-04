@@ -3,21 +3,21 @@
   "spread": 0,
   "hook": 0,
   "curve": 0,
-  "text": "none",
+  "text": "horizontal",
   "inkColor": null,
   "shTop": null,
   "shMid": null,
   "shBot": null,
   "shadow": {
     "light": {
-      "nx": -0.1282367447595561,
-      "ny": 0.23138910207214122
+      "nx": -0.039158831689272505,
+      "ny": 0.17613799884881043
     },
     "mode": 1,
     "dark": false,
     "feather": false,
     "dim": "3d",
-    "frozen": false,
+    "frozen": true,
     "hideShadow": false
   }
 }
