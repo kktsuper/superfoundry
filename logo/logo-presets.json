@@ -3,28 +3,6 @@
   "shadow": {},
   "color": {},
   "loadout": {
-    "321": {
-      "weight": 0,
-      "spread": 0,
-      "hook": 0,
-      "curve": 0,
-      "text": "none",
-      "inkColor": null,
-      "shTop": null,
-      "shMid": null,
-      "shBot": null,
-      "light": {
-        "nx": -0.49937866060419234,
-        "ny": -0.3026578073089701
-      },
-      "mode": 1,
-      "dark": false,
-      "feather": false,
-      "dim": "3d",
-      "frozen": false,
-      "hideShadow": false,
-      "_ts": 1788544444602
-    },
     "ddss": {
       "weight": 0,
       "spread": 0,
@@ -46,6 +24,28 @@
       "frozen": false,
       "hideShadow": false,
       "_ts": 1788544400275
+    },
+    "rrr": {
+      "weight": 0,
+      "spread": 0,
+      "hook": 0,
+      "curve": 0,
+      "text": "none",
+      "inkColor": null,
+      "shTop": null,
+      "shMid": null,
+      "shBot": null,
+      "light": {
+        "nx": 0.1298696537341102,
+        "ny": -0.20024352912687854
+      },
+      "mode": 1,
+      "dark": false,
+      "feather": false,
+      "dim": "3d",
+      "frozen": false,
+      "hideShadow": false,
+      "_ts": 1788544469763
     }
   }
 }
