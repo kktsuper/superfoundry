@@ -220,5 +220,72 @@
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}"><defs>${fdef}</defs>${body}</svg>`;
   }
 
-  window.AlephLogo = { paths: P, markPaths, WM, WMH, viewBox: VB, DEFAULTS, norm, load, save, presets, savePreset, deletePreset, strokeTransform, rootTransform, filterAttrs, svgMarkup, KEY_ACTIVE, KEY_PRESETS };
+  // Full logo WITH shadow as one self-contained SVG, computed from a published config
+  // (cfg.shadow = {light:{nx,ny}, mode, dim, feather, dark, hideShadow}) — same math and
+  // markup as the installation's export, so the main site renders the identical look live.
+  function svgWithShadow(cfg, opts) {
+    const c = norm(cfg), o = opts || {};
+    const sh = (cfg && cfg.shadow) || { light: { nx: 0.18, ny: -0.22 }, mode: 1, dim: '3d', feather: false, dark: false, hideShadow: false };
+    const vw = o.vw || 1280, vh = o.vh || 800, vmin = Math.min(vw, vh);
+    const dark = !!sh.dark;
+    const ink = o.ink || (c.inkColor != null ? c.inkColor : (dark ? '#F2EFE9' : '#1A1A1A'));
+    const fills = {
+      mid: c.shMid != null ? c.shMid : '#9BB365',
+      top: c.shTop != null ? c.shTop : '#5B8FDB',
+      low: c.shBot != null ? c.shBot : '#F2894F'
+    };
+    // steady-state projection (installation tick at rest): z=900, h=12, mode dir=1
+    const dx = -(sh.light && sh.light.nx || 0) * vw, dy = -(sh.light && sh.light.ny || 0) * vh;
+    const persp = 12 / (900 - 12);
+    const orthoK = 0.0375 * (0.6 + 900 / 1500);
+    const ox = dx * orthoK, oy = dy * orthoK, scale = 1;
+    const feather = !!sh.feather;
+    const blur = Math.min(60, Math.max(0.5, (0.6 + 300 * persp * 0.02) * 0.35 * (feather ? 11 : 1)));
+    const coreBlur = feather ? blur * 0.75 : Math.min(blur * 0.18, 3);
+    const twin = sh.mode === 2 ? 1 : 0;
+    const is3d = sh.dim === '3d';
+    let wx = -dx * 0.1, wy = -dy * 0.1;
+    const capW = vmin * 0.07, mL = Math.hypot(wx, wy);
+    if (mL > capW) { wx *= capW / mL; wy *= capW / mL; }
+    const wrapW = (c.text === 'horizontal' ? 0.15 : 0.23) * vmin;
+    const u = 1240 / wrapW;
+    let svg = svgMarkup(c, { ink: ink });
+    const MP = markPaths(c);
+    const tri = ['mid', 'top', 'low'].map(function (w) { return '<path d="' + MP[w] + '" fill="' + fills[w] + '" transform="' + strokeTransform(w, c) + '"/>'; }).join('');
+    const off = function (dx2, dy2, s) { return 'translate(' + dx2.toFixed(1) + ' ' + dy2.toFixed(1) + ') translate(1060 1125) scale(' + s.toFixed(4) + ') translate(-1060 -1125)'; };
+    let defs = '', shm = '', pad = 0;
+    if (sh.hideShadow) {
+      pad = 30;
+    } else if (is3d) {
+      const N = 36;
+      for (let i = N; i >= 1; i--) {
+        const f = i / N;
+        let flt = '';
+        if (feather) {
+          defs += '<filter id="shw' + i + '" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="' + (f * f * 2.7 * u).toFixed(1) + '"/></filter>';
+          flt = ' filter="url(#shw' + i + ')"';
+        }
+        shm += '<g transform="translate(' + (wx * f * u).toFixed(1) + ' ' + (wy * f * u).toFixed(1) + ')"' + flt + '>' +
+          ['mid', 'top', 'low'].map(function (w) { return '<path d="' + MP[w] + '" fill="' + fills[w] + '" stroke="' + fills[w] + '" stroke-width="11" transform="' + strokeTransform(w, c) + '"/>'; }).join('') + '</g>';
+      }
+      defs += '<filter id="wef" x="-20%" y="-20%" width="140%" height="140%"><feMorphology operator="erode" radius="5.5"/></filter>';
+      shm = '<g filter="url(#wef)">' + shm + '</g>';
+      pad = Math.hypot(wx, wy) * u + 30 + (feather ? 27 * u : 0);
+    } else {
+      defs = '<filter id="shb" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="' + (blur * u).toFixed(1) + '"/></filter><filter id="shc" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="' + (coreBlur * u).toFixed(1) + '"/></filter>';
+      const blend = dark ? 'screen' : 'multiply';
+      const pen = function (dx2, dy2) { return '<g style="isolation:isolate;mix-blend-mode:' + blend + '"><g transform="' + off(dx2, dy2, scale) + '" filter="url(#shb)">' + tri + '</g><g transform="' + off(dx2, dy2, scale) + '" filter="url(#shc)">' + tri + '</g></g>'; };
+      shm = pen(ox * u, oy * u);
+      if (twin > 0.5) shm += '<g style="mix-blend-mode:' + blend + '" transform="' + off(-ox * u, -oy * u, scale) + '" filter="url(#' + (feather ? 'shb' : 'shc') + ')">' + tri + '</g>';
+      pad = (Math.hypot(ox, oy) * scale + blur * 3) * u + 30;
+    }
+    svg = svg.replace('</defs>', defs + '</defs>' + shm);
+    svg = svg.replace(/viewBox="([^"]+)"/, function (mm, vb) {
+      const p = vb.split(/\s+/).map(Number);
+      return 'viewBox="' + (p[0] - pad).toFixed(0) + ' ' + (p[1] - pad).toFixed(0) + ' ' + (p[2] + 2 * pad).toFixed(0) + ' ' + (p[3] + 2 * pad).toFixed(0) + '"';
+    });
+    return svg.replace('<svg ', '<svg style="isolation:isolate" ');
+  }
+
+  window.AlephLogo = { paths: P, markPaths, WM, WMH, viewBox: VB, DEFAULTS, norm, load, save, presets, savePreset, deletePreset, strokeTransform, rootTransform, filterAttrs, svgMarkup, svgWithShadow, KEY_ACTIVE, KEY_PRESETS };
 })();
