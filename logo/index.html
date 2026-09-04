@@ -289,7 +289,16 @@
           </div>
           <span style="cursor: pointer; color: {{ publishColor }};" onClick="{{ publish }}">{{ publishLabel }}</span>
           <span style="cursor: pointer; color: #9BB8E8;" onClick="{{ downloadConfig }}">CONFIG FILE</span>
+          <span style="cursor: pointer; color: #A79D91;" onClick="{{ toggleGh }}">{{ ghLabel }}</span>
         </div>
+        <sc-if value="{{ showGh }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: center; border-top: 1px solid rgba(255,253,248,0.08); padding-top: 14px;">
+          <span style="color: #C4BCB0; font-size: 8px;">PUBLISH SETUP</span>
+          <input value="{{ ghUrl }}" onInput="{{ setGhUrl }}" placeholder="worker url (https://…workers.dev)" style="box-sizing: border-box; width: 230px; padding: 6px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.05em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+          <input value="{{ ghPass }}" onInput="{{ setGhPass }}" type="password" placeholder="publish password" style="box-sizing: border-box; width: 150px; padding: 6px 8px; font-family: inherit; font-size: 10px; letter-spacing: 0.05em; color: #F4F0E8; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; outline: none;">
+          <span style="color: {{ ghStatusColor }};">{{ ghStatus }}</span>
+        </div>
+        </sc-if>
       </div>
       </sc-if>
 
@@ -364,21 +373,16 @@ class Component extends DCLogic {
     };
     this.isConfig = /[?&]config=1/.test(location.search);
     this.isEmbed = /[?&]embed=1/.test(location.search);
-    // viewer + embed: apply the published shadow/light state (localStorage, then committed json)
+    // viewer + embed: apply the published look from the committed config file only (server-side)
     if (!this.isConfig) {
-      const applyPub = (pub) => {
+      fetch('./logo-config.json', { cache: 'no-cache' }).then((r) => r.json()).then((pub) => {
         if (!pub) return;
         setTimeout(() => {
-          // full published look: mark + colors + shadow/light
           this.upd({ weight: pub.weight ?? 0, spread: pub.spread ?? 0, hook: pub.hook ?? 0, curve: pub.curve ?? 0, text: pub.text ?? 'none',
             inkColor: pub.inkColor ?? null, shTop: pub.shTop ?? null, shMid: pub.shMid ?? null, shBot: pub.shBot ?? null });
           if (pub.shadow) { this.applyShadow(pub.shadow); this.setState({ hideShadow: !!pub.shadow.hideShadow }); }
         }, 60);
-      };
-      let pub = null;
-      try { pub = JSON.parse(localStorage.getItem('sf-logo-published')); } catch (e) {}
-      if (pub && pub.shadow) applyPub(pub);
-      else fetch('./logo-config.json').then((r) => r.json()).then(applyPub).catch(() => {});
+      }).catch(() => {});
     }
     this.pinch = null;
     this.onTouchStart = null;
@@ -719,6 +723,29 @@ class Component extends DCLogic {
     fl.transform = ellG(P.fScale * (0.5 + zEff / 1500), 120 * vmax);
     fl.opacity = P.fall * litK;
   }
+  ghCfg() { try { return JSON.parse(localStorage.getItem('sf-gh')) || {}; } catch (e) { return {}; } }
+  setGh(patch) {
+    const g = Object.assign(this.ghCfg(), patch);
+    localStorage.setItem('sf-gh', JSON.stringify(g));
+    this.forceUpdate();
+  }
+  async ghPublish(pub) {
+    const g = this.ghCfg();
+    if (!g.url || !g.pass) { this.setState({ ghStatus: 'not set up — see PUBLISH SETUP' }); }
+    else {
+      this.setState({ ghStatus: 'publishing…' });
+      try {
+        const r = await fetch(g.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: g.pass, config: pub }) });
+        const out = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(out.error || r.status);
+        this.setState({ ghStatus: 'LIVE — Pages rebuilding (~1 min)' });
+      } catch (e) {
+        this.setState({ ghStatus: 'FAILED: ' + e.message });
+      }
+    }
+    clearTimeout(this._ghT);
+    this._ghT = setTimeout(() => this.setState({ ghStatus: null }), 6000);
+  }
   shadowSnapshot() {
     return {
       light: { nx: (this.Lt.x - this.S.x) / innerWidth, ny: (this.Lt.y - this.S.y) / innerHeight },
@@ -831,6 +858,15 @@ class Component extends DCLogic {
       showEditTab: this.state.tab === 'edit',
       showExport: this.state.tab === 'export' && !!this.isConfig,
       publishLabel: this.state.published ? 'PUBLISHED' : 'PUBLISH TO WEBSITE',
+      toggleGh: () => this.setState((s) => ({ showGh: !s.showGh })),
+      showGh: !!this.state.showGh,
+      ghLabel: this.ghCfg().url && this.ghCfg().pass ? 'PUBLISH SETUP ✓' : 'PUBLISH SETUP',
+      ghUrl: this.ghCfg().url || '',
+      ghPass: this.ghCfg().pass || '',
+      setGhUrl: (e) => this.setGh({ url: e.target.value.trim() }),
+      setGhPass: (e) => this.setGh({ pass: e.target.value.trim() }),
+      ghStatus: this.state.ghStatus || '',
+      ghStatusColor: /^FAILED/.test(this.state.ghStatus || '') ? '#D9887A' : '#9BB365',
       downloadConfig: () => {
         const pub = Object.assign(AlephLogo.norm(this.state.cfg), {
           shadow: Object.assign(this.shadowSnapshot(), { hideShadow: !!this.state.hideShadow })
@@ -844,7 +880,7 @@ class Component extends DCLogic {
           const pub = Object.assign(AlephLogo.norm(this.state.cfg), {
             shadow: Object.assign(this.shadowSnapshot(), { hideShadow: !!this.state.hideShadow })
           });
-          localStorage.setItem('sf-logo-published', JSON.stringify(pub));
+          this.ghPublish(pub);
         }
         this.setState({ published: true });
         clearTimeout(this._pubT);
