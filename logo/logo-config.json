@@ -4,9 +4,10 @@
   "hook": 0,
   "curve": 0,
   "text": "none",
-  "inkColor": "#1A1A1A",
-  "shTop": "#7A9448",
-  "shBot": "#7A9448",
+  "inkColor": null,
+  "shTop": null,
+  "shBot": null,
+  "shMid": null,
   "shadow": {
     "light": {
       "nx": -0.1698064072327044,
