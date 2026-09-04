@@ -3,15 +3,14 @@
   "spread": 0,
   "hook": 0,
   "curve": 0,
-  "text": "horizontal",
   "inkColor": null,
-  "shTop": null,
-  "shMid": null,
-  "shBot": null,
+  "shTop": "#8AB0E8",
+  "shMid": "#2F6FCC",
+  "shBot": "#2456A0",
   "shadow": {
     "light": {
-      "nx": -0.039158831689272505,
-      "ny": 0.17613799884881043
+      "nx": -0.30209136097410605,
+      "ny": 0.2913621262458472
     },
     "mode": 1,
     "dark": false,
