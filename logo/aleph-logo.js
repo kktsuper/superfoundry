@@ -227,9 +227,9 @@
     const c = norm(cfg), o = opts || {};
     const sh = (cfg && cfg.shadow) || { light: { nx: 0.18, ny: -0.22 }, mode: 1, dim: '3d', feather: false, dark: false, hideShadow: false };
     const vw = o.vw || 1280, vh = o.vh || 800, vmin = Math.min(vw, vh);
-    const dark = !!sh.dark;
+    const dark = o.dark !== undefined ? !!o.dark : !!sh.dark;
     const ink = o.ink || (c.inkColor != null ? c.inkColor : (dark ? '#F2EFE9' : '#1A1A1A'));
-    const fills = {
+    const fills = o.mono ? { mid: ink, top: ink, low: ink } : {
       mid: c.shMid != null ? c.shMid : '#9BB365',
       top: c.shTop != null ? c.shTop : '#5B8FDB',
       low: c.shBot != null ? c.shBot : '#F2894F'
