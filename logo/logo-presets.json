@@ -3,19 +3,19 @@
   "shadow": {},
   "color": {},
   "loadout": {
-    "ddss": {
-      "weight": 0,
+    "dd": {
+      "weight": 4,
       "spread": 0,
       "hook": 0,
       "curve": 0,
       "text": "none",
       "inkColor": null,
       "shTop": null,
-      "shMid": null,
-      "shBot": null,
+      "shMid": "#5B8FDB",
+      "shBot": "#5B8FDB",
       "light": {
-        "nx": 0.0493266414919852,
-        "ny": 0.46943521594684384
+        "nx": 0.03836844308035714,
+        "ny": 0.47095246335903257
       },
       "mode": 1,
       "dark": false,
@@ -23,7 +23,7 @@
       "dim": "3d",
       "frozen": false,
       "hideShadow": false,
-      "_ts": 1788544400275
+      "_ts": 1788544420900
     }
   }
 }
