@@ -4,13 +4,13 @@
   "hook": 0,
   "curve": 0,
   "inkColor": null,
-  "shTop": "#8AB0E8",
-  "shMid": "#2F6FCC",
-  "shBot": "#2456A0",
+  "shTop": null,
+  "shMid": null,
+  "shBot": null,
   "shadow": {
     "light": {
-      "nx": -0.20899641646115907,
-      "ny": 0.21827242524916943
+      "nx": -0.1282367447595561,
+      "ny": 0.2313891020721413
     },
     "mode": 1,
     "dark": false,
