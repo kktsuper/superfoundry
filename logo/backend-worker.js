@@ -4,8 +4,10 @@
 //   GH_TOKEN         fine-grained PAT, Contents: read & write, scoped to the one site repo
 //   PUBLISH_PASSWORD shared password the editor sends
 // Vars (plain): GH_REPO = "owner/repo", GH_PATH = "logo/logo-config.json"
-// Accepts {password, config} → commits GH_PATH, or {password, presets} → commits
-// logo-presets.json next to GH_PATH. {password, verify:true} just checks the password.
+// KV binding: LOGO_KV (Workers → Settings → Bindings → KV namespace) — stores editor presets.
+// Accepts {password, config} → commits GH_PATH via GitHub;
+//         {password, presets} → KV write (instant);  {password, getPresets:true} → KV read;
+//         {password, verify:true} → password check only.
 
 export default {
   async fetch(req, env) {
@@ -25,10 +27,17 @@ export default {
     if (body.verify) {
       return new Response(JSON.stringify({ ok: true }), { headers: { ...cors, 'Content-Type': 'application/json' } });
     }
-    const isPresets = body.presets && typeof body.presets === 'object';
-    const path = isPresets ? env.GH_PATH.replace(/[^/]+$/, 'logo-presets.json') : env.GH_PATH;
-    const payload = isPresets ? body.presets : body.config;
-    const api = `https://api.github.com/repos/${env.GH_REPO}/contents/${path}`;
+    // presets: Cloudflare KV — instant, no commit, no Pages rebuild
+    if (body.getPresets) {
+      const v = env.LOGO_KV ? await env.LOGO_KV.get('presets') : null;
+      return new Response(v || 'null', { headers: { ...cors, 'Content-Type': 'application/json' } });
+    }
+    if (body.presets && typeof body.presets === 'object') {
+      if (!env.LOGO_KV) return new Response(JSON.stringify({ error: 'LOGO_KV binding missing' }), { status: 500, headers: { ...cors, 'Content-Type': 'application/json' } });
+      await env.LOGO_KV.put('presets', JSON.stringify(body.presets));
+      return new Response(JSON.stringify({ ok: true }), { headers: { ...cors, 'Content-Type': 'application/json' } });
+    }
+    const api = `https://api.github.com/repos/${env.GH_REPO}/contents/${env.GH_PATH}`;
     const hdrs = {
       Authorization: 'Bearer ' + env.GH_TOKEN,
       Accept: 'application/vnd.github+json',
@@ -38,8 +47,8 @@ export default {
     let sha;
     const r0 = await fetch(api, { headers: hdrs });
     if (r0.ok) sha = (await r0.json()).sha;
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
-    const put = { message: isPresets ? 'Update logo presets' : 'Publish logo config', content };
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(body.config, null, 2))));
+    const put = { message: 'Publish logo config', content };
     if (sha) put.sha = sha;
     const r1 = await fetch(api, { method: 'PUT', headers: hdrs, body: JSON.stringify(put) });
     const out = await r1.json();

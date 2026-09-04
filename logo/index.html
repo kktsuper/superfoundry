@@ -717,8 +717,11 @@ class Component extends DCLogic {
   ghCfg() { try { return JSON.parse(sessionStorage.getItem('sf-pub')) || {}; } catch (e) { return {}; } }
   // presets live server-side in logo-presets.json, committed via the worker
   loadLib() {
-    fetch('./logo-presets.json', { cache: 'no-cache' })
-      .then((r) => { if (!r.ok) throw 0; return r.json(); })
+    const g = this.ghCfg();
+    const fromKv = g.url && g.pass
+      ? fetch(g.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: g.pass, getPresets: true }) }).then((r) => { if (!r.ok) throw 0; return r.json(); })
+      : Promise.reject(0);
+    fromKv
       .then((d) => { this.lib = d && typeof d === 'object' ? d : null; this.seedLib(); })
       .catch(() => { this.lib = null; this.seedLib(); });
   }
@@ -741,11 +744,11 @@ class Component extends DCLogic {
       try {
         const r = await fetch(g.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: g.pass, presets: this.lib }) });
         if (!r.ok) throw new Error(((await r.json().catch(() => ({}))).error) || r.status);
-        this.setState({ ghStatus: 'presets synced' });
+        this.setState({ ghStatus: 'synced' });
       } catch (e) { this.setState({ ghStatus: 'PRESET SYNC FAILED: ' + e.message }); }
     }
     clearTimeout(this._ghT);
-    this._ghT = setTimeout(() => this.setState({ ghStatus: null }), 4000);
+    this._ghT = setTimeout(() => this.setState({ ghStatus: null }), 2000);
   }
   async ghPublish(pub) {
     const g = this.ghCfg();
