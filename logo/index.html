@@ -264,7 +264,7 @@
       </div>
       </sc-if>
       <sc-if value="{{ showColor }}" hint-placeholder-val="{{ false }}">
-      <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; max-width: 860px; margin: 0 auto; width: 100%; align-items: flex-start; justify-content: center;">
+      <div style="display: flex; flex-direction: {{ colorFlow }}; flex-wrap: wrap; gap: 20px 48px; margin: 0 auto; align-items: flex-start; justify-content: flex-start; width: fit-content; max-width: 100%;">
         <div style="display: flex; flex-direction: column; gap: 8px;">
           <sc-for list="{{ colorItems }}" as="ci" hint-placeholder-count="4">
             <div onClick="{{ ci.pick }}" style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
@@ -274,7 +274,7 @@
           </sc-for>
           <span onClick="{{ resetColors }}" style="cursor: pointer; color: #C0B7AA; border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; padding: 4px 10px; align-self: flex-start; margin-top: 4px;">DEFAULT</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 4px; min-width: 280px;">
+        <div style="display: flex; flex-direction: column; gap: 4px; width: fit-content;">
           <div style="display: flex; gap: 4px; align-items: center;">
             <span style="width: 40px; height: 18px; background: {{ customPreview }}; border: 1px solid rgba(255,253,248,0.35); box-sizing: border-box; display: inline-block; flex: none;"></span>
             <div style="display: flex; align-items: center; box-sizing: border-box; width: 62px; height: 18px; background: rgba(255,253,248,0.08); border: 1px solid rgba(255,253,248,0.25); border-radius: 2px; padding: 0 0 0 6px;">
@@ -294,9 +294,9 @@
       </sc-if>
       <sc-if value="{{ showExport }}" hint-placeholder-val="{{ false }}">
       <div style="display: flex; flex-direction: column; gap: 14px; max-width: 860px; margin: 0 auto; width: 100%;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px 32px;">
+        <div style="display: grid; grid-template-columns: {{ libCols3 }}; gap: 20px 32px;">
           <sc-for list="{{ libCols }}" as="lc" hint-placeholder-count="3">
-            <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: {{ libColMax }}; margin: 0 auto;">
               <span style="color: #8AB0E8; font-size: 8px;">{{ lc.name }}</span>
               <sc-for list="{{ lc.items }}" as="it" hint-placeholder-count="2">
                 <div style="display: flex; gap: 8px; align-items: center;">
@@ -353,7 +353,7 @@
             </div>
           </div>
         </sc-for>
-        <div style="display: flex; flex-wrap: wrap; gap: 12px 40px; align-items: center; justify-content: center; border-top: 1px solid rgba(255,253,248,0.08); padding-top: 14px;">
+        <div style="display: flex; flex-direction: {{ colorFlow }}; flex-wrap: wrap; gap: 12px 40px; align-items: center; justify-content: center; border-top: 1px solid rgba(255,253,248,0.08); padding-top: 14px;">
           <div style="display: flex; gap: 8px; align-items: baseline;">
             <span style="color: #F4F0E8;">DOWNLOAD</span>
             <span style="cursor: pointer; color: #9BB8E8;" onClick="{{ exportSvg }}">SVG</span>
@@ -362,8 +362,12 @@
             <span style="color: #F4F0E8;">|</span>
             <span style="cursor: pointer; color: #9BB8E8;" onClick="{{ exportFull }}">{{ fullLabel }}</span>
           </div>
-          <span style="cursor: pointer; color: {{ publishColor }};" onClick="{{ publish }}">{{ publishLabel }}</span>
-          <span style="color: {{ ghStatusColor }};">{{ ghStatus }}</span>
+          <div style="display: flex; flex-direction: column; gap: 6px; align-items: center;">
+            <span style="cursor: pointer; color: {{ publishColor }};" onClick="{{ publish }}">{{ publishLabel }}</span>
+            <sc-if value="{{ hasGhStatus }}" hint-placeholder-val="{{ false }}">
+              <span style="color: {{ ghStatusColor }}; font-size: 9px;">{{ ghStatus }}</span>
+            </sc-if>
+          </div>
         </div>
       </div>
       </sc-if>
@@ -444,18 +448,18 @@ class Component extends DCLogic {
     };
     this.isConfig = /[?&]config=1/.test(location.search);
     this.isEmbed = /[?&]embed=1/.test(location.search);
-    // viewer + embed: apply the published look from the committed config file only (server-side)
-    if (!this.isConfig) {
-      fetch('./logo-config.json', { cache: 'no-cache' }).then((r) => r.json()).then((pub) => {
-        if (!pub) return;
-        this.pubCfg = pub;
-        setTimeout(() => {
-          this.upd({ weight: pub.weight ?? 0, spread: pub.spread ?? 0, hook: pub.hook ?? 0, curve: pub.curve ?? 0,
-            inkColor: pub.inkColor ?? null, shTop: pub.shTop ?? null, shMid: pub.shMid ?? null, shBot: pub.shBot ?? null });
-          if (pub.shadow) { this.applyShadow(pub.shadow, false); this.setState({ hideShadow: !!pub.shadow.hideShadow }); }
-        }, 60);
-      }).catch(() => {});
-    }
+    // all modes: apply the published look from the committed config file (server-side truth).
+    // config additionally loads frozen at the published light angle.
+    if (this.isConfig) this.setState({ frozen: true });
+    fetch('./logo-config.json', { cache: 'no-cache' }).then((r) => r.json()).then((pub) => {
+      if (!pub) return;
+      this.pubCfg = pub;
+      setTimeout(() => {
+        this.upd({ weight: pub.weight ?? 0, spread: pub.spread ?? 0, hook: pub.hook ?? 0, curve: pub.curve ?? 0,
+          inkColor: pub.inkColor ?? null, shTop: pub.shTop ?? null, shMid: pub.shMid ?? null, shBot: pub.shBot ?? null });
+        if (pub.shadow) { this.applyShadow(pub.shadow, this.isConfig); this.setState({ hideShadow: !!pub.shadow.hideShadow }); }
+      }, 60);
+    }).catch(() => {});
     this.pinch = null;
     this.onTouchStart = null;
     // mobile sensitivity: amplified response that eases out near the screen edge
@@ -1010,7 +1014,7 @@ class Component extends DCLogic {
       gridBorderTop: this.isConfig ? '1px solid rgba(255,253,248,0.08)' : 'none',
       tabRowDisplay: this.isConfig ? 'flex' : 'none',
       editPadTop: this.isConfig ? '0' : '16px',
-      gridJustify: this.isConfig && !mob ? 'center' : 'start',
+      gridJustify: this.isConfig && !mob && innerWidth >= 700 ? 'center' : 'start',
       // mobile: tighter chrome + scrollable drawer so tall tabs fit
       panelPad: mob ? '0 12px 12px' : '0 18px 18px',
       panelGap: mob ? '10px' : '14px',
@@ -1018,7 +1022,13 @@ class Component extends DCLogic {
       panelScroll: mob ? 'auto' : 'visible',
       tabGap: mob ? '14px' : '26px',
       tabJustify: mob && this.isConfig ? 'flex-start' : 'center',
-      textRowJustify: mob ? 'flex-start' : 'center',
+      textRowJustify: (mob || innerWidth < 700) ? 'flex-start' : 'center',
+      // narrow: stack as a column so the group's width = widest child -> margin auto centers
+      // the block while both parts share a left edge
+      colorFlow: (mob || innerWidth < 700) ? 'column' : 'row',
+      // 3 across when they fit, otherwise each column on its own row (never 2+1)
+      libCols3: (mob || innerWidth < 700) ? '1fr' : 'repeat(3, 1fr)',
+      libColMax: (mob || innerWidth < 700) ? '400px' : 'none',
       gridTrackMin: mob ? '260px' : '300px',
       sectionGap: mob ? '12px 24px' : '16px 40px',
       showControlToggle: !this.isConfig && this.state.isMobile,
@@ -1095,6 +1105,7 @@ class Component extends DCLogic {
       hintText: this.state.frozen ? 'SHADOW FROZEN — CLICK TO RELEASE' : 'CLICK TO FREEZE SHADOW',
       hintColor: '#F4F0E8',
       ghStatus: this.state.ghStatus || '',
+      hasGhStatus: !!this.state.ghStatus,
       ghStatusColor: /^FAILED/.test(this.state.ghStatus || '') ? '#D9887A' : '#9BB365',
 
       publishColor: this.state.published ? '#9FB06D' : '#F2894F',
