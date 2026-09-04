@@ -9,14 +9,14 @@
   "shBot": null,
   "shadow": {
     "light": {
-      "nx": 0.10210795052520101,
-      "ny": 0.35980732431524826
+      "nx": -0.1282367447595561,
+      "ny": 0.23138910207214122
     },
     "mode": 1,
     "dark": false,
     "feather": false,
     "dim": "3d",
-    "frozen": false,
+    "frozen": true,
     "hideShadow": false
   }
 }
