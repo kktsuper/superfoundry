@@ -3,14 +3,14 @@
   "spread": 0,
   "hook": 0,
   "curve": 0,
-  "shTop": null,
   "inkColor": null,
+  "shTop": null,
   "shMid": null,
   "shBot": null,
   "shadow": {
     "light": {
-      "nx": 0.3307301831958806,
-      "ny": 0.19545665013792987
+      "nx": -0.1282367447595561,
+      "ny": 0.2313891020721413
     },
     "mode": 1,
     "dark": false,
