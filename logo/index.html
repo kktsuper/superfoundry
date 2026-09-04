@@ -288,7 +288,6 @@
             <span style="cursor: pointer; color: #9BB8E8;" onClick="{{ exportPng }}">PNG</span>
           </div>
           <span style="cursor: pointer; color: {{ publishColor }};" onClick="{{ publish }}">{{ publishLabel }}</span>
-          <span style="cursor: pointer; color: #9BB8E8;" onClick="{{ downloadConfig }}">CONFIG FILE</span>
           <span style="color: {{ ghStatusColor }};">{{ ghStatus }}</span>
         </div>
       </div>
@@ -716,6 +715,38 @@ class Component extends DCLogic {
     fl.opacity = P.fall * litK;
   }
   ghCfg() { try { return JSON.parse(sessionStorage.getItem('sf-pub')) || {}; } catch (e) { return {}; } }
+  // presets live server-side in logo-presets.json, committed via the worker
+  loadLib() {
+    fetch('./logo-presets.json', { cache: 'no-cache' })
+      .then((r) => { if (!r.ok) throw 0; return r.json(); })
+      .then((d) => { this.lib = d && typeof d === 'object' ? d : null; this.seedLib(); })
+      .catch(() => { this.lib = null; this.seedLib(); });
+  }
+  seedLib() {
+    if (!this.lib) {
+      // first run (no server file yet): migrate this browser's local presets
+      this.lib = {
+        logo: (window.AlephLogo && AlephLogo.presets()) || {},
+        shadow: this.shadowPresets(), color: this.colorPresets(), loadout: this.loadoutPresets()
+      };
+    }
+    for (const k of ['logo', 'shadow', 'color', 'loadout']) if (!this.lib[k]) this.lib[k] = {};
+    this.forceUpdate();
+  }
+  async pushLib() {
+    this.forceUpdate();
+    const g = this.ghCfg();
+    if (!g.url || !g.pass) { this.setState({ ghStatus: 'presets saved locally only — no endpoint' }); }
+    else {
+      try {
+        const r = await fetch(g.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: g.pass, presets: this.lib }) });
+        if (!r.ok) throw new Error(((await r.json().catch(() => ({}))).error) || r.status);
+        this.setState({ ghStatus: 'presets synced' });
+      } catch (e) { this.setState({ ghStatus: 'PRESET SYNC FAILED: ' + e.message }); }
+    }
+    clearTimeout(this._ghT);
+    this._ghT = setTimeout(() => this.setState({ ghStatus: null }), 4000);
+  }
   async ghPublish(pub) {
     const g = this.ghCfg();
     if (!g.url || !g.pass) { this.setState({ ghStatus: 'publish endpoint not configured' }); }
@@ -847,12 +878,7 @@ class Component extends DCLogic {
       publishLabel: this.state.published ? 'PUBLISHED' : 'PUBLISH TO WEBSITE',
       ghStatus: this.state.ghStatus || '',
       ghStatusColor: /^FAILED/.test(this.state.ghStatus || '') ? '#D9887A' : '#9BB365',
-      downloadConfig: () => {
-        const pub = Object.assign(AlephLogo.norm(this.state.cfg), {
-          shadow: Object.assign(this.shadowSnapshot(), { hideShadow: !!this.state.hideShadow })
-        });
-        this.download('logo-config.json', 'application/json', JSON.stringify(pub, null, 2));
-      },
+
       publishColor: this.state.published ? '#9FB06D' : '#F2894F',
       publish: () => {
         if (window.AlephLogo) {
@@ -896,11 +922,12 @@ class Component extends DCLogic {
       bulbTitle: dark ? 'Turn lights on' : 'Turn lights off',
       ...(() => { const all = [['LOGO', 'logo'], ['SHADOW', 'shadow'], ['COLOR', 'color'], ['LOADOUT (LOGO + SHADOW + COLOR)', 'loadout']].map(([name, k]) => {
         const names = this.state.libNames || {};
-        const stores = {
-          logo: { get: () => (window.AlephLogo ? AlephLogo.presets() : {}), save: (n, v) => AlephLogo.savePreset(n, v), del: (n) => AlephLogo.deletePreset(n) },
-          shadow: { get: () => this.shadowPresets(), save: (n, v) => { const p = this.shadowPresets(); p[n] = v; this.saveShadowPresets(p); }, del: (n) => { const p = this.shadowPresets(); delete p[n]; this.saveShadowPresets(p); } },
-          color: { get: () => this.colorPresets(), save: (n, v) => { const p = this.colorPresets(); p[n] = v; this.saveColorPresets(p); }, del: (n) => { const p = this.colorPresets(); delete p[n]; this.saveColorPresets(p); } },
-          loadout: { get: () => this.loadoutPresets(), save: (n, v) => { const p = this.loadoutPresets(); p[n] = v; this.saveLoadoutPresets(p); }, del: (n) => { const p = this.loadoutPresets(); delete p[n]; this.saveLoadoutPresets(p); } }
+        if (!this.lib && !this._libReq) { this._libReq = true; this.loadLib(); }
+        const lib = this.lib || { logo: {}, shadow: {}, color: {}, loadout: {} };
+        const st = {
+          get: () => lib[k] || {},
+          save: (n, v) => { lib[k][n] = v; this.pushLib(); },
+          del: (n) => { delete lib[k][n]; this.pushLib(); }
         };
         const snap = {
           logo: () => ({ weight: c.weight ?? 0, spread: c.spread ?? 0, hook: c.hook ?? 0, curve: c.curve ?? 0, text: c.text ?? 'none' }),
@@ -914,7 +941,7 @@ class Component extends DCLogic {
           color: (q) => this.upd({ inkColor: q.inkColor ?? null, shTop: q.shTop ?? null, shMid: q.shMid ?? null, shBot: q.shBot ?? null })
         };
         apply.loadout = (q) => { apply.logo(q); apply.color(q); apply.shadow(q); };
-        const st = stores[k], obj = st.get();
+        const obj = st.get();
         return {
           name,
           val: names[k] || '',
@@ -951,9 +978,9 @@ class Component extends DCLogic {
                   const v = Object.assign(snap[k](), { _locked: locked, _ts: Date.now() });
                   if (k === 'loadout') {
                     // loadouts keep their position: rename in place
-                    const p = this.loadoutPresets(); const np = {};
+                    const p = lib.loadout; const np = {};
                     for (const key of Object.keys(p)) { if (key === n) np[nn] = v; else np[key] = p[key]; }
-                    this.saveLoadoutPresets(np);
+                    lib.loadout = np; this.pushLib();
                   } else {
                     // rename bumps to top and folds in the current settings
                     st.del(n); st.save(nn, v);

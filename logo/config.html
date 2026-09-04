@@ -40,7 +40,8 @@
     app.src = 'index.html?config=1';
     app.style.display = 'block';
   }
-  if (sessionStorage.getItem(KEY) === '1') unlock();
+  // an old session unlocked before the worker flow exists no publish credentials — re-gate
+  if (sessionStorage.getItem(KEY) === '1' && (sessionStorage.getItem('sf-pub') || WORKER_URL.indexOf('http') !== 0)) unlock();
   document.getElementById('f').addEventListener('submit', function (e) {
     e.preventDefault();
     var pw = document.getElementById('pw').value;
