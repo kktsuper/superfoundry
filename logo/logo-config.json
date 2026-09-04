@@ -4,20 +4,19 @@
   "hook": 0,
   "curve": 0,
   "text": "none",
-  "inkColor": null,
-  "shTop": null,
-  "shMid": null,
-  "shBot": null,
+  "inkColor": "#1A1A1A",
+  "shTop": "#7A9448",
+  "shBot": "#7A9448",
   "shadow": {
     "light": {
-      "nx": 0.18,
-      "ny": -0.22
+      "nx": -0.1698064072327044,
+      "ny": 0.24818758261731658
     },
     "mode": 1,
     "dark": false,
     "feather": false,
     "dim": "3d",
-    "frozen": false,
+    "frozen": true,
     "hideShadow": false
   }
 }
